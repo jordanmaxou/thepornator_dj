@@ -1,0 +1,17 @@
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.1"
+httpx = "^0.27.2"
+psycopg = {extras = ["binary"], version = "^3.2.3"}
+daphne = "^4.1.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.13.0"
+ruff = "^0.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

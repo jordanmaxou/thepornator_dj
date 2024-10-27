@@ -1,0 +1,105 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.1
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./devops/reverse-proxy/development/config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./devops/reverse-proxy/development/config/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./devops/reverse-proxy/development/certs:/etc/certs:ro
+    networks:
+      - pornator
+
+  statics-serve:
+    build:
+      dockerfile: ../devops/docker/dockerfiles/statics-serve.Dockerfile
+      context: ./statics/
+    networks:
+      - pornator
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.statics.rule=Host(`statics.pornator.localhost`)"
+      - "traefik.http.routers.statics.entrypoints=https"
+      - "traefik.http.routers.statics.tls=true"
+      - "traefik.http.services.statics.loadbalancer.server.port=80"
+    volumes:
+      - ./statics/dist:/usr/share/nginx/html:ro
+
+  statics-processor:
+    build: 
+      dockerfile: ../devops/docker/dockerfiles/statics-processor.Dockerfile
+      context: ./statics/
+    volumes:
+      - ./statics:/home/node
+
+  app:
+    build: &build
+      dockerfile: ../devops/docker/dockerfiles/Dockerfile
+      context: ./src/
+      target: development
+    init: true
+    command: runserver
+    restart: always
+    volumes:
+      - ./src:/home
+    environment: &environment
+        DEBUG: "True"
+        ALLOWED_HOSTS: "*"
+        STATIC_URL: "https://statics.pornator.localhost/"
+        APP_DATABASE_HOST: db
+        APP_DATABASE_PORT: 5432
+        APP_DATABASE_NAME: pornator
+        APP_DATABASE_USER: ${POSTGRES_USER}
+        APP_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - init-app
+      - statics-serve
+    networks:
+      - pornator
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`www.pornator.localhost`)"
+      - "traefik.http.routers.backend.entrypoints=https"
+      - "traefik.http.routers.backend.tls=true"
+      - "traefik.http.services.backend.loadbalancer.server.port=80"
+  
+  init-app:
+    build:
+      <<: *build
+    environment:
+      <<: *environment
+    networks:
+      - pornator
+    restart: on-failure
+    command: init
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: pornator
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - pornator
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d pornator"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  postgres: {}
+
+networks:
+  pornator:
+    name: pornator
