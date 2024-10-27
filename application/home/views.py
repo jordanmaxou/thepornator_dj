@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 from django.utils.translation import gettext as _
 
+
 class Home(TemplateView):
     template_name = "index.html"
 
