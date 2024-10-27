@@ -1,5 +1,16 @@
-FROM nginx:alpine 
+FROM node:alpine AS builder
+
+RUN npm install -g webpack webpack-cli
+
+WORKDIR /home/node
+
+COPY . .
+
+RUN npx webpack --mode production
+
+#############################################################################
+FROM nginx:alpine AS serve
 
 WORKDIR /usr/share/nginx/html
 
-COPY ./dist .
+COPY --from=builder /home/node/dist .

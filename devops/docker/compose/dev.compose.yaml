@@ -18,6 +18,7 @@ services:
     build:
       dockerfile: ../devops/docker/dockerfiles/statics-serve.Dockerfile
       context: ./statics/
+      target: serve
     networks:
       - pornator
     labels:
@@ -68,13 +69,13 @@ services:
   app:
     build: &build
       dockerfile: ../devops/docker/dockerfiles/Dockerfile
-      context: ./src/
+      context: ./application/
       target: development
     init: true
     command: runserver
     restart: always
     volumes:
-      - ./src:/home
+      - ./application:/home
     environment: &environment
       DEBUG: "True"
       ALLOWED_HOSTS: "*"
