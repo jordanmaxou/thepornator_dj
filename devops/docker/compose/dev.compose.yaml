@@ -23,10 +23,12 @@ services:
       - pornator
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.statics.rule=Host(`statics.pornator.localhost`)"
+      - "traefik.http.routers.statics.rule=Host(`www.pornator.localhost`) && PathPrefix(`/statics`)"
       - "traefik.http.routers.statics.entrypoints=https"
       - "traefik.http.routers.statics.tls=true"
       - "traefik.http.services.statics.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.strip-statics-prefix.stripprefix.prefixes=/statics"
+      - "traefik.http.routers.statics.middlewares=strip-statics-prefix"
     volumes:
       - ./statics/dist:/usr/share/nginx/html:ro
 
@@ -55,11 +57,14 @@ services:
       - "traefik.http.routers.minio-admin.tls=true"
       - "traefik.http.services.minio-admin.loadbalancer.server.port=9001"
       - "traefik.http.routers.minio-admin.service=minio-admin"
-      - "traefik.http.routers.minio.rule=Host(`medias.pornator.localhost`)"
+      - "traefik.http.routers.minio.rule=Host(`www.pornator.localhost`) && PathPrefix(`/assets`)"
       - "traefik.http.routers.minio.entrypoints=https"
       - "traefik.http.routers.minio.tls=true"
       - "traefik.http.services.minio.loadbalancer.server.port=9000"
       - "traefik.http.routers.minio.service=minio"
+      - "traefik.http.middlewares.replace-prefix.replacepathregex.regex=^/assets/(.*)"
+      - "traefik.http.middlewares.replace-prefix.replacepathregex.replacement=/pornator/$$1"
+      - "traefik.http.routers.minio.middlewares=replace-prefix"
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
       interval: 5s
@@ -79,8 +84,8 @@ services:
     environment: &environment
       DEBUG: "True"
       ALLOWED_HOSTS: "*"
-      STATIC_URL: "https://statics.pornator.localhost/"
-      MEDIA_URL: "https://medias.pornator.localhost/"
+      MEDIA_URL: "assets/"
+      STATIC_URL: "statics/"
       APP_DATABASE_HOST: db
       APP_DATABASE_PORT: 5432
       APP_DATABASE_NAME: pornator
@@ -102,6 +107,7 @@ services:
       - "traefik.http.routers.backend.rule=Host(`www.pornator.localhost`)"
       - "traefik.http.routers.backend.entrypoints=https"
       - "traefik.http.routers.backend.tls=true"
+      - "traefik.http.routers.backend.priority=1"
       - "traefik.http.services.backend.loadbalancer.server.port=80"
   
   init-app:
