@@ -36,6 +36,11 @@ makemessages)
   make_messages
   ;;
 
+lint)
+  ruff check --fix
+  ruff format
+  ;;
+
 tests)
   python -m manage migrate
   make_messages
