@@ -36,6 +36,35 @@ services:
     volumes:
       - ./statics:/home/node
 
+  medias:
+    image: quay.io/minio/minio:RELEASE.2024-10-13T13-34-11Z
+    restart: always
+    command: minio server /data --console-address 0.0.0.0:9001
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    networks:
+      - pornator
+    volumes:
+      - 'minio:/data'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio-admin.rule=Host(`minio-admin.pornator.localhost`)"
+      - "traefik.http.routers.minio-admin.entrypoints=https"
+      - "traefik.http.routers.minio-admin.tls=true"
+      - "traefik.http.services.minio-admin.loadbalancer.server.port=9001"
+      - "traefik.http.routers.minio-admin.service=minio-admin"
+      - "traefik.http.routers.minio.rule=Host(`medias.pornator.localhost`)"
+      - "traefik.http.routers.minio.entrypoints=https"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
+      - "traefik.http.routers.minio.service=minio"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   app:
     build: &build
       dockerfile: ../devops/docker/dockerfiles/Dockerfile
@@ -47,17 +76,24 @@ services:
     volumes:
       - ./src:/home
     environment: &environment
-        DEBUG: "True"
-        ALLOWED_HOSTS: "*"
-        STATIC_URL: "https://statics.pornator.localhost/"
-        APP_DATABASE_HOST: db
-        APP_DATABASE_PORT: 5432
-        APP_DATABASE_NAME: pornator
-        APP_DATABASE_USER: ${POSTGRES_USER}
-        APP_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DEBUG: "True"
+      ALLOWED_HOSTS: "*"
+      STATIC_URL: "https://statics.pornator.localhost/"
+      MEDIA_URL: "https://medias.pornator.localhost/"
+      APP_DATABASE_HOST: db
+      APP_DATABASE_PORT: 5432
+      APP_DATABASE_NAME: pornator
+      APP_DATABASE_USER: ${POSTGRES_USER}
+      APP_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      MINIO_ENDPOINT_URL: http://medias:9000
+      MINIO_BUCKET_NAME: pornator
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      MINIO_USE_SSL: False
     depends_on:
       - init-app
       - statics-serve
+      - medias
     networks:
       - pornator
     labels:
@@ -80,7 +116,7 @@ services:
       - db
 
   db:
-    image: postgres
+    image: postgres:13
     restart: always
     volumes:
       - postgres:/var/lib/postgresql/data
@@ -99,6 +135,7 @@ services:
 
 volumes:
   postgres: {}
+  minio: {}
 
 networks:
   pornator:

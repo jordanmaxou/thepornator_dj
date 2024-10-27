@@ -32,7 +32,11 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(',')
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
+    'daphne',
+    'health_check',
+    'health_check.db',
+    'health_check.contrib.migrations',
+    'health_check.storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +131,21 @@ STATIC_URL = os.environ.get("STATIC_URL")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = os.environ.get("MEDIA_URL")
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "endpoint_url": os.environ.get("MINIO_ENDPOINT_URL"),
+            "bucket_name": os.environ.get("MINIO_BUCKET_NAME"),
+            "access_key": os.environ.get("MINIO_ACCESS_KEY"),
+            "secret_key": os.environ.get("MINIO_SECRET_KEY"),
+            "use_ssl": os.environ.get("MINIO_USE_SSL") == "True",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}

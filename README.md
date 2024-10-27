@@ -1,25 +1,13 @@
-# thepornator_dj
-rebuild thepornator in django
+# The pornator
+The best porn website ever in django. :underage: :woman: :heart: :massage: :kiss: :sweat_drops:
 
-
-## Generate a certificate to *.docker.localhost subdomains
+## Init project
+1. Install mkcert and create self-signed certificate according to have TLS in local :key:
 ```bash
-# If it's the firt install of mkcert, run
-mkcert -install
-
-# Generate certificate for domain "docker.localhost", "domain.local" and their sub-domains
+mkcert -install # just once
 mkcert -cert-file devops/reverse-proxy/development/certs/local-cert.pem -key-file devops/reverse-proxy/development/certs/local-key.pem "docker.localhost" "*.docker.localhost"
 ```
-
-## Poetry, the package manager
-We use [poetry](https://python-poetry.org) as package manager.
-
-Install dependencies
+2. Start the project :rocket:
 ```bash
-poetry install
-```
-
-Add a dependency
-```bash
-poetry add <package-name>
+./compose up -d
 ```
