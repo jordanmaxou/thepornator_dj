@@ -11,3 +11,11 @@ mkcert -cert-file devops/reverse-proxy/development/certs/local-cert.pem -key-fil
 ```bash
 ./compose up -d
 ```
+
+3. Create media bucket on minio server if not exists
+
+## TODO
+- [ ] statics and medias subdomaines to path
+- [ ] ruff config
+- [ ] mypy config
+- [ ] lint command

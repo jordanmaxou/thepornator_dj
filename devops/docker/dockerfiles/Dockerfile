@@ -1,31 +1,31 @@
 ########################################################################################
 FROM python:3.11-buster AS builder-base
-RUN pip install poetry==1.8.4
-
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
-
 WORKDIR /home
 
-COPY pyproject.toml poetry.lock ./
+RUN pip install pip --upgrade
 
-RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
 ########################################################################################
 FROM python:3.11-slim-buster AS production
 
-ENV SOURCE_VIRTUAL_ENV=/home/.venv \
-    TARGET_VIRTUAL_ENV=/usr/local/bin/.venv \
-    PATH="/usr/local/bin/.venv/bin:$PATH"
+RUN DEBIAN_FRONTEND=noninteractive\
+    && apt-get update \
+    && apt-get install --no-install-recommends -y gettext \
+    && apt-get clean autoclean \
+    && apt-get autoremove --yes \
+    && rm -rf /var/lib/apt/lists/* /var/cache/debconf/templates.*
 
-COPY --from=builder-base ${SOURCE_VIRTUAL_ENV} ${TARGET_VIRTUAL_ENV}
+COPY --from=builder-base /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=builder-base /usr/local/bin/ /usr/local/bin/
 
 COPY entrypoint.sh /usr/sbin/entrypoint.sh
 
 WORKDIR /home
 COPY . .
+
+RUN python manage.py compilemessages
 
 ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
 CMD ["app"]
