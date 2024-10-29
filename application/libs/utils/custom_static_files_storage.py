@@ -1,5 +1,6 @@
 from typing import Dict
 import json
+import time
 
 from django.conf import settings
 from django.contrib.staticfiles.storage import StaticFilesStorage
@@ -25,7 +26,10 @@ class CustomStaticFilesStorage(StaticFilesStorage):
         if manifest is None:
             try:
                 # FIXME: https://requests.readthedocs.io/en/latest/user/advanced/#client-side-certificates
-                response = requests.get(self.manifest_url, verify=(not settings.DEBUG))
+                response = requests.get(
+                    f"{self.manifest_url}?t={int(time.time())}",  # <- cache invalidation
+                    verify=(not settings.DEBUG),
+                )
                 response.raise_for_status()
                 manifest = response.json()
                 cache.set(self.MANIFEST_KEY, manifest, None)
