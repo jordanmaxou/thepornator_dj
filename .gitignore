@@ -267,3 +267,6 @@ pyrightconfig.json
 
 # certificates
 **/*.pem
+
+**/_tmp/
+**/node_modules

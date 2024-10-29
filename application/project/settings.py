@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "migration",
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = os.environ.get("STATIC_URL")
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -152,6 +152,9 @@ STORAGES = {
         },
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "libs.utils.CustomStaticFilesStorage",
+        "OPTIONS": {
+            "manifest_url": "https://www.pornator.localhost/statics/manifest.json"
+        },
     },
 }
