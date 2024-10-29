@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
 
 urlpatterns = [
     path("_health", include("health_check.urls")),
@@ -10,4 +11,5 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", include("home.urls")),
+    path("set_language/", set_language, name="set_language"),
 )
