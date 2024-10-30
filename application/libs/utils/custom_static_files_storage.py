@@ -16,7 +16,6 @@ class CustomStaticFilesStorage(StaticFilesStorage):
     def __init__(self, *args, **kwargs):
         manifest_url = kwargs.pop("manifest_url")
         super().__init__(*args, **kwargs)
-        print(kwargs)
         self.options = kwargs.pop("options", {})
         self.manifest_url = manifest_url
         self.manifest = self._load_manifest()

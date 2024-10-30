@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
-from django.views.i18n import set_language
 
 urlpatterns = [
     path("_health", include("health_check.urls")),
@@ -10,6 +9,16 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path("", include("home.urls")),
-    path("set_language/", set_language, name="set_language"),
+    path("", include("apps.home.urls", namespace="home")),
+    path("", include("apps.ai_pictures.urls", namespace="ai_pictures")),
+    path("", include("apps.ai_videos.urls", namespace="ai_videos")),
+    path("", include("apps.porn_models.urls", namespace="porn_models")),
+    path("", include("apps.websites.urls", namespace="websites")),
+    path("", include("apps.blog.urls", namespace="blog")),
+    path("", include("apps.glossary.urls", namespace="glossary")),
+    path("", include("apps.scripts.urls", namespace="scripts")),
+    path("", include("apps.statistics.urls", namespace="statistics")),
+    path("", include("apps.stories.urls", namespace="stories")),
+    path("", include("apps.out.urls", namespace="out")),
+    path("", include("apps.surveys.urls", namespace="surveys")),
 )

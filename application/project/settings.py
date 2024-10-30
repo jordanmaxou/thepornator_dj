@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "migration",
+    "apps.migration",
 ]
 
 MIDDLEWARE = [
@@ -155,6 +155,32 @@ STORAGES = {
         "BACKEND": "libs.utils.CustomStaticFilesStorage",
         "OPTIONS": {
             "manifest_url": "https://www.pornator.localhost/statics/manifest.json"
+        },
+    },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] {message}",
+            "style": "{",
+        }
+    },
+    "handlers": {
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["django.server"],
+            "level": "DEBUG",
+            "propagate": True,
         },
     },
 }
