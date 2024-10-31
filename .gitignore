@@ -270,3 +270,4 @@ pyrightconfig.json
 
 **/_tmp/
 **/node_modules
+**/*.sql
