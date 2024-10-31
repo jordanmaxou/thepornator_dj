@@ -8,6 +8,6 @@ COPY . .
 
 RUN npm ci
 
-ENTRYPOINT [ "tail", "-f", "/dev/null" ]
-# ENTRYPOINT [ "webpack" ]
-# CMD ["--mode", "development", "--watch" ]
+# ENTRYPOINT [ "tail", "-f", "/dev/null" ]
+ENTRYPOINT [ "webpack" ]
+CMD ["--mode", "development", "--watch" ]
