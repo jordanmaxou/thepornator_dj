@@ -1,314 +1,176 @@
 {% load static %}
+{% load i18n %}
 
 <header id="header" class="fixed-top">
   <div class="container container-fluid">
     <div class="row justify-content-center">
       <div class="col-xl-12 d-flex align-items-center justify-content-lg-between">
-        <span class="logo me-auto me-lg-0"><a href="/en/"><img src="/assets/img/logo.webp" width="190" height="50"
-              alt="thepornator logo" class="img-fluid" /></a></span>
+        <span class="logo me-auto me-lg-0"><a href="/en/"><img src="{% static 'img/logo.webp' %}" width="190" height="50" alt="thepornator logo" class="img-fluid" /></a></span>
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
             <li class="dropdown">
-              <a href="#" class="nav-link scrollto"><span>Porn sites</span> <i class="bx bxs-chevron-down"></i></a>
+              <a href="#" class="nav-link scrollto"><span>{% trans 'Sites porno' %}</span> <i class="bx bxs-chevron-down"></i></a>
               <ul>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ai.svg' %}"
-                    data-src="{% static 'img/iconcategories/ai.svg' %}" class="lazyloaded" width="25"
-                    alt="list AI porn generators" /> <a href="{% url 'websites:category' category='ai' %}">AI porn
-                    generators</a>
+                  <img src="{% static 'img/iconcategories/ai.svg' %}" data-src="{% static 'img/iconcategories/ai.svg' %}" class="lazyloaded" width="25" alt="list AI porn generators" /> <a href="{% url 'websites:category' category='ai' %}">{% trans 'Générateur porno IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/DEEPFAKE-PORN-SITES.svg' %}"
-                    data-src="{% static 'img/iconcategories/DEEPFAKE-PORN-SITES.svg' %}" class="lazyloaded" width="25"
-                    alt="list Face Swap Deepfake" /> <a href="{% url 'websites:category' category='faceswape' %}">Face
-                    Swap Deepfake</a>
+                  <img src="{% static 'img/iconcategories/DEEPFAKE-PORN-SITES.svg' %}" data-src="{% static 'img/iconcategories/DEEPFAKE-PORN-SITES.svg' %}" class="lazyloaded" width="25" alt="list Face Swap Deepfake" /> <a href="{% url 'websites:category' category='faceswape' %}">{% trans 'Face Swap Deepfake' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/livecam.svg' %}"
-                    data-src="{% static 'img/iconcategories/livecam.svg' %}" class="lazyloaded" width="25"
-                    alt="list Live sex cam sites" /> <a href="{% url 'websites:category' category='livecam' %}">Live sex
-                    cam sites</a>
+                  <img src="{% static 'img/iconcategories/livecam.svg' %}" data-src="{% static 'img/iconcategories/livecam.svg' %}" class="lazyloaded" width="25" alt="list Live sex cam sites" /> <a href="{% url 'websites:category' category='livecam' %}">{% trans 'Sites de live sex cam' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ai-chatbot.svg' %}"
-                    data-src="{% static 'img/iconcategories/ai-chatbot.svg' %}" class="lazyloaded" width="25"
-                    alt="list AI Porn chatbot" /> <a href="{% url 'websites:category' category='aichat' %}">AI Porn
-                    chatbot</a>
+                  <img src="{% static 'img/iconcategories/ai-chatbot.svg' %}" data-src="{% static 'img/iconcategories/ai-chatbot.svg' %}" class="lazyloaded" width="25" alt="list AI Porn chatbot" /> <a href="{% url 'websites:category' category='aichat' %}">{% trans 'Chatbot porno IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/PREMIUM-DEEPFAKE-PORN-SITES-v1.svg' %}"
-                    data-src="{% static 'img/iconcategories/PREMIUM-DEEPFAKE-PORN-SITES-v1.svg' %}" class="lazyloaded"
-                    width="25" alt="list Undress AI Sites" /> <a
-                    href="{% url 'websites:category' category='undressai' %}">Undress AI Sites</a>
+                  <img src="{% static 'img/iconcategories/PREMIUM-DEEPFAKE-PORN-SITES-v1.svg' %}" data-src="{% static 'img/iconcategories/PREMIUM-DEEPFAKE-PORN-SITES-v1.svg' %}" class="lazyloaded" width="25" alt="list Undress AI Sites" /> <a href="{% url 'websites:category' category='undressai' %}">{% trans 'Sites de déshabillage IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/SEX-DATING-SITES-1.svg' %}"
-                    data-src="{% static 'img/iconcategories/SEX-DATING-SITES-1.svg' %}" class="lazyloaded" width="25"
-                    alt="list Sex dating sites" /> <a href="{% url 'websites:category' category='dating' %}">Sex dating
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/SEX-DATING-SITES-1.svg' %}" data-src="{% static 'img/iconcategories/SEX-DATING-SITES-1.svg' %}" class="lazyloaded" width="25" alt="list Sex dating sites" /> <a href="{% url 'websites:category' category='dating' %}">{% trans 'Sites de rencontre' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/adultvod.svg' %}"
-                    data-src="{% static 'img/iconcategories/adultvod.svg' %}" class="lazyloaded" width="25"
-                    alt="list Adult VOD sites" /> <a href="{% url 'websites:category' category='adultvod' %}">Adult VOD
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/adultvod.svg' %}" data-src="{% static 'img/iconcategories/adultvod.svg' %}" class="lazyloaded" width="25" alt="list Adult VOD sites" /> <a href="{% url 'websites:category' category='adultvod' %}">{% trans 'Sites de VOD adulte' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/premium.svg' %}"
-                    data-src="{% static 'img/iconcategories/premium.svg' %}" class="lazyloaded" width="25"
-                    alt="list Premium porn sites" /> <a href="{% url 'websites:category' category='premium' %}">Premium
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/premium.svg' %}" data-src="{% static 'img/iconcategories/premium.svg' %}" class="lazyloaded" width="25" alt="list Premium porn sites" /> <a href="{% url 'websites:category' category='premium' %}">{% trans 'Sites porno Premium' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/freetube.svg' %}"
-                    data-src="{% static 'img/iconcategories/freetube.svg' %}" class="lazyloaded" width="25"
-                    alt="list Free porn tubes sites" /> <a href="{% url 'websites:category' category='freetube' %}">Free
-                    porn tubes sites</a>
+                  <img src="{% static 'img/iconcategories/freetube.svg' %}" data-src="{% static 'img/iconcategories/freetube.svg' %}" class="lazyloaded" width="25" alt="list Free porn tubes sites" /> <a href="{% url 'websites:category' category='freetube' %}">{% trans 'Tubes porno gratuits' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/FREE_ONLYFANS_ACCOUNTS.svg' %}"
-                    data-src="{% static 'img/iconcategories/FREE_ONLYFANS_ACCOUNTS.svg' %}" class="lazyloaded"
-                    width="25" alt="list Free Onlyfans accounts" /> <a
-                    href="{% url 'websites:category' category='free-onlyfans-accounts' %}">Free Onlyfans
-                    accounts</a>
+                  <img src="{% static 'img/iconcategories/FREE_ONLYFANS_ACCOUNTS.svg' %}" data-src="{% static 'img/iconcategories/FREE_ONLYFANS_ACCOUNTS.svg' %}" class="lazyloaded" width="25" alt="list Free Onlyfans accounts" /> <a href="{% url 'websites:category' category='free-onlyfans-accounts' %}">{% trans 'Compte Onlyfans gratuit' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/amateur.svg' %}"
-                    data-src="{% static 'img/iconcategories/amateur.svg' %}" class="lazyloaded" width="25"
-                    alt="list Amateur porn sites" /> <a href="{% url 'websites:category' category='amateur' %}">Amateur
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/amateur.svg' %}" data-src="{% static 'img/iconcategories/amateur.svg' %}" class="lazyloaded" width="25" alt="list Amateur porn sites" /> <a href="{% url 'websites:category' category='amateur' %}">{% trans 'Sites porno amateur' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/onlyfans.svg' %}"
-                    data-src="{% static 'img/iconcategories/onlyfans.svg' %}" class="lazyloaded" width="25"
-                    alt="list Content monetization" /> <a
-                    href="{% url 'websites:category' category='content-monetization' %}">Content
-                    monetization</a>
+                  <img src="{% static 'img/iconcategories/onlyfans.svg' %}" data-src="{% static 'img/iconcategories/onlyfans.svg' %}" class="lazyloaded" width="25" alt="list Content monetization" /> <a href="{% url 'websites:category' category='content-monetization' %}">{% trans 'Monétisation de contenu' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/porngames.svg' %}"
-                    data-src="{% static 'img/iconcategories/porngames.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn games sites" /> <a href="{% url 'websites:category' category='porngames' %}">Porn
-                    games sites</a>
+                  <img src="{% static 'img/iconcategories/porngames.svg' %}" data-src="{% static 'img/iconcategories/porngames.svg' %}" class="lazyloaded" width="25" alt="list Porn games sites" /> <a href="{% url 'websites:category' category='porngames' %}">{% trans 'Sites de jeux porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/SHEMALE-PORN-SITES-1.svg' %}"
-                    data-src="{% static 'img/iconcategories/SHEMALE-PORN-SITES-1.svg' %}" class="lazyloaded" width="25"
-                    alt="list Trans porn sites" /> <a href="{% url 'websites:category' category='porntrans' %}">Trans
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/SHEMALE-PORN-SITES-1.svg' %}" data-src="{% static 'img/iconcategories/SHEMALE-PORN-SITES-1.svg' %}" class="lazyloaded" width="25" alt="list Trans porn sites" /> <a href="{% url 'websites:category' category='porntrans' %}">{% trans 'Sites porno Trans' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/porn-news.svg' %}"
-                    data-src="{% static 'img/iconcategories/porn-news.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn news sites" /> <a href="{% url 'websites:category' category='adultnews' %}">Porn news
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/porn-news.svg' %}" data-src="{% static 'img/iconcategories/porn-news.svg' %}" class="lazyloaded" width="25" alt="list Porn news sites" /> <a href="{% url 'websites:category' category='adultnews' %}">{% trans "Sites d'actualités porno" %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/PORN-FOR-WOMEN-SITES.svg' %}"
-                    data-src="{% static 'img/iconcategories/PORN-FOR-WOMEN-SITES.svg' %}" class="lazyloaded" width="25"
-                    alt="list Ethical porn sites" /> <a href="{% url 'websites:category' category='ethical' %}">Ethical
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/PORN-FOR-WOMEN-SITES.svg' %}" data-src="{% static 'img/iconcategories/PORN-FOR-WOMEN-SITES.svg' %}" class="lazyloaded" width="25" alt="list Ethical porn sites" /> <a href="{% url 'websites:category' category='ethical' %}">{% trans 'Sites porno éthiques' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/hentai.svg' %}"
-                    data-src="{% static 'img/iconcategories/hentai.svg' %}" class="lazyloaded" width="25"
-                    alt="list Hentai sites" /> <a href="{% url 'websites:category' category='hentai' %}">Hentai
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/hentai.svg' %}" data-src="{% static 'img/iconcategories/hentai.svg' %}" class="lazyloaded" width="25" alt="list Hentai sites" /> <a href="{% url 'websites:category' category='hentai' %}">{% trans 'Sites Hentai' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornforum.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornforum.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn forums" /> <a href="{% url 'websites:category' category='pornforum' %}">Porn
-                    forums</a>
+                  <img src="{% static 'img/iconcategories/pornforum.svg' %}" data-src="{% static 'img/iconcategories/pornforum.svg' %}" class="lazyloaded" width="25" alt="list Porn forums" /> <a href="{% url 'websites:category' category='pornforum' %}">{% trans 'Forums porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ASIAN-PORN-SITES-1.svg' %}"
-                    data-src="{% static 'img/iconcategories/ASIAN-PORN-SITES-1.svg' %}" class="lazyloaded" width="25"
-                    alt="list Japonese porn sites (JAV)" /> <a
-                    href="{% url 'websites:category' category='pornjav' %}">Japonese porn sites
-                    (JAV)</a>
+                  <img src="{% static 'img/iconcategories/ASIAN-PORN-SITES-1.svg' %}" data-src="{% static 'img/iconcategories/ASIAN-PORN-SITES-1.svg' %}" class="lazyloaded" width="25" alt="list Japonese porn sites (JAV)" /> <a href="{% url 'websites:category' category='pornjav' %}">{% trans 'Sites porno japonais (JAV)' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornpictures.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornpictures.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn pictures sites" /> <a
-                    href="{% url 'websites:category' category='pornpictures' %}">Porn pictures sites</a>
+                  <img src="{% static 'img/iconcategories/pornpictures.svg' %}" data-src="{% static 'img/iconcategories/pornpictures.svg' %}" class="lazyloaded" width="25" alt="list Porn pictures sites" /> <a href="{% url 'websites:category' category='pornpictures' %}">{% trans 'Sites de photos porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/stories.svg' %}"
-                    data-src="{% static 'img/iconcategories/stories.svg' %}" class="lazyloaded" width="25"
-                    alt="list Erotic Stories sites" /> <a
-                    href="{% url 'websites:category' category='erotiocstories' %}">Erotic Stories
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/stories.svg' %}" data-src="{% static 'img/iconcategories/stories.svg' %}" class="lazyloaded" width="25" alt="list Erotic Stories sites" /> <a href="{% url 'websites:category' category='erotiocstories' %}">{% trans "Sites d'histoires érotiques" %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornvr.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornvr.svg' %}" class="lazyloaded" width="25"
-                    alt="list VR porn sites" /> <a href="{% url 'websites:category' category='pornvr' %}">VR porn
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/pornvr.svg' %}" data-src="{% static 'img/iconcategories/pornvr.svg' %}" class="lazyloaded" width="25" alt="list VR porn sites" /> <a href="{% url 'websites:category' category='pornvr' %}">{% trans 'Sites de porno en réalité virtuelle' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/BLACK-PORN-SITES-1.svg' %}"
-                    data-src="{% static 'img/iconcategories/BLACK-PORN-SITES-1.svg' %}" class="lazyloaded" width="25"
-                    alt="list Black porn tubes" /> <a href="{% url 'websites:category' category='blackporn' %}">Black
-                    porn tubes</a>
+                  <img src="{% static 'img/iconcategories/BLACK-PORN-SITES-1.svg' %}" data-src="{% static 'img/iconcategories/BLACK-PORN-SITES-1.svg' %}" class="lazyloaded" width="25" alt="list Black porn tubes" /> <a href="{% url 'websites:category' category='blackporn' %}">{% trans 'Sites porno Black' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornstars.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornstars.svg' %}" class="lazyloaded" width="25"
-                    alt="list Official pornstar sites" /> <a
-                    href="{% url 'websites:category' category='pornstars' %}">Official pornstar
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/pornstars.svg' %}" data-src="{% static 'img/iconcategories/pornstars.svg' %}" class="lazyloaded" width="25" alt="list Official pornstar sites" /> <a href="{% url 'websites:category' category='pornstars' %}">{% trans "Sites officiels d'actrices porno" %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/FREE-PORN-DOWNLOAD-SITES.svg' %}"
-                    data-src="{% static 'img/iconcategories/FREE-PORN-DOWNLOAD-SITES.svg' %}" class="lazyloaded"
-                    width="25" alt="list Cyberlockers finder" /> <a
-                    href="{% url 'websites:category' category='cyberlockers' %}">Cyberlockers
-                    finder</a>
+                  <img src="{% static 'img/iconcategories/FREE-PORN-DOWNLOAD-SITES.svg' %}" data-src="{% static 'img/iconcategories/FREE-PORN-DOWNLOAD-SITES.svg' %}" class="lazyloaded" width="25" alt="list Cyberlockers finder" /> <a href="{% url 'websites:category' category='cyberlockers' %}">{% trans 'Recherche de cyberlockers' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/aggregators.svg' %}"
-                    data-src="{% static 'img/iconcategories/aggregators.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn aggregators sites" /> <a
-                    href="{% url 'websites:category' category='aggregators' %}">Porn aggregators
-                    sites</a>
+                  <img src="{% static 'img/iconcategories/aggregators.svg' %}" data-src="{% static 'img/iconcategories/aggregators.svg' %}" class="lazyloaded" width="25" alt="list Porn aggregators sites" /> <a href="{% url 'websites:category' category='aggregators' %}">{% trans 'Moteurs de recherche porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/fansfree.svg' %}"
-                    data-src="{% static 'img/iconcategories/fansfree.svg' %}" class="lazyloaded" width="25"
-                    alt="list Free fans leaks" /> <a href="{% url 'websites:category' category='fansleaks' %}">Free fans
-                    leaks</a>
+                  <img src="{% static 'img/iconcategories/fansfree.svg' %}" data-src="{% static 'img/iconcategories/fansfree.svg' %}" class="lazyloaded" width="25" alt="list Free fans leaks" /> <a href="{% url 'websites:category' category='fansleaks' %}">{% trans 'Leaks gratuits de fans' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/FETISH-PORN-SITES.svg' %}"
-                    data-src="{% static 'img/iconcategories/FETISH-PORN-SITES.svg' %}" class="lazyloaded" width="25"
-                    alt="list Fetish porn sites" /> <a href="{% url 'websites:category' category='fetish' %}">Fetish
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/FETISH-PORN-SITES.svg' %}" data-src="{% static 'img/iconcategories/FETISH-PORN-SITES.svg' %}" class="lazyloaded" width="25" alt="list Fetish porn sites" /> <a href="{% url 'websites:category' category='fetish' %}">{% trans 'Sites porno fétichistes' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ASIAN-PORN-SITES.svg' %}"
-                    data-src="{% static 'img/iconcategories/ASIAN-PORN-SITES.svg' %}" class="lazyloaded" width="25"
-                    alt="list Asian porn sites" /> <a href="{% url 'websites:category' category='asian' %}">Asian
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/ASIAN-PORN-SITES.svg' %}" data-src="{% static 'img/iconcategories/ASIAN-PORN-SITES.svg' %}" class="lazyloaded" width="25" alt="list Asian porn sites" /> <a href="{% url 'websites:category' category='asian' %}">{% trans 'Sites porno asiatiques' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/france.svg' %}"
-                    data-src="{% static 'img/iconcategories/france.svg' %}" class="lazyloaded" width="25"
-                    alt="list French porn sites" /> <a href="{% url 'websites:category' category='frenchporn' %}">French
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/france.svg' %}" data-src="{% static 'img/iconcategories/france.svg' %}" class="lazyloaded" width="25" alt="list French porn sites" /> <a href="{% url 'websites:category' category='frenchporn' %}">{% trans 'Sites porno français' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornlists.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornlists.svg' %}" class="lazyloaded" width="25"
-                    alt="list Porn lists" /> <a href="{% url 'websites:category' category='pornlists' %}">Porn
-                    lists</a>
+                  <img src="{% static 'img/iconcategories/pornlists.svg' %}" data-src="{% static 'img/iconcategories/pornlists.svg' %}" class="lazyloaded" width="25" alt="list Porn lists" /> <a href="{% url 'websites:category' category='pornlists' %}">{% trans 'Annuaires porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ONLINE-SEX-TOY-SHOPS.svg' %}"
-                    data-src="{% static 'img/iconcategories/ONLINE-SEX-TOY-SHOPS.svg' %}" class="lazyloaded" width="25"
-                    alt="list Adult online shops" /> <a
-                    href="{% url 'websites:category' category='adult-online-shops' %}">Adult online
-                    shops</a>
+                  <img src="{% static 'img/iconcategories/ONLINE-SEX-TOY-SHOPS.svg' %}" data-src="{% static 'img/iconcategories/ONLINE-SEX-TOY-SHOPS.svg' %}" class="lazyloaded" width="25" alt="list Adult online shops" /> <a href="{% url 'websites:category' category='adult-online-shops' %}">{% trans 'Sexshops en ligne' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/GAY-PORN-SITES-1.svg' %}"
-                    data-src="{% static 'img/iconcategories/GAY-PORN-SITES-1.svg' %}" class="lazyloaded" width="25"
-                    alt="list Gay porn sites" /> <a href="{% url 'websites:category' category='porngay' %}">Gay
-                    porn sites</a>
+                  <img src="{% static 'img/iconcategories/GAY-PORN-SITES-1.svg' %}" data-src="{% static 'img/iconcategories/GAY-PORN-SITES-1.svg' %}" class="lazyloaded" width="25" alt="list Gay porn sites" /> <a href="{% url 'websites:category' category='porngay' %}">{% trans 'Sites porno Gay' %}</a>
                 </li>
               </ul>
             </li>
             <li class="dropdown">
-              <a class="nav-link scrollto" href="#"><span>AI Porn pics</span> <i class="bx bxs-chevron-down"></i></a>
+              <a class="nav-link scrollto" href="#"><span>{% trans 'Images porno IA' %}</span> <i class="bx bxs-chevron-down"></i></a>
               <ul>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/category.svg' %}"
-                    data-src="{% static 'img/iconcategories/category.svg' %}" class="lazyloaded" width="25"
-                    alt="category" /> <a href="{% url 'ai_pictures:index' %}">All categories</a>
+                  <img src="{% static 'img/iconcategories/category.svg' %}" data-src="{% static 'img/iconcategories/category.svg' %}" class="lazyloaded" width="25" alt="category" /> <a href="{% url 'ai_pictures:index' %}">{% trans 'Toutes les catégories' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/winner.svg' %}"
-                    data-src="{% static 'img/iconcategories/winner.svg' %}" class="lazyloaded" width="25"
-                    alt="champion" /> <a target="_blank" rel="nofollow sponsored"
-                    href="https://pornx.ai/search?ref=nmzkmjl&amp;tap_s=4004563-883473&amp;feed=trending&amp;tm_campaign=menubest">Best
-                    AI Porn Generator</a>
+                  <img src="{% static 'img/iconcategories/winner.svg' %}" data-src="{% static 'img/iconcategories/winner.svg' %}" class="lazyloaded" width="25" alt="champion" /> <a target="_blank" rel="nofollow sponsored" href="https://pornx.ai/search?ref=nmzkmjl&amp;tap_s=4004563-883473&amp;feed=trending&amp;tm_campaign=menubest">{% trans 'Meilleur générateur porno IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/olympic_flag.svg' %}"
-                    data-src="{% static 'img/iconcategories/olympic_flag.svg' %}" class="lazyloaded" width="25"
-                    alt="porn olympics" /> <a href="{% url 'ai_pictures:category' category='olympicgames' %}">Olympic
-                    Games</a>
+                  <img src="{% static 'img/iconcategories/olympic_flag.svg' %}" data-src="{% static 'img/iconcategories/olympic_flag.svg' %}" class="lazyloaded" width="25" alt="porn olympics" /> <a href="{% url 'ai_pictures:category' category='olympicgames' %}">{% trans 'Jeux Olympiques' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/recent.svg' %}"
-                    data-src="{% static 'img/iconcategories/recent.svg' %}" class="lazyloaded" width="25"
-                    alt="recent" /> <a href="{% url 'ai_pictures:category' category='latest' %}">The latest
-                    published</a>
+                  <img src="{% static 'img/iconcategories/recent.svg' %}" data-src="{% static 'img/iconcategories/recent.svg' %}" class="lazyloaded" width="25" alt="recent" /> <a href="{% url 'ai_pictures:category' category='latest' %}">{% trans 'Les dernières publiées' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/fire.svg' %}"
-                    data-src="{% static 'img/iconcategories/fire.svg' %}" class="lazyloaded" width="25" alt="fire" /> <a
-                    href="{% url 'ai_pictures:category' category='sexiest' %}">The sexiest</a>
+                  <img src="{% static 'img/iconcategories/fire.svg' %}" data-src="{% static 'img/iconcategories/fire.svg' %}" class="lazyloaded" width="25" alt="fire" /> <a href="{% url 'ai_pictures:category' category='sexiest' %}">{% trans 'Les plus excitantes' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/scary.svg' %}"
-                    data-src="{% static 'img/iconcategories/scary.svg' %}" class="lazyloaded" width="25" alt="scary" />
-                  <a href="{% url 'ai_pictures:category' category='scariest' %}">The scariest</a>
+                  <img src="{% static 'img/iconcategories/scary.svg' %}" data-src="{% static 'img/iconcategories/scary.svg' %}" class="lazyloaded" width="25" alt="scary" />
+                  <a href="{% url 'ai_pictures:category' category='scariest' %}">{% trans 'Les plus effrayantes' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/laugh.svg' %}"
-                    data-src="{% static 'img/iconcategories/laugh.svg' %}" class="lazyloaded" width="25" alt="laugh" />
-                  <a href="{% url 'ai_pictures:category' category='funniest' %}">The funniest</a>
+                  <img src="{% static 'img/iconcategories/laugh.svg' %}" data-src="{% static 'img/iconcategories/laugh.svg' %}" class="lazyloaded" width="25" alt="laugh" />
+                  <a href="{% url 'ai_pictures:category' category='funniest' %}">{% trans 'Les plus amusantes' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/play.svg' %}"
-                    data-src="{% static 'img/iconcategories/play.svg' %}" class="lazyloaded" width="25" alt="game" /> <a
-                    href="{% url 'ai_pictures:aiornotai' %}">AI or not AI game</a>
+                  <img src="{% static 'img/iconcategories/play.svg' %}" data-src="{% static 'img/iconcategories/play.svg' %}" class="lazyloaded" width="25" alt="game" /> <a href="{% url 'ai_pictures:aiornotai' %}">{% trans 'Jeu IA ou non IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/world.svg' %}"
-                    data-src="{% static 'img/iconcategories/world.svg' %}" class="lazyloaded" width="25" alt="tag" /> <a
-                    href="{% url 'ai_pictures:countries' %}">All countries</a>
+                  <img src="{% static 'img/iconcategories/world.svg' %}" data-src="{% static 'img/iconcategories/world.svg' %}" class="lazyloaded" width="25" alt="tag" /> <a href="{% url 'ai_pictures:countries' %}">{% trans 'Tous les pays' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/tag.svg' %}"
-                    data-src="{% static 'img/iconcategories/tag.svg' %}" class="lazyloaded" width="25" alt="tag" /> <a
-                    href="{% url 'ai_pictures:tags' %}">All tags</a>
+                  <img src="{% static 'img/iconcategories/tag.svg' %}" data-src="{% static 'img/iconcategories/tag.svg' %}" class="lazyloaded" width="25" alt="tag" /> <a href="{% url 'ai_pictures:tags' %}">{% trans 'Tous les tags' %}</a>
                 </li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a class="nav-link scrollto" href="#"><span>Porn videos</span> <i class="bx bxs-chevron-down"></i></a>
+              <a class="nav-link scrollto" href="#"><span>{% trans 'Vidéos porno' %}</span> <i class="bx bxs-chevron-down"></i></a>
               <ul>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/ai.svg' %}"
-                    data-src="{% static 'img/iconcategories/ai.svg' %}" class="lazyloaded" width="25" alt="videos IA" />
-                  <a href="{% url 'ai_videos:ai-porn-videos-index' %}">AI Porn videos</a>
+                  <img src="{% static 'img/iconcategories/ai.svg' %}" data-src="{% static 'img/iconcategories/ai.svg' %}" class="lazyloaded" width="25" alt="videos IA" />
+                  <a href="{% url 'ai_videos:ai-porn-videos-index' %}">{% trans 'Vidéos porno IA' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/freetube.svg' %}"
-                    data-src="{% static 'img/iconcategories/freetube.svg' %}" class="lazyloaded" width="25"
-                    alt="videos tube" /> <a class="nav-link" href="{% url 'ai_videos:videos-index' %}">Porn videos
-                    tubes</a>
+                  <img src="{% static 'img/iconcategories/freetube.svg' %}" data-src="{% static 'img/iconcategories/freetube.svg' %}" class="lazyloaded" width="25" alt="videos tube" /> <a class="nav-link" href="{% url 'ai_videos:videos-index' %}">{% trans 'Vidéos porno tubes' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/livecam.svg' %}"
-                    data-src="{% static 'img/iconcategories/livecam.svg' %}" class="lazyloaded" width="25"
-                    alt="videos webcam" /> <a class="nav-link" href="{% url 'ai_videos:webcam-videos-index' %}">Webcam
-                    videos</a>
+                  <img src="{% static 'img/iconcategories/livecam.svg' %}" data-src="{% static 'img/iconcategories/livecam.svg' %}" class="lazyloaded" width="25" alt="videos webcam" /> <a class="nav-link" href="{% url 'ai_videos:webcam-videos-index' %}">{% trans 'Vidéos webcam' %}</a>
                 </li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a class="nav-link scrollto" href="#"><span>Performers</span> <i class="bx bxs-chevron-down"></i></a>
+              <a class="nav-link scrollto" href="#"><span>{% trans 'Modèles' %}</span> <i class="bx bxs-chevron-down"></i></a>
               <ul>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/pornlists.svg' %}"
-                    data-src="{% static 'img/iconcategories/pornlists.svg' %}" class="lazyloaded" width="25"
-                    alt="pornlist" /> <a href="{% url 'porn_models:index' %}">Search engine</a>
+                  <img src="{% static 'img/iconcategories/pornlists.svg' %}" data-src="{% static 'img/iconcategories/pornlists.svg' %}" class="lazyloaded" width="25" alt="pornlist" /> <a href="{% url 'porn_models:index' %}">{% trans 'Annuaire' %}</a>
                 </li>
                 <li>
                   <a href="{% url 'porn_models:site' website='onlyfans' %}">- Onlyfans</a>
@@ -340,40 +202,31 @@
               </ul>
             </li>
             <li>
-              <a class="nav-link scrollto" href="/en/glossary/">Porn glossary</a>
+              <a class="nav-link scrollto" href="{% url 'glossary:index' %}">{% trans 'Lexique porno' %}</a>
             </li>
 
             <li class="dropdown">
-              <a class="nav-link scrollto" href="#"><span>See more</span> <i class="bx bxs-chevron-down"></i></a>
+              <a class="nav-link scrollto" href="#"><span>{% trans 'Voir plus' %}</span> <i class="bx bxs-chevron-down"></i></a>
               <ul>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/stories.svg' %}"
-                    data-src="{% static 'img/iconcategories/stories.svg' %}" class="lazyloaded" width="25"
-                    alt="script" /> <a class="nav-link scrollto" href="{% url 'stories:index' %}">Sex stories</a>
+                  <img src="{% static 'img/iconcategories/stories.svg' %}" data-src="{% static 'img/iconcategories/stories.svg' %}" class="lazyloaded" width="25" alt="script" /> <a class="nav-link scrollto" href="{% url 'stories:index' %}">{% trans 'Histoires de sexe' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/script.svg' %}"
-                    data-src="{% static 'img/iconcategories/script.svg' %}" class="lazyloaded" width="25"
-                    alt="script" /> <a class="nav-link scrollto" href="{% url 'scripts:index' %}">Porn scripts</a>
+                  <img src="{% static 'img/iconcategories/script.svg' %}" data-src="{% static 'img/iconcategories/script.svg' %}" class="lazyloaded" width="25" alt="script" /> <a class="nav-link scrollto" href="{% url 'scripts:index' %}">{% trans 'Dialogues porno' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/blog.svg' %}"
-                    data-src="{% static 'img/iconcategories/blog.svg' %}" class="lazyloaded" width="25" alt="blog" /> <a
-                    class="nav-link scrollto" href="{% url 'blog:index' %}">Blog</a>
+                  <img src="{% static 'img/iconcategories/blog.svg' %}" data-src="{% static 'img/iconcategories/blog.svg' %}" class="lazyloaded" width="25" alt="blog" /> <a class="nav-link scrollto" href="{% url 'blog:index' %}">{% trans 'Blog' %}</a>
                 </li>
                 <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/stats.svg' %}"
-                    data-src="{% static 'img/iconcategories/stats.svg' %}" class="lazyloaded" width="25" alt="stats" />
-                  <a class="nav-link scrollto" href="{% url 'statistics:index' %}">Statistics</a>
+                  <img src="{% static 'img/iconcategories/stats.svg' %}" data-src="{% static 'img/iconcategories/stats.svg' %}" class="lazyloaded" width="25" alt="stats" />
+                  <a class="nav-link scrollto" href="{% url 'statistics:index' %}">{% trans 'Statistiques' %}</a>
                 </li>
               </ul>
             </li>
           </ul>
           <i class="bx bx-menu mobile-nav-toggle"></i>
         </nav>
-        <a id="navstartsurvey" href="{% url 'surveys:index' %}" class="get-started-btn scrollto"
-          title="Find my porn">Find my
-          porn</a>
+        <a id="navstartsurvey" href="{% url 'surveys:index' %}" class="get-started-btn scrollto" title="Find my porn">{% trans 'Trouver mon porno' %}</a>
       </div>
     </div>
   </div>

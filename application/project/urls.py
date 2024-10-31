@@ -21,4 +21,5 @@ urlpatterns += i18n_patterns(
     path("", include("apps.stories.urls", namespace="stories")),
     path("", include("apps.out.urls", namespace="out")),
     path("", include("apps.surveys.urls", namespace="surveys")),
+    path("", include("apps.pages.urls", namespace="pages")),
 )

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans 'A propos du Pornator' %}</h1>
+
+      <h2>{% trans 'Informations légales' %}</h2>
+      <h3>{% trans 'Objectif du site Web' %}</h3>
+      <p>
+        {% trans 'The Pornator est un site qui présente les sites pornographiques par catégorie et classement. Ensuite, il permet à chaque visiteur ayant rempli le questionnaire de proposer le site qui lui convient le mieux.' %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Propriétés' %}</h3>
+      <p>
+        {% trans "Le contenu et les informations de ce site sont protégés par le droit de la propriété intellectuelle. Il est interdit de les utiliser ou de les reproduire sans l'autorisation expresse et préalable du propriétaire de thepornator.com." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Technique' %}</h3>
+      <p>
+        {% trans 'Le site utilise le modèle' %} <a href="https://bootstrapmade.com/knight-simple-one-page-bootstrap-template/" target="_blank" rel="nofollow noopener">BootstrapMade</a>.
+      </p>
+      <p>
+        {% trans 'Le site est hébergé par OVH. Cloudfare est utilisé comme CDN pour la mise en cache des ressources.' %}
+      </p>
+      <p>
+        {% trans "Le site est optimisé pour tous les navigateurs modernes, sur tous les supports (mobile, desktop, tablette...). Aucune restriction de résolution d'écran." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Cookies' %}</h3>
+      <p>
+        {% trans "Ce site dispose d'un outil statistique (Google analytics 4) pour suivre l'audience et identifier les sources de trafic. En outre, nous devons stocker la réponse de l'utilisateur à la clause de non-responsabilité (le cookie expire dans 365 jours). Plus de détails ci-dessous dans le paragraphe sur les données collectées. En dehors de ces deux applications qui utilisent des cookies, il n'y a pas d'autres cookies." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Coordonnées' %}</h3>
+      <p>
+        {% trans "Le Pornator est la concrétisation d'un projet personnel." %} <a href="/fr/info/contact.html">{% trans 'Pour contacter le créateur ou poser une question par email' %}</a>.
+      </p>
+      <br />
+
+      <h3>{% trans 'Traitement des données' %}</h3>
+      <div class="alert alert-primary d-flex align-items-center" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Attention&nbsp;:">
+          <chemin d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 1.566zM8 .535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></chemin>
+        </svg>
+        <div>
+          {% trans "Les préférences personnelles sont des données sensibles et personne ne devrait pouvoir savoir ce que vous pensez personnellement. C'est pourquoi ce projet fonctionne avec un engagement:" %} <b>{% trans 'ne collecte que des données anonymes' %}</b>.
+        </div>
+      </div>
+      <br />
+
+      <h3>{% trans 'Données non collectées & nos engagements' %}</h3>
+      <p>
+        {% trans "Avec cette politique, nous nous engageons à protéger et à ne pas agréger les données personnelles avec des informations individuellement identifiables. Par exemple, les adresses IP ne sont pas traitées autrement que pour vérifier l'unicité des questionnaires par jour, et aucune organisation/société tierce n'a accès aux données qui pourraient vous identifier individuellement. A terme, bien qu'il ne soit actuellement pas possible de vous identifier personnellement à partir des données que nous collectons, les données collectées seront automatiquement anonymisées par les outils différentiels de confidentialité." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Objectifs des données' %}</h3>
+      <p>
+        {% trans "Les données d'accès au site et d'erreur sont utilisées pour surveiller l'utilisation réelle du service, afin de fournir des ressources optimales pour le trafic observé. Les données des résultats des tests sont utilisées pour fournir des rapports publics sur les différentes préférences observées et leur évolution dans le temps. Ces données sont proposées sous forme de données statistiques publiques." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Les données collectées' %}</h3>
+      <p>
+        {% trans 'Voici une liste exhaustive des données que nous collectons:' %}
+      </p>
+      <ul>
+        <li>
+          {% trans "Données Google Analytics 4 pour mesurer l'audience du site" %}
+        </li>
+        <li>
+          {% trans "Liste des accès au serveur Web (journaux de l'hôte)" %}
+        </li>
+        <li>
+          {% trans 'Liste des erreurs potentielles rencontrées lors du chargement du site' %}
+        </li>
+        <li>
+          {% trans 'Données des résultats du questionnaire associées à:' %}
+          <ul>
+            <li>
+              {% trans 'La date, les réponses et le résultat de chaque questionnaire sans aucune donnée personnelle' %}
+            </li>
+            <li>
+              {% trans 'Temps passé, PDI et user-agent sur chaque questionnaire pour identifier les bots, les réponses incohérentes et les tentatives de bombardement' %}
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <br />
+      <h2>{% trans "Conditions d'utilisation" %}</h2>
+      <h3>{% trans 'Propriétaires de sites pornographiques' %}</h3>
+      <p>
+        {% trans "Tout d'abord, permettez-moi d'être clair : ThePornator ne possède aucun des sites Web examinés ou classés ici, et je ne suis responsable d'aucun de leur contenu. Je ne suis que le comparateur qui prend chaque site Web pour un test de branlette approfondi et les rapports ici en fonction de mes critères de performance. Le Web xxx est un grand endroit en croissance constante, et je veux juste sélectionner les meilleurs sites. J'essaie de garder un œil sur tout ce qui est pervers en ligne, mais une seule personne ne peut pas faire grand-chose. Si vous avez un site porno super génial, contactez-moi." %}
+        <br />
+        {% trans 'Allez ! Mes lecteurs sont excités et avides de contenu pour adultes. Assurez-vous simplement que' %} <b>{% trans 'votre site porno est bon' %}</b>{% trans ', ou mon rapport' %} <strike>{% trans 'ne le sera pas' %}</strike> !{% trans 'Donc, si vous êtes un propriétaire de site porno sérieux et si vous souhaitez être répertorié dans mon annuaire, veuillez ' %}<a href="{% url 'pages:contact' %}">{% trans 'me contacter' %}</a> .
+      </p>
+      <br />
+
+      <h3>{% trans 'Construit pour vous' %}</h3>
+      <p>
+        {% trans "J'ai commencé The Pornator par amour, en écrivant simplement mes propres expériences afin de me rappeler quels" %} <a target="_blank" href="/fr/">sites pornos</a> sont nuls et lesquels me viennent à l'esprit -orgasmes époustouflants à chaque fois. C'est toujours un travail d'amour, mais je reconnais à quel point il est devenu précieux pour les pervers sur le Web. Hé, vous êtes mon genre de personnes ! Je ne vais pas vous raconter des conneries ; mes avis et <b>classement sont exacts à 100 %</b> sans conneries ni mensonges.
+      </p>
+      <br />
+
+      <h3>{% trans 'Processus filtré' %}</h3>
+      <p>
+        {% trans "Pourquoi utiliser The Pornator au lieu d'un de mes imitateurs? Pourquoi ne pas vous diriger directement vers Google et éviter l'intermédiaire? Tout dépend de mon processus filtré. Je passe beaucoup de temps avec chaque site Web que je passe en revue. Rien n'est automatisé, donc ce qui vous parvient est une opinion impartiale sur les <b>meilleurs sites pornographiques</b> sur Internet. Faites-moi confiance pour vous aider à trouver votre propre or masturbatoire." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Mises à jour quotidiennes' %}</h3>
+      <p>
+        {% trans "Le Pornator est une archive et un répertoire en croissance constante de la meilleure pornographie disponible. Le Web est toujours un endroit sauvage et imprévisible où de nouvelles caméras de sexe en direct et des dépositaires de nus de célébrités apparaissent tout le temps. Chaque jour, j'<b>ajoute de nouvelles critiques</b> et j'ajuste les anciennes, j'ajuste le classement et je m'assure que vous n'êtes jamais obligé de vous branler sur un contenu ancien, obsolète ou simplement inférieur. Ceci est une liste organisée, mes amis pervers, vous êtes donc toujours assuré du charbon le plus récent, le plus grand, le plus frais et le plus sexy." %}
+      </p>
+      <br />
+
+      <h3>{% trans 'Fonctionnalité de recherche' %}</h3>
+      <p>
+        {% trans "Sur la page d'accueil, vous pouvez rechercher un site en remplissant certains filtres (tarifs, catégories et requête). Je fais de mon mieux pour diviser le site en sections. Mais le moyen le plus simple de trouver votre site porno est de faire le sondage et de me laisser vous suggérer le meilleur en fonction de vos réponses." %}
+      </p>
+      <br />
+
+      <h2>{% trans 'Avis de non-responsabilité' %}</h2>
+      <ul>
+        <li>
+          {% trans "Objectif de les avis : Cette évaluation de 'ThePornator.com' sur chaque site est proposée exclusivement pour informer et divertir les utilisateurs. Les points de vue exposés au sein de cette évaluation reflètent les perspectives individuelles de nos contributeurs et ne doivent pas être interprétés comme une validation ou une promotion formelle du site ou de son contenu. Nos évaluations se basent sur l'expérience utilisateur globale et les caractéristiques du site." %}
+        </li>
+        <li>
+          {% trans "Fiction des personnages : Il est essentiel de souligner que 'ThePornator' est un personnage fictif, utilisé comme élément conceptuel pour le site. 'ThePornator' ne représente aucun individu réel, et l'utilisation de ce personnage vise principalement des fins humoristiques et de divertissement." %}
+        </li>
+        <li>
+          {% trans "Absence d'affiliation directe : Aucun partenariat, collaboration ou affiliation officielle n'existe entre ThePornator.com et d'autres sites mentionnés. Si des liens pointent vers ThePornator.com, ils résultent d'accords ponctuels et ne traduisent pas une recommandation mutuelle ou une collaboration étroite." %}
+        </li>
+        <li>
+          {% trans "Responsabilité du contenu : ThePornator.com ne contrôle ni ne détient les droits sur les contenus présents sur les sites évalués. Pour toute préoccupation relative à la légalité, à des droits d'auteur ou à d'autres questions, il convient de s'adresser directement aux responsables du site concerné." %}
+        </li>
+        <li>
+          {% trans "Diversité des opinions : Les évaluations sur ThePornator.com sont le fruit du travail d'une équipe variée de contributeurs. Ainsi, l'analyse de chaque site reflète la perspective subjective de l'évaluateur attitré et pourrait différer des autres avis présents sur notre plateforme." %}
+        </li>
+        <li>
+          {% trans 'Retours et ajustements : Nous invitons nos lecteurs à signaler toute inexactitude ou tout litige relatif à nos évaluations via le formulaire de contact (lien dans le pied de page). Nous nous engageons à examiner et à répondre aux retours pertinents.' %}
+        </li>
+        <li>
+          {% trans "Position légale : Tout acte visant à nuire à l'image ou à la marque de ThePornator.com sera traité par notre équipe juridique. Nous sommes résolus à protéger l'intégrité et la crédibilité de ThePornator.com." %}
+        </li>
+        <li>
+          {% trans "Engagement éthique : Les retours des défenseurs des droits, des créateurs de contenu et du public sur les aspects éthiques ou légaux de nos évaluations sont précieux. Nous nous efforçons de respecter les normes d'honnêteté, de clarté et d'intégrité." %}
+        </li>
+        <li>
+          {% trans "Consentement et âge légal : Il est crucial que les utilisateurs vérifient avoir atteint l'âge légal et donné leur consentement avant d'accéder à du contenu adulte sur ThePornator.com. La conformité à ces principes est fondamentale pour une navigation légale et éthique." %}
+        </li>
+        <li>
+          {% trans "Changements de contenu : Le contenu des sites évalués est susceptible d'évoluer. Les utilisateurs doivent donc rester vigilants et conscients de la nature mutable des plateformes pour adultes." %}
+        </li>
+        <li>
+          {% trans "Obligations de l'utilisateur : Nous incitons chaque utilisateur à se servir des informations présentes sur ThePornator.com de manière éthique et responsable. Cela implique le respect des droits et de la vie privée des créateurs, l'adhésion aux lois en vigueur, et la conformité aux conditions d'utilisation des contenus adultes en ligne." %}
+        </li>
+        <li>
+          {% trans "Transparence de l'évaluation : Chez ThePornator.com, nous priorisons la transparence de nos méthodes d'évaluation. Nos examinateurs suivent une démarche rigoureuse pour évaluer divers aspects des sites pour adultes. Nous nous engageons à garantir l'objectivité et la justesse dans nos analyses, en fournissant des évaluations fiables et éclairées." %}
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

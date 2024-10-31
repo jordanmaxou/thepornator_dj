@@ -31,3 +31,7 @@ Use [minio admin panel](https://minio-admin.pornator.localhost) to create 'porna
 
 > [!CAUTION]
 > In production, it will be important to restrict permission to readonly because public means everybody can put/set/delete.
+
+# DB object
+
+[https://github.com/jordanmaxou/thepornator/blob/master/php/\_object.php](https://github.com/jordanmaxou/thepornator/blob/master/php/_object.php)

@@ -1,15 +1,23 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ LANGUAGE_CODE }}">
   {% include '_includes/header.html' %}
+
   <body>
     {% include '_includes/navbar.html' %}
-    <main>
+    <main id="main">
+      {% include '_includes/mobile-outlinks.html' %}
+      {% include '_includes/breadcrumbs.html' %}
+      <div id="topbanner" class="container"></div>
       {% block content %}
 
       {% endblock %}
     </main>
+    <div id="bottombanner" class="container"></div>
     {% include '_includes/footer.html' %}
     <script src="{% static 'main.js' %}"></script>
+    {% include '_includes/disclaimer.html' %}
   </body>
 </html>

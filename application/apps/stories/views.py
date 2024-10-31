@@ -2,8 +2,8 @@ from django.views.generic.base import TemplateView
 
 
 class StoryListView(TemplateView):
-    template_name = "storys/list.html"
+    template_name = "stories/list.html"
 
 
 class StoryDetailView(TemplateView):
-    template_name = "storys/detail.html"
+    template_name = "stories/detail.html"

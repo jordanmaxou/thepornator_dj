@@ -16,707 +16,817 @@ if (!targetLanguages.includes(userLanguage)) {
     candyaiEverflowclientTargetUrl1 = candyaiTargetUrl;
     candyaiEverflowclientTargetUrl2 = candyaiTargetUrl;
 }
-var arrayBanners = [{
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai6.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai7.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_mobile_xpictures3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures6.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_mobile_xpictures7.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures8.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_mobile_xpictures9.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures10.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures11.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures12.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_xpictures13.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures14.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures15.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures16.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_xpictures17.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures18.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_xpictures19.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures20.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures21.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_xpictures22.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures23.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures24.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures18.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures19.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures20.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures21.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_mobile_xpictures22.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_xpictures23.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_xpictures24.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai_custom1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_pornxai_custom1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_pornxai1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_pornxai2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_pornxai3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_pornxai4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_pornxai5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_pornxai6.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_xpictures1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_xpictures2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_xpictures3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_xpictures4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_xpictures5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_xpictures6.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_xpictures7.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_desktop_xpictures8.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_xpictures9.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: deepmodeTargetUrl,
-    imagename: 'en_desktop_porngenart1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_desktop_porngenart2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: deepmodeTargetUrl,
-    imagename: 'en_desktop_porngenart3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_desktop_porngenart4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_desktop_porngenart5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_porngenart1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_porngenart2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_porngenart3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_porngenart4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornworksTargetUrl,
-    imagename: 'en_mobile_porngenart5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai10.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai11.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai12.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl,
-    imagename: 'en_mobile_pornxai13.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai14.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: pornxaiTargetUrl_feed,
-    imagename: 'en_mobile_pornxai15.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy1.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy2.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_mobile_candy3.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_mobile_candy4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy5.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy6.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy7.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_mobile_candy8.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy9.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_mobile_candy10.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_mobile_candy11.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_desktop_candy1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_desktop_candy2.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_desktop_candy3.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_desktop_candy4.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_desktop_candy5.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl1,
-    imagename: 'en_desktop_candy6.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: candyaiEverflowclientTargetUrl2,
-    imagename: 'en_desktop_candy7.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_mobile_europlayai1.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_mobile_europlayai2.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_all_europlayai1.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_all_europlayai2.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_all_europlayai1.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: eroplayaiTargetUrl,
-    imagename: 'en_all_europlayai2.jpg'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: bestfaceswapTargetUrl,
-    imagename: 'en_desktop_bestfaceswap1.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: bestfaceswapTargetUrl,
-    imagename: 'en_mobile_bestfaceswap1.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: bestfaceswapTargetUrl,
-    imagename: 'en_mobile_bestfaceswap2.gif'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'desktop',
-    zone: 'top|middle|bottom',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_desktop_creatorporn1.webp'
-}, {
-    weight: 1,
-    lang: 'en|fr',
-    device: 'mobile',
-    zone: 'top|middle|bottom',
-    targetUrl: createpornTargetUrl,
-    imagename: 'en_mobile_creatorporn1.webp'
-}];
+var arrayBanners = [
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://links.verotel.com/resellerbanner?vercode=9804000001034858%3A9804000001357861&websitenr=106321",
+    "imagename": "en_mobile_cumshotbox1.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai6.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai7.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_mobile_xpictures3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures6.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_mobile_xpictures7.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures8.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_mobile_xpictures9.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures10.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures11.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures12.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_xpictures13.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures14.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures15.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures16.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_xpictures17.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures18.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_xpictures19.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures20.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures21.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_xpictures22.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures23.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures24.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures18.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures19.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures20.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures21.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_mobile_xpictures22.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures23.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_xpictures24.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai_custom1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai_custom1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_pornxai6.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures6.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures7.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures8.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_xpictures9.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://deepmode.com?fpr=thepornator",
+    "imagename": "en_desktop_porngenart1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_desktop_porngenart2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://deepmode.com?fpr=thepornator",
+    "imagename": "en_desktop_porngenart3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_desktop_porngenart4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_desktop_porngenart5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_porngenart1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_porngenart2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_porngenart3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_porngenart4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornworks.ai/?refid=thepornator_com",
+    "imagename": "en_mobile_porngenart5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai10.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai11.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai12.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai13.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai14.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://pornx.ai/?ref=nmzkmjl&tap_s=4004563-883473&tm_campaign=banner",
+    "imagename": "en_mobile_pornxai15.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy1.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy2.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_mobile_candy3.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_mobile_candy4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy5.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy6.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy7.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_mobile_candy8.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy9.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_mobile_candy10.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_mobile_candy11.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_desktop_candy1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_desktop_candy2.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_desktop_candy3.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_desktop_candy4.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_desktop_candy5.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://candy.ai/?oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=base",
+    "imagename": "en_desktop_candy6.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://landing.candynetwork.ai/elara?var_1=cmai_realistic_01.jpg&var_2=cmai_anime_01.jpg&gender=female&uid=6&oid=2&affid=53&source_id=thepornator&sub1=banner&sub2=funnel",
+    "imagename": "en_desktop_candy7.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_mobile_europlayai1.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_mobile_europlayai2.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_all_europlayai1.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_all_europlayai2.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_all_europlayai1.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://eroplay.ai/?via=maxime",
+    "imagename": "en_all_europlayai2.jpg"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.bestfaceswap.ai/?utm_source=aff-tpnator&utm_campaign=banner",
+    "imagename": "en_desktop_bestfaceswap1.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.bestfaceswap.ai/?utm_source=aff-tpnator&utm_campaign=banner",
+    "imagename": "en_mobile_bestfaceswap1.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.bestfaceswap.ai/?utm_source=aff-tpnator&utm_campaign=banner",
+    "imagename": "en_mobile_bestfaceswap2.gif"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "desktop",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_desktop_creatorporn1.webp"
+  },
+  {
+    "weight": 1,
+    "lang": "en|fr",
+    "device": "mobile",
+    "zone": "top|middle|bottom",
+    "targetUrl": "https://www.createporn.com?ref=8a5816867207e9e547064c96ccb73fa5",
+    "imagename": "en_mobile_creatorporn1.webp"
+  }
+];
+
 function getRandomUrl(urls) {
     let randomIndex = Math.floor(Math.random() * urls.length);
     return urls[randomIndex];
@@ -834,7 +944,7 @@ async function loadBannersJson(jsonPath) {
     }
 }
 async function initializeBanners() {
-    const arrayBanners = await loadBannersJson('/assets/json/banners.json?t=' + Math.floor(Date.now() / 1000));
+    // const arrayBanners = await loadBannersJson('/assets/json/banners.json?t=' + Math.floor(Date.now() / 1000));
     insertAdsBannerByZoneId(arrayBanners, 'topbanner', 'top');
     insertAdsBannerByZoneId(arrayBanners, 'middleads6', 'middle');
     insertAdsBannerByZoneId(arrayBanners, 'middleads8', 'middle');

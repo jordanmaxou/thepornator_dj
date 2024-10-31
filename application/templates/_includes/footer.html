@@ -1,23 +1,33 @@
 {% load i18n %}
+{% load i18n_urls %}
 {% load static %}
 
 {% get_current_language as current_language %}
 <footer id="footer">
   <div class="container" style="padding: 40px 0 0px;">
     <p>
-      <a href="/en/info/about.html"><span>About</span></a> -
-      <a href="/en/info/contact.html"><span>Contact</span></a>
+      <a href="{% url 'pages:about' %}"><span>{% trans 'À propos' %}</span></a> -
+      <a href="{% url 'pages:contact' %}"><span>{% trans 'Contact' %}</span></a>
       -{% if current_language == 'fr' %}
-        <a href="{% language 'en' %}{% url request.resolver_match.view_name %}{% endlanguage %}"><img class="lazyloaded" src="{% static 'img/flagenglish.webp' %}" data-src="{% static 'img/flagenglish.webp' %}" alt="Change to the language English" width="24" height="24" /> English</a>
+        <a href="{% path_with_lang 'en' %}">
+          <img class="lazyloaded" src="{% static 'img/flagenglish.webp' %}" data-src="{% static 'img/flagenglish.webp' %}" alt="{% trans 'Changer vers la langue Anglais' %}" width="24" height="24" />
+          {% trans 'Anglais' %}
+        </a>
       {% elif current_language == 'en' %}
-        <a href="{% language 'fr' %}{% url request.resolver_match.view_name %}{% endlanguage %}"><img class="lazyloaded" src="{% static 'img/flagfrench.webp' %}" data-src="{% static 'img/flagfrench.webp' %}" alt="Change to the language French" width="24" height="24" /> French</a>
-      {% endif %}- <a href="https://twitter.com/thepornator_off" rel="nofollow noopener" target="_blank">Follow us on <img width="16" height="16" alt="logo X ex-twitter" class="lazyloaded" src="{% static 'img/twitter-x.svg' %}" data-src="{% static 'img/twitter-x.svg' %}" style="vertical-align: middle;background-color: white;" /></a>
+        <a href="{% path_with_lang 'fr' %}">
+          <img class="lazyloaded" src="{% static 'img/flagfrench.webp' %}" data-src="{% static 'img/flagfrench.webp' %}" alt="{% trans 'Changer vers la langue Français' %}" width="24" height="24" />
+          {% trans 'Français' %}
+        </a>
+      {% endif %}- <a href="https://twitter.com/thepornator_off" rel="nofollow noopener" target="_blank">
+        {% trans 'Nous suivre sur' %}
+        <img width="16" height="16" alt="logo X ex-twitter" class="lazyloaded" src="{% static 'img/twitter-x.svg' %}" data-src="{% static 'img/twitter-x.svg' %}" style="vertical-align: middle;background-color: white;" />
+      </a>
       <br /><br />
-      All Rights Reserved © 2022-2024 ThePornator.com Design and Reviews are copyrighted. - ThePornator: Ethical and safe porn search engine
+      {% trans 'Tous droits réservés © 2022-2024 ThePornator.com Design et avis sont protégés. - ThePornator: Moteur de recherche porno éthique et sûr' %}
     </p>
     <hr />
     <p>
-      <b>Protecting Minors</b> Our site is properly RTA labeled to assist in the protection of minors accessing inappopriate content. For information about filtering tools, check <a href="https://www.rtalabel.org/index.php?content=parents" target="_blank">this site</a>. <img width="50" height="25" alt="logo rta" class="lazyloaded" src="{% static 'img/rta.webp' %}" data-src="{% static 'img/rta.webp' %}" />
+      <b>{% trans 'Protection des mineurs' %}</b> {% trans 'Notre site est correctement étiqueté RTA pour aider à la protection des mineurs qui accèdent à des contenus inappropriés. Pour des informations sur les outils de filtrage, consultez' %} <a href="https://www.rtalabel.org/index.php?content=parents" target="_blank">{% trans 'ce site' %}</a>. <img width="50" height="25" alt="logo rta" class="lazyloaded" src="{% static 'img/rta.webp' %}" data-src="{% static 'img/rta.webp' %}" />
     </p>
   </div>
 </footer>

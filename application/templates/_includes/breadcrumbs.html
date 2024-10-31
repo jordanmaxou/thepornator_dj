@@ -1,0 +1,28 @@
+{% load i18n %}
+{% if breadcrumbs %}
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+      <ol itemscope="" itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="{% url 'home:home' %}"><span itemprop="name">{% translate 'Accueil' %}</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        {% for crumb in breadcrumbs %}
+          {% with position=forloop.counter|add:1 %}
+            {% if forloop.last %}
+              <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <span itemprop="name">{{ crumb.label }}</span>
+                <meta itemprop="position" content="{{ position }}" />
+              </li>
+            {% else %}
+              <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <span itemprop="name"><a itemprop="item" href="{{ crumb.link }}">{{ crumb.label }}</a></span>
+                <meta itemprop="position" content="{{ position }}" />
+              </li>
+            {% endif %}
+          {% endwith %}
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+{% endif %}
