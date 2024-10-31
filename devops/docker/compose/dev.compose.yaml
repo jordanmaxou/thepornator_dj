@@ -79,7 +79,7 @@ services:
       context: ./application/
       target: development
     init: true
-    command: app
+    command: runserver
     restart: always
     volumes:
       - ./application:/home
