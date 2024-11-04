@@ -87,7 +87,7 @@ services:
       - "www.pornator.localhost:host-gateway"
     environment: &environment
       DEBUG: "True"
-      ALLOWED_HOSTS: "*"
+      ALLOWED_HOSTS: "www.pornator.localhost"
       MEDIA_URL: "assets/"
       STATIC_URL: "statics/"
       APP_DATABASE_HOST: db

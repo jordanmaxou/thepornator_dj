@@ -2,7 +2,7 @@ import os
 import requests
 from django.core.management.base import BaseCommand
 
-from migration.utils import get_files_list, get_path_from_url
+from apps.migration.utils import get_files_list, get_path_from_url
 
 BASE_FOLDER = "_tmp"
 

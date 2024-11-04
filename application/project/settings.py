@@ -82,6 +82,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "libs.context_processors.nav_bar_context",
             ],
         },
     },
@@ -168,10 +169,11 @@ STORAGES = {
             "access_key": os.environ.get("MINIO_ACCESS_KEY"),
             "secret_key": os.environ.get("MINIO_SECRET_KEY"),
             "use_ssl": os.environ.get("MINIO_USE_SSL") == "True",
+            "custom_domain": ALLOWED_HOSTS[0] + "/" + MEDIA_URL.strip("/"),
         },
     },
     "staticfiles": {
-        "BACKEND": "libs.utils.CustomStaticFilesStorage",
+        "BACKEND": "libs.storage.CustomStaticFilesStorage",
         "OPTIONS": {
             "manifest_url": "https://www.pornator.localhost/statics/manifest.json"
         },

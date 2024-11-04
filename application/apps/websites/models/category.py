@@ -7,7 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=1000)
     position = models.SmallIntegerField()
-    icon = models.FileField(max_length=150)
+    icon = models.FileField(max_length=150, upload_to="img/iconcategories")
 
     def save(self, *args, **kwargs):
         if not self.slug:
