@@ -22,9 +22,7 @@ def create_categories_func(apps, _schema_editor):
                 description_en=category.descriptionEN,
                 description_fr=category.descriptionFR,
                 position=category.position,
-                icon=join(
-                    "img/iconcategories", category.icon.replace("%5B1%5D", "%5b1%5d")
-                ),
+                icon=join("img/iconcategories", category.icon),
             )
         )
     Category.objects.bulk_create(category_objects)
