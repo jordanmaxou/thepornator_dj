@@ -9,7 +9,7 @@ from .category import Category
 class Profile(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     pseudo = models.CharField(max_length=100)
-    photo = models.URLField()
+    photo = models.URLField(max_length=1500)
     description = models.TextField(max_length=500)
     counts = models.OneToOneField(Count, on_delete=models.CASCADE)
     price = models.CharField(max_length=500)

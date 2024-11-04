@@ -93,7 +93,8 @@ def create_question_survey_func(apps, _schema_editor):
 
 def delete_question_survey_func(apps, _schema_editor):
     QuestionSurvey = apps.get_model("surveys", "QuestionSurvey")
-    QuestionSurvey.objects.all().delete()
+    questions = fetch_data_from_mysql("porn_question")
+    QuestionSurvey.objects.filter(question_id__in=questions).delete()
 
 
 def create_question_website_func(apps, _schema_editor):
@@ -116,7 +117,8 @@ def create_question_website_func(apps, _schema_editor):
 
 def delete_question_website_func(apps, _schema_editor):
     QuestionWebsite = apps.get_model("surveys", "QuestionWebsite")
-    QuestionWebsite.objects.all().delete()
+    questions = fetch_data_from_mysql("porn_question")
+    QuestionWebsite.objects.filter(question_id__in=questions).delete()
 
 
 class Migration(migrations.Migration):

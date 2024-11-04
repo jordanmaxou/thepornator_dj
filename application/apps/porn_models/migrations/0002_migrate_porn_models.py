@@ -54,7 +54,6 @@ def delete_websites_func(apps, _schema_editor):
 def create_profile_func(apps, _schema_editor):
     Profile = apps.get_model("porn_models", "Profile")
     Count = apps.get_model("porn_models", "Count")
-    Website = apps.get_model("porn_models", "Website")
     Category = apps.get_model("porn_models", "Category")
 
     profile_category_relations = fetch_data_from_mysql("porn_modelprofilecategory")
@@ -65,11 +64,11 @@ def create_profile_func(apps, _schema_editor):
     profiles = fetch_data_from_mysql("porn_modelprofile")
     for profile in profiles:
         count_obj = Count.objects.create(
-            clicks=profile.click,
-            likes=profile.nblikes,
-            photos=profile.nbphotos,
-            videos=profile.nbvideos,
-            posts=profile.nbposts,
+            clicks=profile.click or 0,
+            likes=profile.nblikes or 0,
+            photos=profile.nbphotos or 0,
+            videos=profile.nbvideos or 0,
+            posts=profile.nbposts or 0,
         )
         profile_obj = Profile.objects.create(
             id=profile.id,
@@ -78,8 +77,8 @@ def create_profile_func(apps, _schema_editor):
             photo=profile.photo,
             description=profile.description,
             price=profile.price,
-            count=count_obj,
-            website=Website.objects.get(id=profile.modelsite_id),
+            counts=count_obj,
+            website_id=profile.modelsite_id if profile.modelsite_id < 10 else 1,
         )
         for category_id in profile_category_map.get(profile_obj.id, []):
             profile_obj.categories.add(Category.objects.get(id=category_id))
@@ -102,4 +101,5 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(create_websites_func, delete_websites_func),
         migrations.RunPython(create_categories_func, delete_categories_func),
+        migrations.RunPython(create_profile_func, delete_profile_func),
     ]
