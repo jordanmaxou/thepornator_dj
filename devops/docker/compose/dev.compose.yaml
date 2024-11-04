@@ -79,7 +79,7 @@ services:
       context: ./application/
       target: development
     init: true
-    command: runserver
+    command: noop
     restart: always
     volumes:
       - ./application:/home
@@ -137,6 +137,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - pornator
+    ports:
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d pornator"]
       interval: 10s
@@ -144,7 +146,21 @@ services:
       retries: 5
       start_period: 5s
 
+  mysqldb:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: michaeljizmaxime
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - pornator
+
 volumes:
+  mysql: {}
   postgres: {}
   minio: {}
 

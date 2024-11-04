@@ -7,3 +7,5 @@ psycopg==3.2.3
 psycopg-binary==3.2.3
 boto3==1.35.49
 requests==2.32.3
+mysqlclient==2.2.5
+django-modeltranslation==0.19.10

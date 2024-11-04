@@ -12,7 +12,7 @@ FROM python:3.11-slim-buster AS production
 
 RUN DEBIAN_FRONTEND=noninteractive\
     && apt-get update \
-    && apt-get install --no-install-recommends -y gettext \
+    && apt-get install --no-install-recommends -y gettext libmariadbclient-dev \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/apt/lists/* /var/cache/debconf/templates.*

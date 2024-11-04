@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+PROJECT=pornator
+USER=project
+DB=michaeljizmaxime
+
+DUMP=$1
+
+MYSQL_CONTAINER=`docker ps | grep $PROJECT | grep mysql | awk '{print $1}'`
+
+if [ -z "$MYSQL_CONTAINER" ]
+then
+    echo "Mysql container for $PROJECT not found"
+    exit 1
+fi
+
+docker exec -i $MYSQL_CONTAINER mysql -u root < $DUMP;

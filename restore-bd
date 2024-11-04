@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+PROJECT=pornator
+USER=project
+DB=project
+BACKUPDIR=/data/minio/backups/k-tubes/tpdj/
+
+DUMP=$1
+
+POSTGRES_CONTAINER=`docker ps | grep $PROJECT | grep postgres | awk '{print $1}'`
+REDIS_CONTAINER=`docker ps | grep $PROJECT | grep redis | awk '{print $1}'`
+
+if [ -z "$POSTGRES_CONTAINER" ]
+then
+    echo "Postgres container for $PROJECT not found"
+    exit 1
+fi
+
+echo "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '$DB' AND pid <> pg_backend_pid()" | docker exec -i $POSTGRES_CONTAINER psql -U $USER $DB
+docker exec -ti $POSTGRES_CONTAINER dropdb -U $USER $DB;
+docker exec -ti $POSTGRES_CONTAINER createdb -U $USER $DB;
+docker exec -i $POSTGRES_CONTAINER psql -U $USER $DB < $DUMP;

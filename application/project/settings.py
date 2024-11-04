@@ -32,6 +32,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    "modeltranslation",
     "daphne",
     "health_check",
     "health_check.db",
@@ -44,6 +45,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "apps.migration",
+    "apps.websites",
+    "apps.ai_pictures",
+    "apps.ai_videos",
+    "apps.porn_models",
+    "apps.blog",
+    "apps.glossary",
+    "apps.surveys",
+    "apps.scripts",
+    "apps.stories",
+    "apps.statistics",
     "libs.i18n",
 ]
 
@@ -90,7 +101,14 @@ DATABASES = {
         "PASSWORD": os.environ.get("APP_DATABASE_PASSWORD"),
         "HOST": os.environ.get("APP_DATABASE_HOST"),
         "PORT": os.environ.get("APP_DATABASE_PORT"),
-    }
+    },
+    "mysql": {
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": "mysqldb",
+        "NAME": "michaeljizmaxime",
+        "USER": "root",
+        "PASSWORD": "",
+    },
 }
 
 
@@ -116,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "fr"
+LANGUAGE_CODE = "en"
 LANGUAGES = (
     ("en", "English"),
     ("fr", "Français"),

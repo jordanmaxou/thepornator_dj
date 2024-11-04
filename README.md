@@ -35,3 +35,19 @@ Use [minio admin panel](https://minio-admin.pornator.localhost) to create 'porna
 # DB object
 
 [https://github.com/jordanmaxou/thepornator/blob/master/php/\_object.php](https://github.com/jordanmaxou/thepornator/blob/master/php/_object.php)
+
+# Improve data migration
+
+```python
+from collections import namedtuple
+from django.db import connection
+
+def fetch_data():
+    query = "SELECT id, name, email, created_at FROM nom_table"
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        Row = namedtuple("Row", [col[0] for col in cursor.description])
+        rows = [Row(*row) for row in cursor.fetchall()]
+    return rows
+
+```
