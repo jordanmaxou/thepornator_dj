@@ -9,3 +9,6 @@ boto3==1.35.49
 requests==2.32.3
 mysqlclient==2.2.5
 django-modeltranslation==0.19.10
+pillow==11.0.0
+paramiko==3.5.0
+minio==7.2.10

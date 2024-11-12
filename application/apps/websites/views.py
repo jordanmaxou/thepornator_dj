@@ -12,3 +12,7 @@ class WebsiteCategoryListView(TemplateView):
 
 class WebsiteSiteDetailView(TemplateView):
     template_name = "websites/site.html"
+
+
+class WebsiteSearchView(TemplateView):
+    template_name = "websites/search.html"

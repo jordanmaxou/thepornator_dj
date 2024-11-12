@@ -23,4 +23,24 @@ urlpatterns = [
     path(
         "aiporn/content/<slug>.html", views.AiPornContentView.as_view(), name="content"
     ),
+    path(
+        "aipornvideos/",
+        views.AiPornVideosIndexView.as_view(),
+        name="ai-porn-videos-index",
+    ),
+    path(
+        "aipornvideos/category/<category>.html",
+        views.AiPornVideosCategoryView.as_view(),
+        name="ai-porn-videos-category",
+    ),
+    path(
+        "aipornvideos/source/<source>.html",
+        views.AiPornVideosSourceView.as_view(),
+        name="ai-porn-videos-source",
+    ),
+    path(
+        "aipornvideos/content/<slug>.html",
+        views.AiPornVideosContentView.as_view(),
+        name="ai-porn-videos-content",
+    ),
 ]

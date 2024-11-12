@@ -15,6 +15,8 @@ class Profile(models.Model):
     price = models.CharField(max_length=500)
     website = models.ForeignKey(Website, on_delete=models.SET_NULL, null=True)
     categories = models.ManyToManyField(Category)
+    local_photo = models.ImageField(upload_to="img/photomodels")
+    url = models.URLField(max_length=250)
 
     def save(self, *args, **kwargs):
         if not self.slug:

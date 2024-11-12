@@ -4,6 +4,7 @@ from collections import defaultdict
 
 from django.db import migrations
 from apps.migration.utils import fetch_data_from_mysql
+from os.path import join
 
 
 def create_categories_func(apps, _schema_editor):
@@ -54,6 +55,20 @@ def delete_countries_func(apps, _schema_editor):
     Country.objects.filter(id__in=[r.id for r in countries]).delete()
 
 
+def get_extension_from_source(source: str, type: str) -> str:
+    match source:
+        case "pornjourney" | "donporn" | "candyai":
+            return "png"
+        case "pornmake" | "pornworks" | "pornworksai" | "createporn":
+            if source in ["pornworks", "pornworksai"] and type == "video":
+                return "webm"
+            return "webp"
+        case "deepmodeai":
+            return "jpeg"
+        case _:
+            return "jpg"
+
+
 def create_content_func(apps, _schema_editor):
     Website = apps.get_model("websites", "Website")
     Content = apps.get_model("ai_pictures", "Content")
@@ -71,7 +86,6 @@ def create_content_func(apps, _schema_editor):
         note = Note.objects.create(
             funny=content.funny, sexy=content.sexy, scary=content.scary
         )
-
         content = Content.objects.create(
             id=content.id,
             title=content.titleEN,
@@ -84,6 +98,10 @@ def create_content_func(apps, _schema_editor):
             source=Website.objects.filter(
                 slug=content.source if content.source != "pornworks" else "pornworksai"
             ).first(),
+            image=join(
+                "img/aicontent" if content.type == "image" else "video/aicontent",
+                f"{content.code}.{get_extension_from_source(content.source, content.type)}",
+            ),
             country=Country.objects.get(id=content.country_id)
             if content.country_id
             else None,

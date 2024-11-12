@@ -10,7 +10,7 @@ class Glossary(models.Model):
     type = models.CharField(max_length=50)
     meaning = models.TextField(max_length=100, null=True)
     definition = models.TextField(max_length=1200)
-    picture = models.FileField()
+    picture = models.FileField(upload_to="img/glossary")
     publication_date = models.DateField()
     count = models.OneToOneField(Count, on_delete=models.CASCADE)
     lang = models.CharField(max_length=5, null=True)

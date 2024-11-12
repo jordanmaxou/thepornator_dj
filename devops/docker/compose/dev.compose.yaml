@@ -100,6 +100,9 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
       MINIO_USE_SSL: False
+      FTP_HOST: ${FTP_HOST}
+      FTP_USER: ${FTP_USER}
+      FTP_PASSWORD: ${FTP_PASSWORD}
     depends_on:
       - init-app
       - statics-serve

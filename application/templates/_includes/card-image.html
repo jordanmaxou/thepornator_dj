@@ -1,0 +1,11 @@
+<div class="col-lg-3 col-md-3 col-6" style="margin-bottom:20px;">
+  <div class="item popular-item">
+    <div class="thumb">
+      <a href="{% url 'ai_pictures:content' slug=content.code %}">
+        <figure class="figure">
+          <img src="{{ content.image.url }}" data-src="{{ content.image.url }}" class="img-fluid lazyloaded" alt="{{ content.title }}" /><figcaption class="figure-caption">{{ content.title }}</figcaption>
+        </figure>
+      </a>
+    </div>{{ content.title }}
+  </div>
+</div>

@@ -1,5 +1,6 @@
 from django.urls import reverse
 from apps.websites.models import Category
+from apps.porn_models.models import Website
 
 
 def nav_bar_context(request):
@@ -13,5 +14,9 @@ def nav_bar_context(request):
             for cat in Category.objects.all()
             .only("slug", "name", "icon")
             .order_by("position")
-        ]
+        ],
+        "performer_websites": [
+            {"name": website.name, "slug": website.slug}
+            for website in Website.objects.only("slug", "name").all()
+        ],
     }

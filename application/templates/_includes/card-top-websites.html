@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div class="leaderboard col-xl-4">
+  <div class="wrapper__header" style="background-color:#000000">
+    <div class="b_logo">
+      <img src="{{ category_websites.icon.url }}" data-src="{{ category_websites.icon.url }}" class="lazyloaded" width="40" alt="AI porn generators" />
+    </div>
+    <div class="b_caption">
+      <p>
+        <b>{{ category_websites.name }}</b><span>{{ category_websites.description|truncatechars:80 }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="wrapper__content">
+    <ul>
+      {% for website in category_websites.websites|slice:':10' %}
+        <li>
+          <div class="position">{{ forloop.counter }}.</div>
+          <div class="graphic">
+            <a href="{% url 'websites:site' website=website.slug %}" target="_self"><img src="{{ website.icon.url }}" data-src="{{ website.icon.url }}" class="lazyloaded" alt="logo PornJourney" /></a>
+          </div> <div class="name">
+            {% if website.has_running_deal %}
+              <img src="/assets/img/hot.webp" width="37" height="20" alt="deal icon" />
+            {% endif %} <span class="header"><a href="{% url 'websites:site' website=website.slug %}" target="_self">{{ website.name }}</a></span>{% if website.is_direct_link %}
+              <span class="stat"><a href="{{ website.url }}" target="_blank"><i class="bx bxs-link-external"></i></a></span>
+            {% endif %} <span class="stat"><a href="{% url 'websites:site' website=website.slug %}" target="_self"><i class="bx bxs-search"></i></a></span>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'websites:category' category=category_websites.slug %}" class="content-list__see-more"><span>{% blocktrans with count=category_websites.websites|length %}See all {{ count }} sites{% endblocktrans %}</span></a>
+  </div>
+</div>

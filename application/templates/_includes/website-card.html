@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div class="d-block d-md-flex listing col-lg-12">
+  <a href="{% url 'websites:site' website=website.slug %}" class="img d-block" style="background-image:url({{ website.screen.url }})"></a>
+  <div class="lh-content">
+    <h3>
+      <a href="{% url 'websites:site' website=website.slug %}">{{ website.name }}</a> <div class="Stars" style="--rating: {{ website.avg_note_update }};" aria-label="{% blocktrans with note=website.avg_note_update %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}"></div>
+      <span class="review">({{ website.note_nb }})</span>
+    </h3>
+    <address>{{ website.description|truncatechars:150 }}</address>
+    <div class="row">
+      <div class="col-7">
+        <a class="btn btn-outline-success" href="{% url 'websites:category' category=website.category.slug %}">{{ website.category.name }}</a>
+      </div>
+      <div class="col-5">
+        <a class="btn btn-success" href="{% url 'websites:site' website=website.slug %}">{% trans 'Read review' %}</a>
+      </div>
+    </div>
+  </div>
+</div>

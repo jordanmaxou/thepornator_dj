@@ -35,3 +35,19 @@ class AiPornAiOrNotAiView(TemplateView):
 
 class AiPornContentView(TemplateView):
     template_name = "ai_pictures/content.html"
+
+
+class AiPornVideosIndexView(TemplateView):
+    template_name = "ai_pictures/aipornvideos/index.html"
+
+
+class AiPornVideosCategoryView(TemplateView):
+    template_name = "ai_pictures/aipornvideos/category.html"
+
+
+class AiPornVideosSourceView(TemplateView):
+    template_name = "ai_pictures/aipornvideos/source.html"
+
+
+class AiPornVideosContentView(TemplateView):
+    template_name = "ai_pictures/aipornvideos/content.html"

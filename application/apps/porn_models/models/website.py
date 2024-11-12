@@ -6,6 +6,7 @@ class Website(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     name = models.CharField(max_length=100)
     url = models.URLField(max_length=100)
+    image = models.ImageField(upload_to="img/logomodelsites")
 
     def save(self, *args, **kwargs):
         if not self.slug:

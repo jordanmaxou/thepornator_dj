@@ -1,0 +1,17 @@
+<div class="col-6 col-sm-4 col-xl-2" style="margin-bottom:25px;">
+  <div class="item popular-item sub" id="video_{{ content.slug }}">
+    <a rel="nofollow" href="{% url 'out:out-view' type_out='video' id=content.id %}" target="_blank" onclick="displayVideoRatingButtons('video_{{ content.slug }}');" title="{{ content.title }}"></a><div class="thumb">
+      <a rel="nofollow" href="{% url 'out:out-view' type_out='video' id=content.id %}" target="_blank" onclick="displayVideoRatingButtons('video_{{ content.slug }}');" title="{{ content.title }}"><img src="{{ content.local_main_thumb.url }}" data-src="{{ content.local_main_thumb.url }}" class="img-fluid lazyloaded" alt="{{ content.title }}" /></a><div class="item-rating item-rating" role="group" aria-label="rating buttons">
+        <button type="button" id="ratingup_{{ content.slug }}" class="item-rating-option item-rating-up rating-option bg-green-200 text-green-700" onclick="updateVideoDetailUpDownAsync(1, 'video_{{ content.slug }}', 'fr');"><i class="bx bxs-like"></i></button>
+        <button type="button" id="ratingdown_{{ content.slug }}" class="item-rating-option rating-option bg-red-200 text-red-700" onclick="updateVideoDetailUpDownAsync(-1, 'video_{{ content.slug }}', 'fr');"><i class="bx bxs-dislike"></i></button>
+        <button type="button" id="ratingnone_{{ content.slug }}" class="item-rating-none rating-option bg-slate-200 text-slate-700" onclick="hideVideoRatingButtons('video_{{ content.slug }}');"><i class="bx bxs-x"></i></button>
+      </div>
+    </div>
+    <a rel="nofollow" href="{% url 'out:out-view' type_out='video' id=content.id %}" target="_blank" onclick="displayVideoRatingButtons('video_{{ content.slug }}');" title="{{ content.title }}"><h5 style="font-size: 0.8rem;font-weight: 700; margin-bottom: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 5px;">{{ content.title }}</h5></a>
+    <div>
+      <span class="bx bxs-calendar" style="display: inline;font-size: 0.8rem;"></span><span style="display: inline;font-size: 0.72rem;">{{ content.publication_date|date:'d-m-Y' }}</span>
+    </div> <div style="font-size: 0.72rem;">
+      <a href="{% url 'videos:videos-channel' channel=content.channel.slug %}"><span class="bx bxs-tv" style="display: inline;"></span><span style="display: inline; text-decoration: underline;">{{ content.channel.name }}</span></a>
+    </div>
+  </div>
+</div>

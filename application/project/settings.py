@@ -47,14 +47,14 @@ INSTALLED_APPS = [
     "apps.migration",
     "apps.websites",
     "apps.ai_pictures",
-    "apps.ai_videos",
+    "apps.videos",
     "apps.porn_models",
     "apps.blog",
     "apps.glossary",
     "apps.surveys",
     "apps.scripts",
     "apps.stories",
-    "apps.statistics",
+    "apps.trends",
     "libs.i18n",
 ]
 
@@ -169,7 +169,7 @@ STORAGES = {
             "access_key": os.environ.get("MINIO_ACCESS_KEY"),
             "secret_key": os.environ.get("MINIO_SECRET_KEY"),
             "use_ssl": os.environ.get("MINIO_USE_SSL") == "True",
-            "custom_domain": ALLOWED_HOSTS[0] + "/" + MEDIA_URL.strip("/"),
+            "custom_domain": ALLOWED_HOSTS[0] + "/" + (MEDIA_URL or "").strip("/"),
         },
     },
     "staticfiles": {

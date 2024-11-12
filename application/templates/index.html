@@ -1,5 +1,226 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block top_content %}
+
+{% endblock %}
 
 {% block content %}
-
+  {% include '_includes/mobile-outlinks.html' %}
+  {% include '_includes/hero-section.html' with categories=website_categories %}
+  <section class="services">
+    <div class="container">
+      <div id="topbanner" class="container"></div>
+      <h2>{% trans 'The Pornator reviews the best porn sites of 2024' %}</h2>
+      <div class="row">
+        {% for category_websites in top_websites_by_categories %}
+          {% include '_includes/card-top-websites.html' with category_websites=category_websites %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <section class="site-section" style="background-color: #00996140;">
+    <div class="container">
+      <h2>{% trans 'Most recent porn sites' %}</h2>
+      <div class="row listinggrid">
+        {% for website in most_recent_porn_sites %}
+          {% include '_includes/website-card.html' with website=website %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <section class="site-section">
+    <div class="container">
+      <h2>{% trans 'Most recent AI porn pics' %}</h2>
+      <div class="row">
+        <div class="row">
+          {% for most_recent_ai_pic in most_recent_ai_pics %}
+            {% include '_includes/card-image.html' with content=most_recent_ai_pic %}
+          {% endfor %}
+        </div>
+      </div>
+      <a class="content-list__see-more" href="{% url 'ai_pictures:index' %}"><span>{% trans 'AI Porn pics' %}</span></a>
+    </div>
+  </section>
+  <section class="site-section">
+    <div class="container">
+      <h2>{% trans 'Most recent AI porn videos' %}</h2>
+      <div class="row">
+        <div class="row">
+          {% for most_recent_ai_video in most_recent_ai_videos %}
+            {% include '_includes/card-video.html' with content=most_recent_ai_video %}
+          {% endfor %}
+        </div>
+      </div>
+      <a class="content-list__see-more" href="{% url 'ai_pictures:ai-porn-videos-index' %}"><span>{% trans 'AI Porn videos' %}</span></a>
+    </div>
+  </section>
+  <section class="site-section" style="background-color: #00996140;">
+    <div class="container">
+      <h2>{% trans 'Most recent porn lexicon terms' %}</h2>
+      <div class="row" style="margin-top: 1rem!important;">
+        {% for term in lexicon_terms %}
+          {% include '_includes/card-image-lexicon.html' with content=term %}
+        {% endfor %}
+      </div>
+      <a class="content-list__see-more" href="{% url 'glossary:index' %}"><span>{% trans 'Porn glossary' %}</span></a>
+    </div>
+  </section>
+  <section class="site-section">
+    <div class="container">
+      <h2>{% trans 'Model of the day' %}</h2>
+      {% include '_includes/card-performer.html' with profile=model_of_the_day %}
+      <a class="content-list__see-more" href="{% url 'porn_models:index' %}"><span>{% trans 'Performers' %}</span></a>
+    </div>
+  </section>
+  <section class="site-section" style="background-color: #00996140;">
+    <div class="container">
+      <h2>{% trans 'Most recent porn videos' %}</h2>
+      <div class="row">
+        <div class="row">
+          {% for most_recent_porn_video in most_recent_porn_videos %}
+            {% include '_includes/card-video-out.html' with content=most_recent_porn_video %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <a class="content-list__see-more" href="{% url 'videos:videos-index' %}"><span>{% trans 'Porn videos' %}</span></a>
+  </section>
+  <section class="site-section">
+    <div class="container">
+      <h2>{% trans 'Most recent blog porn articles' %}</h2>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid">
+          {% for most_recent_blog in most_recent_blogs %}
+            {% include '_includes/card-blog-story.html' with content=most_recent_blog content_url_name='blog:content' %}
+          {% endfor %}
+        </div>
+        <a class="content-list__see-more" href="{% url 'blog:index' %}"><span>{% trans 'All blog articles' %}</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="site-section">
+    <div class="container">
+      <h2>{% trans 'Most recent sex stories' %}</h2>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid">
+          {% for most_recent_story in most_recent_stories %}
+            {% include '_includes/card-blog-story.html' with content=most_recent_story content_url_name='stories:content' %}
+          {% endfor %}
+        </div>
+        <a class="content-list__see-more" href="{% url 'stories:index' %}"><span>{% trans 'Sex stories' %}</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="services">
+    <div class="container">
+      <h2>{% trans 'Pornator is different than others porn sites list' %}</h2>
+      <p>
+        {% trans "Pornator is a porn site directory that strives for an objective view of the sites reviewed. It only lists safe sites that offer free or paid adult cotenus. Rankings are made on user experience criteria. There are price, navigation, content criteria... If you can' t stand intrusive and abundant advertisements and you 're not ready to pay then we will recommend certain sites.<br />Add the Pornator to your favorites if you want to find new porn sites that are liked by users who share the same preferences as you." %}
+      </p>
+      <p>
+        {% trans 'The Pornator is based on different concepts:' %}
+      </p>
+      <br />
+      <br />
+      <div class="row marketing">
+        <div class="col-lg-4">
+          <img class="rounded-circle lazyloaded" src="{% static 'img/home/programme.webp' %}" data-src="{% static 'home/programme.webp' %}" alt="{% trans 'Knowledge of porn sites' %}" width="140" height="140" />
+          <h3>{% trans 'Knowledge of porn sites' %}</h3>
+          <p>
+            {% trans "Our team scours the web every day looking for new porn sites. We categorise the sites according to specific themes and evaluate them from a user's point of view." %}
+          </p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle lazyloaded" src="{% static 'img/home/matching.webp' %}" data-src="{% static 'home/matching.webp' %}" alt="{% trans 'Matching of ideas' %}" width="140" height="140" />
+          <h3>{% trans 'Matching of ideas' %}</h3>
+          <p>
+            {% trans 'Thanks to the collection of your preferences through the questionnaire, the system will be able to compare them with the results of the sites with yours. The system will then suggest THE site that best suits you.' %}
+          </p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle lazyloaded" src="{% static 'img/home/apprentissage.webp' %}" data-src="{% static 'home/apprentissage.webp' %}" alt="{% trans 'Evolutionary learning' %}" width="140" height="140" />
+          <h3>{% trans 'Evolutionary learning' %}</h3>
+          <p>
+            {% trans "The system learns and improves over time. The initial assessments made by our teams are automatically re-evaluated according to the validated results of the questionnaires. The new assessments are in line with the users' expectations." %}
+          </p>
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+      <br />
+    </div>
+  </section>
+  <section class="services" style="background-color: #00996140;">
+    <div class="container">
+      <h2>{% trans 'Share the Pornator' %}</h2>
+      <p>
+        {% trans 'Did the Pornator help you find a nice porn site, confirm your habit of visiting the same type of porn sites or lead you to change your porn consumption habit? You were pleasantly surprised by the simplicity and effectiveness of the Pornator and you want to share it with all your friends? Click on one of the following share buttons:' %}
+      </p>
+    </div>
+    <div class="col-lg-12 cta-btn-container text-center">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://thepornator.com" rel="nofollow noopener" target="_blank" class="btn-social btn-facebook"><i class="bx bxl-facebook"></i></a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://thepornator.com" rel="nofollow noopener" target="_blank" class="btn-social btn-linkedin"><i class="bx bxl-linkedin"></i></a>
+      <a href="https://reddit.com/submit?url=https://thepornator.com&amp;title=thePornator" rel="nofollow noopener" target="_blank" class="btn-social btn-reddit"><i class="bx bxl-reddit"></i></a>
+      <a href="https://www.twitter.com/share?url=https://thepornator.com" rel="nofollow noopener" target="_blank" class="btn-social btn-twitter"><i class="bx bxl-twitter"></i></a>
+    </div>
+    <br />
+  </section>
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2>{% trans 'Frequently asked question' %}</h2>
+      <p>
+        {% trans 'Here are some questions about thepornator.com or in general about the principle of a pornographic directory.' %}
+      </p>
+      <div class="accordion-list">
+        <ul>
+          <li>
+            <a href="#" data-bs-toggle="collapse" class="accordion-link" data-bs-target="#accordion-list-1"><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i> How does the Pornator work?</a>
+            <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+              {% blocktrans %}
+              <p>A series of statements were defined corresponding to the important themes for the qualification of a website. A score between 1 and 5 for each statement was assigned to each site. 1 being "Absolutely not agree" and 5 being "Absolutely agree". Our knowledge of pornographic sites and our expertise allowed us to differentiate each set of statements by site with very fine nuances.</p>
+              <p>
+                Each visitor of the site then qualifies the same statements. We then calculate the closest similarity distance with the sites to define the site that best matches the visitor's preferences. The calculation method is the Euclidean distance applied to all the statements. <img src="/assets/img/home/euclidienne.svg" data-src="/assets/img/home/euclidienne.svg" alt="distance euclidienne thepornator" width="108" height="53" class="lazyloaded" />
+              </p>
+              <p>The system is evolutionary because it evolves according to the proposed answers which are validated. The initial hypotheses are then re-evaluated according to the scores obtained through the questionnaires. The evolution of the reliability rate can be seen in the statistics section.</p>
+              {% endblocktrans %}
+            </div>
+          </li>
+          <li>
+            <a href="#" data-bs-toggle="collapse" class="accordion-link collapsed" data-bs-target="#accordion-list-2"><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i> Who is the Pornator application for?</a>
+            <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+              <p>
+                {% trans "ThePornator is a porn sites comparator which is aimed at all the undecided people. Undecided because there are so many porn sites on the internet and with the evolution of society's morals, we no longer consult a porn site that was created 10 or 20 years ago. In the first case, the system will confirm or deny their choice. In the second case, the system will prove to them that there is a site that is close to their values and thus, it will encourage them to trust this search engine." %}
+              </p>
+            </div>
+          </li>
+          <li>
+            <a href="#" data-bs-toggle="collapse" class="accordion-link collapsed" data-bs-target="#accordion-list-3"><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i> On what themes is the questionnaire based?</a>
+            <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+              {% blocktrans %}
+              <p>
+                The pornator is based on 16 statements according to 4 themes. This means that for each theme, there are 4 statements to score between 1 and 5. The themes are as follows:
+                <br />- <b>Quantity</b>: Quantity and updating of content
+                <br />- <b>Quality</b> : Quality/price ratio
+                <br />- <b>Security</b> : Security of the site and the contents
+                <br />- <b>Ergonomics</b> : Simplicity of use and navigation
+              </p>
+              <p>On the one hand, the visitor rates his level of adherence to each statement on a scale of 1 to 5 for each statement. On the other hand, we simulate the same statements from the point of view of all the sites. The results can then be compared and contrasted.</p>
+              {% endblocktrans %}
+            </div>
+          </li>
+          <li>
+            <a href="#" data-bs-toggle="collapse" class="accordion-link collapsed" data-bs-target="#accordion-list-4"><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i> Does the Pornator apply to all porn sites?</a>
+            <div id="accordion-list-4" class="collapse" data-bs-parent=".accordion-list">
+              <p>
+                {% trans 'Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites...Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites...' %}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 {% endblock %}

@@ -14,6 +14,7 @@ class Video(models.Model):
     description = models.TextField(max_length=800)
     link = models.URLField(max_length=250)
     main_thumb = models.URLField()
+    local_main_thumb = models.ImageField(max_length=250, upload_to="img/video")
     publication_date = models.DateField()
     duration = models.DurationField(null=True)
     channel = models.ForeignKey(Channel, on_delete=models.SET_NULL, null=True)

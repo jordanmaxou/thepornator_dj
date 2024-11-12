@@ -3,6 +3,16 @@
 from collections import defaultdict
 from django.db import migrations
 from apps.migration.utils import fetch_data_from_mysql
+from os.path import join
+from urllib.parse import urljoin
+
+
+def model_url(website, profile_slug) -> str:
+    if website.slug == "manyvids":
+        slug = profile_slug.split("___")
+        if len(slug) == 2:
+            return f"https://www.manyvids.com/Profile/{slug[0]}/{slug[1].lower()}/Store/Videos"
+    return urljoin(website.url, profile_slug)
 
 
 def create_categories_func(apps, _schema_editor):
@@ -40,6 +50,7 @@ def create_websites_func(apps, _schema_editor):
                 slug=website.slug,
                 name=website.name,
                 url=website.url,
+                image=join("img/logomodelsites", f"{website.slug}.webp"),
             )
         )
     Website.objects.bulk_create(website_objs)
@@ -55,6 +66,7 @@ def create_profile_func(apps, _schema_editor):
     Profile = apps.get_model("porn_models", "Profile")
     Count = apps.get_model("porn_models", "Count")
     Category = apps.get_model("porn_models", "Category")
+    Website = apps.get_model("porn_models", "Website")
 
     profile_category_relations = fetch_data_from_mysql("porn_modelprofilecategory")
     profile_category_map = defaultdict(list)
@@ -63,6 +75,9 @@ def create_profile_func(apps, _schema_editor):
 
     profiles = fetch_data_from_mysql("porn_modelprofile")
     for profile in profiles:
+        website = Website.objects.get(
+            id=profile.modelsite_id if profile.modelsite_id < 10 else 1
+        )
         count_obj = Count.objects.create(
             clicks=profile.click or 0,
             likes=profile.nblikes or 0,
@@ -78,7 +93,9 @@ def create_profile_func(apps, _schema_editor):
             description=profile.description,
             price=profile.price,
             counts=count_obj,
-            website_id=profile.modelsite_id if profile.modelsite_id < 10 else 1,
+            website_id=website.id,
+            local_photo=join("img/photomodels", f"{profile.slug}.jpg"),
+            url=model_url(website, profile.slug),
         )
         for category_id in profile_category_map.get(profile_obj.id, []):
             profile_obj.categories.add(Category.objects.get(id=category_id))

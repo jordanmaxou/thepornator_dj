@@ -2,6 +2,7 @@
 
 from django.db import migrations
 from apps.migration.utils import fetch_data_from_mysql
+from os.path import join
 
 
 def create_websites_func(apps, _schema_editor):
@@ -17,13 +18,14 @@ def create_websites_func(apps, _schema_editor):
                 slug=website.slug,
                 name=website.name,
                 url=website.url,
-                icon=website.icon,
-                screen=website.screen,
+                icon=join("img/logosites", website.icon),
+                screen=join("img/screensites", website.screen),
                 is_direct_link=True if website.isdirectlink == 1 else False,
                 description=website.descriptionEN,
                 description_en=website.descriptionEN,
                 description_fr=website.descriptionFR,
                 category=Category.objects.get(id=website.category_id),
+                creation_date=website.updatedate,
                 update_date=website.updatedate,
                 end_date=website.enddate,
                 click=website.click,

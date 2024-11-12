@@ -5,7 +5,7 @@ from apps.migration.utils import fetch_data_from_mysql
 
 
 def create_trending_searches_func(apps, _schema_editor):
-    TrendingSearches = apps.get_model("statistics", "TrendingSearches")
+    TrendingSearches = apps.get_model("trends", "TrendingSearches")
     trending_searches_objects = []
     trending_searches = fetch_data_from_mysql("porn_trendingsearches")
     for trending_search in trending_searches:
@@ -22,14 +22,14 @@ def create_trending_searches_func(apps, _schema_editor):
 
 
 def delete_trending_searches_func(apps, _schema_editor):
-    TrendingSearches = apps.get_model("statistics", "TrendingSearches")
+    TrendingSearches = apps.get_model("trends", "TrendingSearches")
     trending_searches = fetch_data_from_mysql("porn_trendingsearches")
     TrendingSearches.objects.filter(id__in=[r.id for r in trending_searches]).delete()
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("statistics", "0001_initial"),
+        ("trends", "0001_initial"),
     ]
 
     operations = [

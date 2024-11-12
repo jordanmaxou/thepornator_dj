@@ -7,7 +7,7 @@ class Content(models.Model):
     title = models.CharField(max_length=100)
     studio = models.CharField(max_length=100)
     link = models.URLField(max_length=250)
-    thumb = models.FileField()
+    thumb = models.FileField(upload_to="img/script")
     text = models.TextField()
     publication_date = models.DateField()
     lang = models.CharField(max_length=3)

@@ -7,7 +7,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     publication_date = models.DateField()
-    thumb = models.FileField()
+    thumb = models.FileField(upload_to="img/blog")
     author = models.CharField(max_length=50)
 
     def save(self, *args, **kwargs):

@@ -17,10 +17,10 @@ urlpatterns = [
         PornModelsCategoryView.as_view(),
         name="category",
     ),
-    path("models/site/<website>.html", PornModelsSiteView.as_view(), name="site"),
+    path("models/site/<website>.html", PornModelsSiteView.as_view(), name="website"),
     path(
         "models/site/<website>/<category>.html",
         PornModelsSiteCategoryView.as_view(),
-        name="site-category",
+        name="website-category",
     ),
 ]

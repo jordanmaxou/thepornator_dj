@@ -8,14 +8,18 @@
   <body>
     {% include '_includes/navbar.html' %}
     <main id="main">
-      {% include '_includes/mobile-outlinks.html' %}
-      {% include '_includes/breadcrumbs.html' %}
-      <div id="topbanner" class="container"></div>
+      {% block top_content %}
+        {% include '_includes/mobile-outlinks.html' %}
+        {% include '_includes/breadcrumbs.html' %}
+        <div id="topbanner" class="container"></div>
+      {% endblock %}
       {% block content %}
 
       {% endblock %}
     </main>
-    <div id="bottombanner" class="container"></div>
+    {% block bottom_content %}
+      <div id="bottombanner" class="container"></div>
+    {% endblock %}
     {% include '_includes/footer.html' %}
     <script src="{% static 'main.js' %}"></script>
     {% include '_includes/disclaimer.html' %}
