@@ -14,6 +14,7 @@ urlpatterns += i18n_patterns(
     path("", include("apps.ai_pictures.urls", namespace="ai_pictures")),
     path("", include("apps.videos.urls", namespace="videos")),
     path("", include("apps.porn_models.urls", namespace="porn_models")),
+    path("", include("apps.surveys.urls", namespace="surveys")),
     path("", include("apps.websites.urls", namespace="websites")),
     path("", include("apps.blog.urls", namespace="blog")),
     path("", include("apps.glossary.urls", namespace="glossary")),
@@ -21,6 +22,5 @@ urlpatterns += i18n_patterns(
     path("", include("apps.statistics.urls", namespace="statistics")),
     path("", include("apps.trends.urls", namespace="trends")),
     path("", include("apps.stories.urls", namespace="stories")),
-    path("", include("apps.surveys.urls", namespace="surveys")),
     path("", include("apps.pages.urls", namespace="pages")),
 )

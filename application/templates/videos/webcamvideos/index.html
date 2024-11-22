@@ -1,5 +1,57 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
+{% load seconds_to_duration %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">Webcam Porn videos</h1>
+    </div>
+    <br>
+    <div class="row">
+      {% for video in videos %}
+        {% if forloop.counter0|divisibleby:8 and forloop.counter0 > 0 %}
+          <div id="middleads{{ forloop.counter0 }}"
+               class="col-12"
+               style="margin-bottom: 10px;
+                      min-height:90px"></div>
+        {% endif %}
+        <div class="col-lg-3 col-md-3 col-6" style="margin-bottom:20px;">
+          <div class="item popular-item">
+            <div style="position: relative;width: 100%;">
+              <a href="{% url 'videos:webcam-videos-content' slug=video.id %}">
+                <figure class="figure" style="width: 100%;">
+                  <div style="width:100%; position: relative;">
+                    <img src="{{ video.previewImages.0 }}"
+                         style="width: 100%;
+                                height:auto"
+                         alt="{{ video.title }}">
+                    <div class="text-content video" style="bottom: 10px;">
+                      <span style="display: inline;">{{ video.duration|seconds_to_duration }}</span>
+                    </div>
+                  </div>
+                  <figcaption class="figure-caption">{{ video.title }}</figcaption>
+                </figure>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <p>
+        {% blocktrans %}Welcome to our exclusive live webcam service, where every day we offer you a unique experience by presenting a carefully chosen selection of models available for private and exclusive shows. Our platform offers you privileged access to talented and charismatic performers who are ready to offer you intimate and personalized moments.{% endblocktrans %}
+      </p>
+      <ul>
+        <li>
+          {% blocktrans %}<b>Variety of Models:</b> Every day, our team carefully selects a diverse range of models, from sensual performers to captivating personalities. We strive to cater to every preference and offer you a unique experience with every visit.{% endblocktrans %}
+        </li>
+        <li>
+          {% blocktrans %}<b>Exclusive Shows:</b> Enjoy private access to exclusive shows where you can interact directly with the model of your choice. This intimacy allows you to tailor your experience to your desires and live unforgettable moments.{% endblocktrans %}
+        </li>
+        <li>
+          {% blocktrans %}<b>Security &amp; Privacy:</b> We take security seriously. Your privacy is our priority, and we put strict measures in place to ensure that your information remains confidential and secure.{% endblocktrans %}
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock content %}

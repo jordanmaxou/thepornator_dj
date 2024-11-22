@@ -75,7 +75,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_type_deals_func, delete_type_deals_func),
-        migrations.RunPython(create_payment_methods_func, delete_payment_methods_func),
-        migrations.RunPython(create_deals_func, delete_deals_func),
+        migrations.RunPython(
+            create_type_deals_func, delete_type_deals_func, atomic=True
+        ),
+        migrations.RunPython(
+            create_payment_methods_func, delete_payment_methods_func, atomic=True
+        ),
+        migrations.RunPython(create_deals_func, delete_deals_func, atomic=True),
     ]

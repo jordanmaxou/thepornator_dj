@@ -1,5 +1,57 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "All tags" %}</h1>
+    </div>
+    <br>
+    <div class="row">
+      {% regroup tags|dictsort:"name" by first_letter as tag_list %}
+      <ul class="contents-list__content contents-list__content--list">
+        {% for group in tag_list %}
+          <li>
+            <ul class="contents-list__links" data-letter="{{ group.grouper }}">
+              {% for tag in group.list|slice:":6" %}
+                <li class="contents-list__links__el li_-">
+                  <a href="{% url 'ai_pictures:tag' tag=tag.slug %}">
+                    <h4>{{ tag.name }}: ({{ tag.nb_contents }})</h4>
+                  </a>
+                </li>
+              {% endfor %}
+              {% if group.list|length > 6 %}
+                <div id="collapsible-items-{{ group.grouper }}" class="collapse">
+                  {% for tag in group.list|slice:"6:" %}
+                    <li class="contents-list__links__el li_-">
+                      <a href="{% url 'ai_pictures:tag' tag=tag.slug %}">
+                        <h4>{{ tag.name }}: ({{ tag.nb_contents }})</h4>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </div>
+                <li class="contents-list__links__el">
+                  <a class="toggle-button"
+                     data-bs-toggle="collapse"
+                     href="#collapsible-items-{{ group.grouper }}"
+                     role="button">{% trans "Show more" %}</a>
+                </li>
+              {% endif %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <script>
+  const collapsibleItems = document.getElementsByClassName('collapse');
+  for(collapsibleItem of collapsibleItems) {
+    collapsibleItem.addEventListener('shown.bs.collapse', (e) => {
+      e.target.nextElementSibling.children[0].textContent = 'Show less';
+    });
 
-{% endblock %}
+    collapsibleItem.addEventListener('hidden.bs.collapse', (e) => {
+      e.target.nextElementSibling.children[0].textContent = 'Show more';
+    });
+  }
+  </script>
+{% endblock content %}

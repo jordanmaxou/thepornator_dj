@@ -1,5 +1,117 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{{ website.name }}</h1>
+      <div class="row">
+        <div class="col-xl-4 col-sm-12 mb-3 text-center">
+          <div class="text-center col-12 mb-3">
+            <img src="{{ website.screen.url }}" alt="{{ website.name }}">
+            <br>
+            <br>
+            <a class="btn btn-success"
+               style="width:400px;
+                      max-width:100%"
+               rel="nofollow"
+               href="{{ website.url }}"
+               target="_blank"
+               onclick="this.href += '?'+Math.floor(Date.now() / 1000);">
+              {% blocktrans with title=website.name %}Visit {{ title }}{% endblocktrans %}
+              <i class="bx bxs-link-external"></i></a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-sm-12 mb-3">
+          <div class="col-12 mb-3">
+            <img src="{{ website.icon.url }}"
+                 alt="{{ website.name }}"
+                 style="max-width:200px">
+            <br>
+            <br>
+            <div style="height: 295px;overflow-y: auto;" id="sitedetail">{{ website.description }}</div>
+            <br>
+            {% trans 'Domain:' %} <a href="{{ website.url }}"
+    target="_blank"
+    rel="nofollow"
+    onclick="this.href += '?'+Math.floor(Date.now() / 1000);">{{ website.base_website_url }}</a>
+            <br>
+            <div class="Stars"
+                 style="--rating: {{ website.avg_note }}"
+                 aria-label="{% blocktrans with note=website.avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
+            </div>
+            <span class="review">({{ website.reviews }})</span>
+            <br>
+            {% trans 'Last modification date:' %} {{ website.update_date|date:'d-m-Y' }}
+          </div>
+        </div>
+        <div class="col-xl-4 col-sm-12 mb-3">
+          <div class="col-12" style="margin-bottom: 30px;">
+            <canvas id="myChartRadar"
+                    width="356"
+                    height="356"
+                    style="display: block;
+                           box-sizing: border-box;
+                           height: 356px;
+                           width: 356px">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="site-section" style="background-color: #00996140;">
+    <div class="container">
+      <h2>{% trans "Others" %} {{ website.category.name }}</h2>
+      <div class="row listinggrid">
+        {% for related_website in related_websites|slice:':6' %}
+          {% url 'ai_pictures:source' source=related_website.slug as url %}
+          {% include "_includes/website-card.html" with website=related_website url=url %}
+        {% endfor %}
+      </div>
+      <a href="{% url 'websites:category' category=website.category.slug %}"
+         class="content-list__see-more"><span>{{ related_websites.count }}+ {{ website.category.name }}</span></a>
+    </div>
+  </section>
+{% endblock content %}
+{% block extra_script %}
+  <script src="{% static 'chart.js' %}"></script>
+  {{ radar.labels|json_script:"chart-radar-labels" }}
+  {{ radar.data|json_script:"chart-radar-data" }}
+  <script>
+    var ctx = document.getElementById('myChartRadar').getContext('2d')
+    var myChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: JSON.parse(document.getElementById('chart-radar-labels').textContent),
+        datasets: JSON.parse(document.getElementById('chart-radar-data').textContent)
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true
+          },
+          title: {
+            display: true,
+            text: '{{ radar.title }}'
+          }
+        },
+        elements: {
+          line: {
+            borderWidth: 3
+          }
+        },
+        scales: {
+          r: {
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    })
+  </script>
+{% endblock extra_script %}

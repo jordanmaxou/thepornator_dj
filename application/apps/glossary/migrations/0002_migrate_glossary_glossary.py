@@ -47,5 +47,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_glossary_func, delete_glossary_func),
+        migrations.RunPython(create_glossary_func, delete_glossary_func, atomic=True),
     ]

@@ -1,14 +1,23 @@
 {% load i18n %}
-
-<div class="d-block d-md-flex listing col-lg-6" style="width: 100%;">
-  <div class="item popular-item lh-content">
-    <a href="{% url content_url_name slug=content.slug %}"><h2>{{ content.title }}</h2></a>
-    <span class="bx bxs-calendar" style="display: inline;font-size: 0.8rem;"></span> {{ content.publication_date|date:'d-m-Y' }}
-    <span style="margin-left:25px;">👤 {{ content.author }}</span>
-    <div class="thumb2" style="margin-top:15px; margin-bottom:15px;">
-      <a href="{% url content_url_name slug=content.slug %}"><img src="{{ content.thumb.url }}" data-src="{{ content.thumb.url }}" class="img-fluid lazyloaded" style="width: 100%; max-height: 300px;" alt="{{ content.title }}" /></a>
-    </div>{{ content.content|safe|truncatechars:200 }}
-    <br /><br />
-    <a href="{% url content_url_name slug=content.slug %}" class="btn btn-success">{% trans 'READ MORE' %}</a>
+<div class="item popular-item lh-content">
+  <a href="{% url content_url_name slug=content.slug %}">
+    <h2>{{ content.title }}</h2>
+  </a>
+  <span class="bx bxs-calendar" style="display: inline;font-size: 0.8rem;"></span> {{ content.publication_date|date:'d-m-Y' }}
+  <span style="margin-left:25px;">👤 {{ content.author }}</span>
+  <div class="thumb2" style="margin-top:15px; margin-bottom:15px;">
+    <a href="{% url content_url_name slug=content.slug %}">
+      <img src="{{ content.thumb.url }}"
+           data-src="{{ content.thumb.url }}"
+           class="img-fluid lazyloaded"
+           style="width: 100%;
+                  max-height: 300px"
+           alt="{{ content.title }}" />
+    </a>
   </div>
+  {{ content.content|safe|truncatechars:200 }}
+  <br />
+  <br />
+  <a href="{% url content_url_name slug=content.slug %}"
+     class="btn btn-success">{% trans 'READ MORE' %}</a>
 </div>

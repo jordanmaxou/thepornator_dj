@@ -1,5 +1,83 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Porn dictionnary" %}</h1>
+      <p>
+        {% trans "The terms and their meanings described below relate specifically to the field of pornographic content. Pornographic films or erotic writings often use certain terms to appeal to a specific audience and describe particular positions. Some of these terms can be confusing or misleading. This guide can be used as a tool to decipher the language found while browsing through all the categories of porn sites, or simply to broaden your knowledge on the subject. Each term is described by its definition and illustration (image, photo or gif). You can even vote on whether or not you like each position." %}
+      </p>
+    </div>
+    <br>
+    <h2>{% trans "Sexual vocabulary" %}</h2>
+    {% regroup terms|dictsort:"name" by first_letter as term_list %}
+    <ul class="contents-list__content contents-list__content--list">
+      {% for group in term_list %}
+        <li>
+          <ul class="contents-list__links" data-letter="{{ group.grouper }}">
+            {% for term in group.list|slice:":6" %}
+              <li class="contents-list__links__el li_-">
+                <a href="{% url 'glossary:content' term=term.slug %}">
+                  <h4>{{ term.name }}</h4>
+                </a>
+              </li>
+            {% endfor %}
+            {% if group.list|length > 6 %}
+              <div id="collapsible-items-{{ group.grouper }}" class="collapse">
+                {% for term in group.list|slice:"6:" %}
+                  <li class="contents-list__links__el li_-">
+                    <a href="{% url 'glossary:content' term=term.slug %}">
+                      <h4>{{ term.name }}</h4>
+                    </a>
+                  </li>
+                {% endfor %}
+              </div>
+              <li class="contents-list__links__el">
+                <a class="toggle-button"
+                   data-bs-toggle="collapse"
+                   href="#collapsible-items-{{ group.grouper }}"
+                   role="button">{% trans "Show more" %}</a>
+              </li>
+            {% endif %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+    <br>
+    <h2>{% trans "Sexual positions" %}</h2>
+    <div class="row" style="margin-top: 1rem!important;">
+      {% for position in positions %}
+        <div class="col-md-3 mb-3">
+          <div class="item popular-item">
+            <a href="{% url 'glossary:content' term=position.slug %}">
+              <div class="thumb" style="height:250px;padding-bottom:0;">
+                <img src="{{ position.picture.url }}"
+                     class="img-fluid"
+                     style="width: 100%;
+                            height: 250px"
+                     alt="{{ position.name }}">
+                <div class="text-content">
+                  <h4 class="Term-label">{{ position.name }}</h4>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_script %}
+  <script>
+  const collapsibleItems = document.getElementsByClassName('collapse');
+  for(collapsibleItem of collapsibleItems) {
+    collapsibleItem.addEventListener('shown.bs.collapse', (e) => {
+      e.target.nextElementSibling.children[0].textContent = 'Show less';
+    });
 
-{% endblock %}
+    collapsibleItem.addEventListener('hidden.bs.collapse', (e) => {
+      e.target.nextElementSibling.children[0].textContent = 'Show more';
+    });
+  }
+  </script>
+{% endblock extra_script %}

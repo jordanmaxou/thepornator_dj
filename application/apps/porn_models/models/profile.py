@@ -22,3 +22,6 @@ class Profile(models.Model):
         if not self.slug:
             self.slug = slugify(self.pseudo)
         super().save(*args, **kwargs)
+
+    def update_counter(self):
+        Count.objects.filter(id=self.counts_id).update(clicks=models.F("clicks") + 1)

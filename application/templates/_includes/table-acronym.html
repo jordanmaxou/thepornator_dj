@@ -1,0 +1,43 @@
+{% load i18n %}
+<table id="acro" class="table table-striped">
+  <tbody>
+    <tr>
+      <th scope="row">{% trans "Acronym" %}</th>
+      <td>{{ term.name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">{% trans "Signification" %}</th>
+      <td>{{ term.meaning }}</td>
+    </tr>
+    {% if term.lang == 'en' or term.lang == 'fr' %}
+      <tr>
+        <th scope="row">{% trans "Language" %}</th>
+        <td>
+          {% if term.lang == 'en' %}
+            {% trans "English" %}
+          {% else %}
+            {% trans "French" %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <th scope="row">{% trans "Description" %}</th>
+      <td>{{ term.description }}</td>
+    </tr>
+    <tr>
+      <th scope="row">{% trans "Illustration" %}</th>
+      <td>
+        <img src="{{ term.picture.url }}"
+             class="img-fluid"
+             style="width: auto;
+                    height: 200px"
+             alt="{{ term.name }}">
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">{% trans "Last modification date" %}</th>
+      <td>{{ term.publication_date|date:'d-m-Y' }}</td>
+    </tr>
+  </tbody>
+</table>

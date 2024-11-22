@@ -1,5 +1,26 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "AI Porn pics by country" %}</h1>
+      <div>
+        <p>
+          {% trans "Explore each country's AI porn images with our directory. Each country leads to an exciting gallery of AI porn pictures. Discover unique and fascinating images that capture the diversity and beauty of each nation. Whether you're an avid traveler or simply curious, immerse yourself in this immersive visual experience and let yourself be transported through the wonders of the globe, all thanks to the magic of AI." %}
+        </p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      {% for country in countries %}
+        {% if forloop.counter0|divisibleby:8 and forloop.counter0 > 0 %}
+          <div id="middleads{{ forloop.counter0 }}"
+               class="col-12"
+               style="margin-bottom: 10px;
+                      min-height:90px"></div>
+        {% endif %}
+        {% include "_includes/card-content-country.html" with country=country %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

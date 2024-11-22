@@ -1,5 +1,19 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Sex stories" %}</h1>
+    </div>
+    <div class="leaderboard col-xl-12">
+      <div class="row listinggrid three">
+        {% for story in stories %}
+          <div class="d-block d-md-flex listing col-4" style="width: 100%;">
+            {% include "_includes/card-blog-story.html" with content=story content_url_name="stories:content" %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <br>
+  </div>
+{% endblock content %}

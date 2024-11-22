@@ -40,5 +40,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_categories_func, delete_categories_func),
+        migrations.RunPython(
+            create_categories_func, delete_categories_func, atomic=True
+        ),
     ]

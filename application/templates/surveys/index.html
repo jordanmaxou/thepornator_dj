@@ -1,5 +1,47 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="section-title" id="fake">
+            {% if can_answer %}
+              {% csrf_token %}
+              <div class="progress" id="progress" style="margin-bottom:10px;"></div>
+              <h6 id="question-number"></h6>
+              <h4 id="question-text" style="height: 14vh;"></h4>
+              <br />
+              <div class="navButtons questionButtons">
+                <div id="buttons"
+                     style="display:block"
+                     data-action-url="{% url 'surveys:add-survey' %}">
+                  <button class="strong-agree">{% trans "Strongly agree" %}</button>
+                  <button class="agree">{% trans "Somewhat agree" %}</button>
+                  <button class="neutral">{% trans "Neutral or hesitant" %}</button>
+                  <button class="disagree" data-i18n="disagree">{% trans "Somewhat disagree" %}</button>
+                  <button class="strong-disagree">{% trans "Strongly disagree" %}</button>
+                </div>
+                <a href="#"
+                   class="button"
+                   id="back-button"
+                   style="display: none;
+                          font-size: 15px">{% trans "Back to previous question" %}</a>
+                <a class="button"
+                   href="{% url 'home:home' %}"
+                   id="back-button-home"
+                   style="display: block;
+                          font-size: 15px">{% trans "Back to home" %}</a>
+              </div>
+            {% else %}
+              <div class="alert alert-primary" role="alert">{% trans "Sorry, but you can only answer the survey once a day!" %}</div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_script %}
+  {{ questions|json_script:"survey-questions" }}
+{% endblock extra_script %}

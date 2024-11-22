@@ -27,7 +27,9 @@ SECRET_KEY = "django-insecure-pu*q^ub8s5d=m+k%6m-7#lbm3!3ckvco7kq&%2v4$8sx$%^o*j
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
-
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{host}" for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
+]
 
 # Application definition
 
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     "apps.stories",
     "apps.trends",
     "libs.i18n",
+    "libs.format",
 ]
 
 MIDDLEWARE = [
@@ -205,3 +208,9 @@ LOGGING = {
         },
     },
 }
+
+VIDEOS_WEBCAM_URL = "https://pt.cdwmtt.com/api/video-promotion/v1/list?psid=thepornator&pstool=421_1&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&program=vpapi&campaign_id=&type=&site=jasmin&sexualOrientation=straight&forcedPerformers=&limit=40&primaryColor=%238AC437&labelColor=%23212121"
+
+VIDEO_WEBCAM_DETAIL = "https://wmccd.com/api/video-promotion/v1/details/{code}/?psid=thepornator&pstool=421_2&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&campaign_id=&site=jsm&primaryColor=8AC437&labelColor=212121&psprogram=VPAPI"
+
+SURVEY_TIME_THRESHOLD_SECONDS = 15

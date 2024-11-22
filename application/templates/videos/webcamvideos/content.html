@@ -1,5 +1,28 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{{ video.title }}</h1>
+    </div>
+    <div class="row">
+      <iframe src="{{ video.url }}"
+              frameborder="0"
+              allowfullscreen="true"
+              style="width: 100%;
+                     height: 100%;
+                     aspect-ratio: 818/461"></iframe>
+      <br>
+      <br>
+      <p>
+        {% for tag in video.tags %}
+          {% if forloop.last %}
+            {{ tag }}
+          {% else %}
+            {{ tag }},
+          {% endif %}
+        {% endfor %}
+      </p>
+    </div>
+  </div>
+  {% comment %} {{ video|pprint }} {% endcomment %}
+{% endblock content %}

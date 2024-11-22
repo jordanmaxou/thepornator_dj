@@ -1,0 +1,21 @@
+{% load i18n %}
+<div class="col-6 col-sm-4 col-xl-3 mb-3">
+  <div class="item popular-item">
+    <a href="{% url 'ai_pictures:country' country=country.slug %}">
+      <div class="thumb">
+        <img src="{{ country.main_content.image.url }}"
+             class="img-fluid"
+             style="width: 100%;
+                    height: 100%"
+             alt="{{ country.main_content.code }}">
+        <div class="text-content">
+          <h4>
+            {{ country.name }}
+            {{ country.icon|safe }}
+          </h4>
+          <span>{% blocktrans with nb_contents=country.nb_contents %}{{ nb_contents }} pictures{% endblocktrans %}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

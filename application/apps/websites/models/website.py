@@ -1,4 +1,5 @@
 from datetime import date
+from urllib.parse import urlparse, urlunparse
 
 from django.db import models
 from django.utils.text import slugify
@@ -23,6 +24,29 @@ class WebsiteManager(models.Manager):
             .select_related("category")
             .order_by("category__position", "-avg_note_update")
         )
+
+    def get_notes_by_websites(self):
+        queryset = self.annotate(
+            note=models.Case(
+                models.When(
+                    questionwebsite__note_update__isnull=False,
+                    then=models.F("questionwebsite__note_update"),
+                ),
+                default=models.F("questionwebsite__note_init"),
+            )
+        ).values("questionwebsite__website_id", "questionwebsite__question_id", "note")
+
+        result = {}
+        for item in queryset:
+            website_id = item["questionwebsite__website_id"]
+            question_id = item["questionwebsite__question_id"]
+            note = item["note"]
+
+            if website_id not in result:
+                result[website_id] = {}
+            result[website_id][question_id] = note
+
+        return result
 
 
 class Website(models.Model):
@@ -51,3 +75,43 @@ class Website(models.Model):
         if not self.slug:
             self.slug = slugify(self.name.replace(".", ""))
         super().save(*args, **kwargs)
+
+    @property
+    def base_website_url(self) -> str:
+        url_parsed = urlparse(self.url)
+        return urlunparse((url_parsed.scheme, url_parsed.netloc, "", "", "", ""))
+
+    @property
+    def website_host(self) -> str:
+        url_parsed = urlparse(self.url)
+        return url_parsed.hostname
+
+    @property
+    def avg_notes_by_theme(self) -> dict:
+        return {
+            item["question__theme__name"]: round(item["avg_note_update"], 2)
+            for item in (
+                self.questions.through.objects.prefetch_related(
+                    "question", "question__theme"
+                )
+                .filter(website_id=self.id)
+                .values("question__theme__name")
+                .annotate(avg_note_update=models.Avg("note_update"))
+            )
+        }
+
+    @property
+    def avg_note(self) -> float:
+        return round(
+            self.questions.through.objects.filter(website_id=self.id).aggregate(
+                models.Avg("note_update")
+            )["note_update__avg"],
+            4,
+        )
+
+    @property
+    def reviews(self) -> int:
+        return self.podium_set.filter(first=self, survey__is_valid=True).count()
+
+    def update_counter(self):
+        self.__class__.objects.filter(id=self.id).update(click=models.F("click") + 1)

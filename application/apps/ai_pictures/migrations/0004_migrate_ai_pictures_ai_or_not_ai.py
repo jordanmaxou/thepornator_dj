@@ -30,9 +30,11 @@ def delete_ai_or_not_ai_func(apps, _schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("ai_pictures", "0002_migrate_ai_pictures_contents"),
+        ("ai_pictures", "0003_migrate_ai_pictures_contents"),
     ]
 
     operations = [
-        migrations.RunPython(create_ai_or_not_ai_func, delete_ai_or_not_ai_func),
+        migrations.RunPython(
+            create_ai_or_not_ai_func, delete_ai_or_not_ai_func, atomic=True
+        ),
     ]

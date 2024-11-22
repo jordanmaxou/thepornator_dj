@@ -1,5 +1,52 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "AI Porn pics" %}</h1>
+      <div>
+        <p>
+          {% url 'websites:category' category='ai' as ai_url %}
+          {% url 'ai_pictures:aiornotai' as ai_or_not_ai_url %}
+          {% blocktrans with ai_url=ai_url ai_or_not_ai_url=ai_or_not_ai_url %}
+            Original pornographic image galleries of women generated using artificial intelligence (AI). Some of the images are so realistic that they look like real photos. Here's a little game called "<a href="{{ ai_or_not_ai_url }}"><b>AI or not AI</b></a>" to guess whether the image is authentic or artificial. Find all the sites that offer <b>AI Generated Nudes</b> porn images in the <a href="{{ ai_url }}"><b>AI Porn Generator</b></a> category.
+          {% endblocktrans %}
+        </p>
+        <p>{% trans "On each image, you can vote on whether you find the image sexy 😍, scary 😱 or funny 😆." %}</p>
+      </div>
+      <p style="margin-top: 10px;text-align:center;">
+        <a href="{% url 'ai_pictures:category' category='latest' %}"
+           class="btn btn-outline-success"
+           style="font-size: .7rem">{% trans "Latest" %} 🙏🏻</a>
+        <a href="{% url 'ai_pictures:category' category='sexiest' %}"
+           class="btn btn-outline-success"
+           style="font-size: .7rem">{% trans "+sexy" %} 😍</a>
+        <a href="{% url 'ai_pictures:category' category='scariest' %}"
+           class="btn btn-outline-success"
+           style="font-size: .7rem">{% trans "+scary" %} 😱</a>
+        <a href="{% url 'ai_pictures:category' category='funniest' %}"
+           class="btn btn-outline-success"
+           style="font-size: .7rem">{% trans "+fun" %} 😆</a>
+      </p>
+    </div>
+    <br>
+    <div class="row">
+      {% for category in categories %}
+        {% if forloop.counter0|divisibleby:8 and forloop.counter0 > 0 %}
+          <div id="middleads{{ forloop.counter0 }}"
+               class="col-12"
+               style="margin-bottom: 10px;
+                      min-height:90px"></div>
+        {% endif %}
+        {% include "_includes/card-image-category.html" with category=category %}
+      {% endfor %}
+    </div>
+    <h2>{% trans "Search porn images by source" %}</h2>
+    <div class="row">
+      {% for source in contents_by_source %}
+        {% url 'ai_pictures:source' source=source.slug as url %}
+        {% include "_includes/card-website.html" with website=source url=url %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

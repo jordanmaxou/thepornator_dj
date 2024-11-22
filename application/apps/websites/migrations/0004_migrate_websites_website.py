@@ -47,5 +47,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_websites_func, delete_websites_func),
+        migrations.RunPython(create_websites_func, delete_websites_func, atomic=True),
     ]

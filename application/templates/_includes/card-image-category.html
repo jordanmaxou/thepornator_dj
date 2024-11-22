@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+<div class="col-6 col-sm-4 col-xl-3 mb-3">
+  <div class="item popular-item">
+    <a href="{% url 'ai_pictures:category' category=category.slug %}">
+      <div class="thumb">
+        <img src="{{ category.main_content.image.url }}"
+             class="img-fluid"
+             style="width: 100%;
+                    height: 100%"
+             alt="{{ category.main_content.code }}">
+        <div class="text-content">
+          <h4>{{ category.name }}</h4>
+          <span>{{ category.nb_contents }} {% trans "pictures" %}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

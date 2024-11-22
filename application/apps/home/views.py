@@ -2,11 +2,11 @@ from functools import reduce
 from datetime import date
 
 from django.views.generic.base import TemplateView
-from django.db.models import Avg, Max, Count
+from django.db.models import Avg, Count, Q
 
 from apps.trends.models import TrendingSearches
 from apps.websites.models import Website
-from apps.ai_pictures.models import Content
+from apps.ai_pictures.models import Content, TypeOfContent
 from apps.glossary.models import Glossary
 from apps.porn_models.models import Profile
 from apps.videos.models import Video
@@ -33,19 +33,19 @@ class Home(TemplateView):
         context["most_recent_porn_sites"] = (
             Website.objects.annotate(
                 avg_note_update=Avg("questionwebsite__note_update"),
-                note_nb=Max("questionwebsite__note_nb"),
+                reviews=Count("survey", distinct=True, filter=Q(survey__is_valid=True)),
             )
             .select_related("category")
             .order_by("creation_date")[:4]
         )
         context["most_recent_ai_pics"] = Content.objects.filter(
-            type=Content.TypeOfContent.IMAGE,
+            type=TypeOfContent.IMAGE,
             country_id__isnull=False,
             image__isnull=False,
         ).order_by("-publication_date")[:4]
 
         context["most_recent_ai_videos"] = Content.objects.filter(
-            type=Content.TypeOfContent.VIDEO,
+            type=TypeOfContent.VIDEO,
             image__isnull=False,
         ).order_by("-publication_date")[:4]
 

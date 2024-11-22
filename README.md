@@ -38,4 +38,12 @@ Use [minio admin panel](https://minio-admin.pornator.localhost) to create 'porna
 
 # TODO
 
-- create ads feature
+- vote system on ai pic detail page
+- Edit categories on ai pic detail page
+- create ads feature to administrate them
+- pastille
+- sitemap
+- search engine
+- ia pictures import
+- fix tags mess (understand nothing about that)
+- vote up/vote down

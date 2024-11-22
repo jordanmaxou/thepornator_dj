@@ -1,5 +1,53 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Porn categories" %}</h1>
+    </div>
+    <div class="row justify-content-md-center">
+      {% for category in categories %}
+        {% if forloop.counter0|divisibleby:12 and forloop.counter0 > 0 %}
+          <div id="middleads{{ forloop.counter0 }}"
+               class="col-12"
+               style="margin-bottom: 10px;
+                      min-height:90px"></div>
+        {% endif %}
+        <div class="col-6 col-sm-4 col-xl-2 mb-2">
+          <div class="item popular-item">
+            <a href="{% url 'videos:videos-category' category=category.slug %}">
+              <div class="thumb">
+                <img src="{{ category.main_content.local_main_thumb.url }}"
+                     class="img-fluid"
+                     style="width: 100%;
+                            height: 100%"
+                     alt="69">
+                <div class="text-content video">
+                  <span class="bx bxs-video" style="display: inline;"></span><span style="display: inline;">{{ category.nb_contents }}</span>
+                </div>
+              </div>
+              <h5>{{ category.name }}</h5>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <h2>{% trans "Search videos by channel" %}</h2>
+    <div class="row">
+      {% for channel in contents_by_channel %}
+        {% url 'videos:videos-channel' channel=channel.slug as url %}
+        {% include "_includes/card-website.html" with website=channel url=url %}
+      {% endfor %}
+    </div>
+    <div class="row justify-content-md-center">
+      <p>
+        <br>
+        {% trans "Welcome to the Pornator's porn video aggregator, your ultimate destination for the best adult content from the hottest premium tubes on the web." %}
+        <br>
+        {% trans "We have gathered, sorted, and prepared a vast collection of porn videos for your pleasure. Our content library is simply incredible. All you need to do is choose a category, then just click on the picture that appeals to you. You then open the video directly on the external tube." %}
+        <br>
+        {% trans "This section of thepornator.com simply operates as a search engine or content aggregator. Every link and thumbnail displayed on this site are added automatically. We don't claim any ownership, nor do we produce, host, or upload any of the videos that appear on this site; we simply provide links to them. To delete a physical video file, you should contact the owner of the site where it is hosted. To request the removal of a link and thumbnail from our website, please use the contact form." %}
+      </p>
+    </div>
+  </div>
+{% endblock content %}

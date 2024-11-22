@@ -1,5 +1,6 @@
 {
   "name": "pornator",
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +11,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.20",
-    "bootstrap": "^5.1.1",
+    "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.6",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.9.1",
@@ -19,5 +21,8 @@
     "sass-loader": "^16.0.2",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0"
   }
 }

@@ -1,10 +1,10 @@
-from .videos import VideosCategoryView, VideosChannelView, VideosIndexView
-from .webcam_videos import WebcamVideosContentView, WebcamVideosIndexView
+from .videos import VideosCategoryListView, VideosChannelListView, VideosIndexListView
+from .webcam_videos import WebcamVideosContentListView, WebcamVideosIndexListView
 
 __all__ = [
-    "VideosCategoryView",
-    "VideosChannelView",
-    "VideosIndexView",
-    "WebcamVideosContentView",
-    "WebcamVideosIndexView",
+    "VideosCategoryListView",
+    "VideosChannelListView",
+    "VideosIndexListView",
+    "WebcamVideosContentListView",
+    "WebcamVideosIndexListView",
 ]

@@ -39,5 +39,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_content_func, delete_content_func),
+        migrations.RunPython(create_content_func, delete_content_func, atomic=True),
     ]

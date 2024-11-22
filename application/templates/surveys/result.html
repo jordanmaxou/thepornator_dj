@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="services">
+      <section id="contact" class="contact">
+        <div class="container">
+          <input type="hidden" id="id_election" value="1">
+          <h2>
+            {% trans "Your ideal porn site is :" %}
+            <img src="{{ survey.selected_websites.first.icon.url }}"
+                 alt="{{ survey.selected_websites.first.name }}"
+                 style="max-width:100px">
+          </h2>
+          <div class="row text-left">
+            {% if survey.is_valid is False %}
+              {% csrf_token %}
+              <div id="was-this-helpful" class="alert alert-success">
+                <div id="wthf-title">{% trans "Are you satisfied with this choice?" %}</div>
+                <div id="wthf-yes-no"
+                     data-url="{% url 'surveys:valid-survey' slug=survey.user_daily_fingerprint %}">
+                  <span data-value="1">{% trans "Yes" %}</span><span data-value="0">{% trans "No" %}</span>
+                </div>
+              </div>
+            {% endif %}
+            <br>
+            <div class="col-xl-4 col-sm-12 mb-3">
+              <div class="col-12 mb-3">
+                <img src="{{ survey.selected_websites.first.screen.url }}"
+                     alt="{{ survey.selected_websites.first.name }}">
+                <br>
+                <br>
+                <a rel="nofollow"
+                   class="btn btn-outline-success"
+                   style="width:400px;
+                          max-width:100%"
+                   href="{% url 'out:out-view-site' site_slug=survey.selected_websites.first.slug %}"
+                   target="_blank"> {% trans "Open" %} {{ survey.selected_websites.first.name }} <i class="bx bxs-link-external"></i></a>
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-12 mb-3">
+              <div class="col-12 mb-3">
+                <div style="height: 355px;overflow-y: auto;">{{ survey.selected_websites.first.description }}</div>
+                <br>
+                {% trans "Domain" %}: <a rel="nofollow"
+    href="{% url 'out:out-view-site' site_slug=survey.selected_websites.first.slug %}"
+    target="_blank">{{ survey.selected_websites.first.base_website_url }}</a>
+                <br>
+                <p class="mb-0"></p>
+                <div class="Stars"
+                     style="--rating: {{ survey.selected_websites.first.avg_note }}"
+                     aria-label="{% blocktrans with note=survey.selected_websites.first.avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
+                </div>
+                <span class="review">({{ survey.selected_websites.first.reviews }})</span>
+                <p></p>
+                {% trans "Last modification date:" %} {{ survey.selected_websites.first.update_date|date:'d-m-Y' }}
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-12 mb-3">
+              <div class="col-12" style="margin-bottom: 30px;">
+                <canvas id="result-data-chart"
+                        width="348"
+                        height="348"
+                        style="display: block;
+                               box-sizing: border-box;
+                               height: 348px;
+                               width: 348px"></canvas>
+              </div>
+            </div>
+          </div>
+          <br>
+          <h2>{% trans "The complete podium of your results" %}</h2>
+          <div style="background-image: url({% static 'img/podium.webp' %});
+                      max-width:350px;
+                      height: 250px;
+                      background-repeat: no-repeat;
+                      background-size: contain;
+                      position:relative">
+            <a href="{% url 'websites:site' website=survey.selected_websites.first.slug %}">
+              <img src="{{ survey.selected_websites.first.icon.url }}"
+                   alt="Brazzers"
+                   style="max-width:70px;
+                          top:8px;
+                          left:140px;
+                          position:absolute">
+            </a>
+            {% if survey.selected_websites.second %}
+              <a href="{% url 'websites:site' website=survey.selected_websites.second.slug %}">
+                <img src="{{ survey.selected_websites.second.icon.url }}"
+                     alt="Jacquie et Michel"
+                     style="max-width:70px;
+                            top:27px;
+                            left:21px;
+                            position:absolute">
+              </a>
+            {% endif %}
+            {% if survey.selected_websites.third %}
+              <a href="{% url 'websites:site' website=survey.selected_websites.third.slug %}">
+                <img src="{{ survey.selected_websites.third.icon.url }}"
+                     alt="Onlyfans"
+                     style="max-width:70px;
+                            top:47px;
+                            left:249px;
+                            position:absolute">
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_script %}
+  {{ radar|json_script:"chart-radar-data" }}
+{% endblock extra_script %}

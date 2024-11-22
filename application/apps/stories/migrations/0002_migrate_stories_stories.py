@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_tags_func, delete_tags_func),
-        migrations.RunPython(create_stories_func, delete_stories_func),
-        migrations.RunPython(create_story_tag, delete_story_tag),
+        migrations.RunPython(create_tags_func, delete_tags_func, atomic=True),
+        migrations.RunPython(create_stories_func, delete_stories_func, atomic=True),
+        migrations.RunPython(create_story_tag, delete_story_tag, atomic=True),
     ]

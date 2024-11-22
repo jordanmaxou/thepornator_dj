@@ -1,5 +1,30 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
+{% load estimate_reading_duration %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{{ story.title }}</h1>
+    </div>
+    <div class="row">
+      <div style="text-align:center;">
+        <img src="{{ story.thumb.url }}"
+             class="img-fluid"
+             style="max-width: 100%;
+                    width: auto;
+                    max-height: 300px"
+             alt="{{ story.title }}">
+      </div>
+      <div style="margin-top:20px;">
+        <span class="bx bxs-calendar" style="display: inline;font-size: 0.8rem;"></span> {{ story.publication_date|date:'d-m-Y' }}<span style="margin-left:25px;">👤 Thepornator</span> <span style="margin-left:25px;">🕒 {{ story.content|estimate_reading_duration }} min</span>
+      </div>
+      <div style="margin-top:20px;">{{ story.content|safe }}</div>
+      <div style="margin-top:20px;">
+        {% trans "Categories :" %}
+        {% for tag in story.tags.all %}
+          <span class="btn btn-success" style="margin-bottom:10px;">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

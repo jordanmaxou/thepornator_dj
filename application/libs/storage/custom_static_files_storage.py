@@ -43,6 +43,8 @@ class CustomStaticFilesStorage(StaticFilesStorage):
         return manifest
 
     def url(self, name) -> str:
+        if settings.DEBUG is True:
+            self.manifest = self._load_manifest()
         if name in self.manifest:
             name = self.manifest[name]
         return super().url(name)

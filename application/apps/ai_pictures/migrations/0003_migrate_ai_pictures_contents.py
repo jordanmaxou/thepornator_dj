@@ -5,6 +5,7 @@ from collections import defaultdict
 from django.db import migrations
 from apps.migration.utils import fetch_data_from_mysql
 from os.path import join
+from apps.ai_pictures.models import TypeOfContent
 
 
 def create_categories_func(apps, _schema_editor):
@@ -66,6 +67,8 @@ def get_extension_from_source(source: str, type: str) -> str:
         case "deepmodeai":
             return "jpeg"
         case _:
+            if type == "video":
+                return "webm"
             return "jpg"
 
 
@@ -119,13 +122,99 @@ def delete_content_func(apps, _schema_editor):
     ContentCategory.objects.filter(content_id__in=content_ids).delete()
 
 
+def update_category_with_main_contents(apps, _schema_editor):
+    Content = apps.get_model("ai_pictures", "Content")
+    Category = apps.get_model("ai_pictures", "Category")
+    for category in Category.objects.all():
+        main_image_content = Content.objects.filter(
+            categories=category, type=TypeOfContent.IMAGE
+        ).first()
+        main_video_content = Content.objects.filter(
+            categories=category, type=TypeOfContent.VIDEO
+        ).first()
+        category.main_image_content_id = (
+            main_image_content.id if main_image_content else None
+        )
+        category.main_video_content_id = (
+            main_video_content.id if main_video_content else None
+        )
+        category.save()
+
+
+def update_category_main_contents_to_none(apps, _schema_editor):
+    Category = apps.get_model("ai_pictures", "Category")
+    for category in Category.objects.all():
+        category.main_image_content = None
+        category.main_video_content = None
+        category.save()
+
+
+def update_country_with_main_image_content(apps, _schema_editor):
+    Content = apps.get_model("ai_pictures", "Content")
+    Country = apps.get_model("ai_pictures", "Country")
+    for country in Country.objects.all():
+        main_image_content = Content.objects.filter(
+            country_id=country.id, type=TypeOfContent.IMAGE
+        ).first()
+        if main_image_content:
+            country.main_content_id = main_image_content.id
+            country.save()
+
+
+def update_country_main_image_content_to_none(apps, _schema_editor):
+    Country = apps.get_model("ai_pictures", "Country")
+    for country in Country.objects.all():
+        country.main_content = None
+        country.save()
+
+
+def create_tags_func(apps, _schema_editor):
+    Content = apps.get_model("ai_pictures", "Content")
+    Tag = apps.get_model("ai_pictures", "Tag")
+    tags = fetch_data_from_mysql("porn_ngram")
+    tags_contents_relations = fetch_data_from_mysql("porn_ngram_aicontent")
+    tag_contents_map = defaultdict(list)
+    for tag_id, aicontent_id in tags_contents_relations:
+        tag_contents_map[tag_id].append(aicontent_id)
+    tag_contents_map = dict(tag_contents_map)
+    for tag in tags:
+        current_tag = Tag.objects.create(
+            id=tag.id, name=tag.label, slug=tag.slug, lang=tag.lang
+        )
+        for content_id in tag_contents_map[tag.id]:
+            current_tag.contents.add(Content.objects.get(id=content_id))
+
+
+def remove_tags_func(apps, _schema_editor):
+    Tag = apps.get_model("ai_pictures", "Tag")
+    tags = fetch_data_from_mysql("porn_ngram")
+    tag_ids = [r.id for r in tags]
+    Tag.objects.filter(id__in=tag_ids).delete()
+    TagContent = Tag.contents.through
+    TagContent.objects.filter(tag_id__in=tag_ids).delete()
+
+
 class Migration(migrations.Migration):
     dependencies = [
-        ("ai_pictures", "0001_initial"),
+        ("ai_pictures", "0002_initial"),
+        ("websites", "0004_migrate_websites_website"),
     ]
 
     operations = [
-        migrations.RunPython(create_categories_func, delete_categories_func),
-        migrations.RunPython(create_countries_func, delete_countries_func),
-        migrations.RunPython(create_content_func, delete_content_func),
+        migrations.RunPython(
+            create_categories_func, delete_categories_func, atomic=True
+        ),
+        migrations.RunPython(create_countries_func, delete_countries_func, atomic=True),
+        migrations.RunPython(create_content_func, delete_content_func, atomic=True),
+        migrations.RunPython(create_tags_func, remove_tags_func, atomic=True),
+        migrations.RunPython(
+            update_category_with_main_contents,
+            update_category_main_contents_to_none,
+            atomic=True,
+        ),
+        migrations.RunPython(
+            update_country_with_main_image_content,
+            update_country_main_image_content_to_none,
+            atomic=True,
+        ),
     ]

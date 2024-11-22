@@ -1,5 +1,36 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "AI porn pics" %} {{ custom_title|lower }}</h1>
+    </div>
+    <div class="row">
+      {% for content in contents %}
+        {% if forloop.counter0|divisibleby:8 and forloop.counter0 > 0 %}
+          <div id="middleads{{ forloop.counter0 }}"
+               class="col-12"
+               style="margin-bottom: 10px;
+                      min-height:90px"></div>
+        {% endif %}
+        <div class="col-lg-3 col-md-3 col-6" style="margin-bottom:20px;">
+          {% include "_includes/card-image.html" with content=content %}
+        </div>
+      {% endfor %}
+    </div>
+    {% if page_obj.paginator.num_pages > 1 %}
+      <div style="text-align:center;" id="btnmore_0">
+        {% if page_obj.has_previous %}
+          <a href="{{ request.path }}" class="load-more">&laquo; {% trans "first" %}</a>
+          <a href="{% if page_obj.previous_page_number > 1 %}?page={{ page_obj.previous_page_number }}{% else %}{{ request.path }}{% endif %}"
+             class="load-more">{% trans "previous" %}</a>
+        {% endif %}
+        <span class="current">{% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}.</span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="load-more">{% trans "next" %}</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="load-more">{% trans "last" %} &raquo;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock content %}

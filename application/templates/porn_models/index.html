@@ -1,5 +1,37 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Performers search engine" %}</h1>
+    </div>
+    <div class="row justify-content-md-center">
+      {% include "_includes/search-bar.html" %}
+      <br>
+      <br>
+      <br>
+      <h2>{% trans "Search performers by category" %}</h2>
+      {% for category in categories %}
+        <div class="col-6 col-sm-4 col-xl-3 mb-3">
+          {% include "_includes/card-performer-category.html" with category=category %}
+        </div>
+      {% endfor %}
+      <h2>{% trans "Search performers by site" %}</h2>
+      <div class="row">
+        {% for website in websites %}
+          <div class="col-6 col-sm-4 col-xl-3 mb-3">
+            {% include "_includes/card-performer-website.html" with website=website %}
+          </div>
+        {% endfor %}
+        <div class="row justify-content-md-center">
+          <h2>{% trans "How the search engine for performers works?" %}</h2>
+          <p>
+            {% trans "There are millions of OnlyFans, Mym, Swame, Fancentro performers, and they're often hard to find. We connect fans with the models they're looking for. We take information that's publicly available on those sites — display picture, display name, bio, price, and location — and display this information on ThePornator Models section, when key search terms appear in bios. We show the most relevant profiles at the top of the search results, and we link directly to the influencers profiles." %}
+            <br>
+            {% trans "Our mission is to help porn models get discovered and grow their accounts. This service is not affiliated with ONLYFANS®, MYM®, SWAME® or any others programs for porn creators." %}
+          </p>
+        </div>
+        <style>.pr-4 {padding-right: 1.5rem!important;}</style>
+      </div>
+    </div>
+  {% endblock content %}

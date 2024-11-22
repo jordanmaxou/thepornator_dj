@@ -1,0 +1,21 @@
+{% load i18n %}
+<div class="col-6 col-sm-4 col-xl-3 mb-3">
+  <div class="item popular-item">
+    <a href="{% url 'ai_pictures:ai-porn-videos-category' category=category.slug %}">
+      <div class="thumb" style="padding-bottom: inherit;">
+        <video data-src="{{ category.main_content.image.url }}"
+               alt="{{ category.main_content.code }}"
+               class="img-fluid pause-videos lazyloading"
+               style="display: block;
+                      width: 100%;
+                      height: 100%"
+               src="{{ category.main_content.image.url }}">
+        </video>
+        <div class="text-content">
+          <h4>{{ category.name }}</h4>
+          <span>{{ category.nb_contents }} {% trans "pictures" %}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

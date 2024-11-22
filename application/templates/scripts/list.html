@@ -1,5 +1,32 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Porn scripts" %}</h1>
+      <p>
+        {% trans "Welcome to the first Porn Movie Script Database (PMSD). If you enjoy porn movies you've come to the right place ! We have the first collection of porn movie scripts available on the web. Our site lets you read or download porn movie scripts for free. You don't need any additional software to read the scripts. Enjoy the script and click on the movie thumb to watch the real porn movie." %}
+      </p>
+    </div>
+    <div class="row" style="margin-top: 1rem!important;">
+      {% for script in scripts %}
+        <div class="col-md-4 mb-4">
+          <div class="item popular-item">
+            <a href="{% url 'scripts:content' slug=script.slug %}">
+              <div class="thumb2">
+                <img src="{{ script.thumb.url }}"
+                     class="img-fluid"
+                     style="width: 100%"
+                     alt="{{ script.title }}">
+                <div>
+                  <h6>{{ script.title }}</h6>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <br>
+  </div>
+{% endblock content %}

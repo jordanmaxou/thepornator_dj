@@ -9,4 +9,3 @@ class QuestionWebsite(models.Model):
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
     note_init = models.PositiveIntegerField(default=0)
     note_update = models.PositiveIntegerField(default=0)
-    note_nb = models.PositiveIntegerField(default=0)

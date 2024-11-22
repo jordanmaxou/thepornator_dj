@@ -3,25 +3,23 @@
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-  {% include '_includes/header.html' %}
-
-  <body>
-    {% include '_includes/navbar.html' %}
+  {% include "_includes/header.html" %}
+  <body data-page="{{ page_type|default:'generic' }}">
+    {% include "_includes/navbar.html" %}
     <main id="main">
       {% block top_content %}
-        {% include '_includes/mobile-outlinks.html' %}
-        {% include '_includes/breadcrumbs.html' %}
+        {% include "_includes/mobile-outlinks.html" %}
+        {% include "_includes/breadcrumbs.html" %}
         <div id="topbanner" class="container"></div>
-      {% endblock %}
+      {% endblock top_content %}
       {% block content %}
-
-      {% endblock %}
+      {% endblock content %}
     </main>
-    {% block bottom_content %}
-      <div id="bottombanner" class="container"></div>
-    {% endblock %}
-    {% include '_includes/footer.html' %}
+    {% block bottom_content %}<div id="bottombanner" class="container"></div>{% endblock %}
+    {% include "_includes/footer.html" %}
+    {% block extra_script %}
+    {% endblock extra_script %}
     <script src="{% static 'main.js' %}"></script>
-    {% include '_includes/disclaimer.html' %}
+    {% include "_includes/disclaimer.html" %}
   </body>
 </html>

@@ -14,11 +14,12 @@ from apps.websites.models import Website
 from apps.ai_pictures.utils import upload_to_according_to_type
 
 
-class Content(models.Model):
-    class TypeOfContent(models.TextChoices):
-        IMAGE = "image"
-        VIDEO = "video"
+class TypeOfContent(models.TextChoices):
+    IMAGE = "image"
+    VIDEO = "video"
 
+
+class Content(models.Model):
     title = models.CharField(max_length=200)
     type = models.CharField(max_length=10, choices=TypeOfContent)
     code = models.CharField(max_length=100)

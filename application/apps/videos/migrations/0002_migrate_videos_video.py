@@ -48,7 +48,7 @@ def create_channel_func(apps, _schema_editor):
                 description=channel.descriptionEN,
                 description_en=channel.descriptionEN,
                 description_fr=channel.descriptionFR,
-                logo=join("img/logosites", channel.logo),
+                icon=join("img/logosites", channel.logo),
                 link=channel.link,
             )
         )
@@ -125,14 +125,39 @@ def delete_video_category_func(apps, _schema_editor):
     ).delete()
 
 
+def update_category_with_main_content(apps, _schema_editor):
+    Video = apps.get_model("videos", "Video")
+    Category = apps.get_model("videos", "Category")
+    for category in Category.objects.all():
+        main_content = Video.objects.filter(categories=category).first()
+        category.main_content_id = main_content.id if main_content else None
+        category.save()
+
+
+def update_category_main_content_to_none(apps, _schema_editor):
+    Category = apps.get_model("videos", "Category")
+    for category in Category.objects.all():
+        category.main_content = None
+        category.save()
+
+
 class Migration(migrations.Migration):
     dependencies = [
         ("videos", "0001_initial"),
     ]
 
     operations = [
-        migrations.RunPython(create_categories_func, delete_categories_func),
-        migrations.RunPython(create_channel_func, delete_channel_func),
-        migrations.RunPython(create_video_func, delete_video_func),
-        migrations.RunPython(create_video_category_func, delete_video_category_func),
+        migrations.RunPython(
+            create_categories_func, delete_categories_func, atomic=True
+        ),
+        migrations.RunPython(create_channel_func, delete_channel_func, atomic=True),
+        migrations.RunPython(create_video_func, delete_video_func, atomic=True),
+        migrations.RunPython(
+            create_video_category_func, delete_video_category_func, atomic=True
+        ),
+        migrations.RunPython(
+            update_category_with_main_content,
+            update_category_main_content_to_none,
+            atomic=True,
+        ),
     ]

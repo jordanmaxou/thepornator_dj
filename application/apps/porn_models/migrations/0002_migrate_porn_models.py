@@ -39,6 +39,24 @@ def delete_categories_func(apps, _schema_editor):
     Category.objects.filter(id__in=[r.id for r in categories]).delete()
 
 
+def update_category_with_main_content(apps, _schema_editor):
+    Profile = apps.get_model("porn_models", "Profile")
+    Category = apps.get_model("porn_models", "Category")
+    for category in Category.objects.all():
+        main_profile = Profile.objects.filter(
+            categories=category,
+        ).first()
+        category.main_profile_id = main_profile.id if main_profile else None
+        category.save()
+
+
+def update_category_main_contents_to_none(apps, _schema_editor):
+    Category = apps.get_model("porn_models", "Category")
+    for category in Category.objects.all():
+        category.main_profile = None
+        category.save()
+
+
 def create_websites_func(apps, _schema_editor):
     Website = apps.get_model("porn_models", "Website")
     website_objs = []
@@ -116,7 +134,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_websites_func, delete_websites_func),
-        migrations.RunPython(create_categories_func, delete_categories_func),
-        migrations.RunPython(create_profile_func, delete_profile_func),
+        migrations.RunPython(create_websites_func, delete_websites_func, atomic=True),
+        migrations.RunPython(
+            create_categories_func, delete_categories_func, atomic=True
+        ),
+        migrations.RunPython(create_profile_func, delete_profile_func, atomic=True),
+        migrations.RunPython(
+            update_category_with_main_content,
+            update_category_main_contents_to_none,
+            atomic=True,
+        ),
     ]

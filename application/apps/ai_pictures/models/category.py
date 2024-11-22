@@ -5,6 +5,16 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, blank=True)
+    main_image_content = models.ForeignKey(
+        "Content", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    main_video_content = models.ForeignKey(
+        "Content",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="video_category_set",
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:
