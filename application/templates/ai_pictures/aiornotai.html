@@ -16,121 +16,9 @@
       </div>
     </div>
     <br>
-    <script>
-    function randomSort() {
-        return Math.random() - 0.5;
-    }
-
-    let imgCount = 0
-    let nbSeconds = 20
-    let results = []
-    const data = [
-    {img: 'https://thepornator.com/assets/img/aiornotai/fake/02.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/05.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/04.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/03.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/07.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/09.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/08.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/06.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/01.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/fake/10.jpg', real:-1},{img: 'https://thepornator.com/assets/img/aiornotai/real/10.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/01.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/06.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/08.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/11.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/09.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/07.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/03.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/04.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/12.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/05.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/02.jpg', real:1},{img: 'https://thepornator.com/assets/img/aiornotai/real/13.jpg', real:1},    ]
-    data.sort(randomSort);
-
-    let imgLength = 20
-
-    function scroll() {
-        if (window.innerWidth <= 768)  position = 250;
-        else position = 100;
-        window.scrollTo({top: position, behavior: 'smooth'});
-    }
-
-    function start() {
-        scroll();
-
-        var intro = document.getElementById("intro");
-        intro.style.display = "none";
-
-        var frame = document.getElementById("frame");
-        frame.style.display = "block";
-
-        var result = document.getElementById("result");
-        result.style.display = "none";
-
-        var button = document.getElementById("startButton");
-        button.style.display = "none";
-
-        var icons = document.getElementById("icons");
-        icons.style.display = "block";
-
-        var progress = document.getElementById("progress");
-        progress.style.display = "block";
-        var progressbar = document.getElementById("progressbar");
-        progressbar.style.width = "100%";
-
-        var count = nbSeconds-1;
-        var timer = setInterval(function() {
-            count--;
-            progressbar.style.width = ((count+1)/nbSeconds*100) + "%";
-            if (count < 0) {
-                clearInterval(timer);
-                endGame();
-            }
-        }, 1000);
-    }
-
-    function addScore(score) {
-        var xhr = null;
-        if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        xhr.open("GET", "/php/controller.php?action=insertAiOrNotAi&score=" + score + "&date=" + Date.now(), true);
-        xhr.send(null);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                //showMessageAndRedirect(this.responseText);
-            }
-        };
-    }
-
-    function endGame() {
-        var button = document.getElementById("startButton");
-        button.style.display = "block";
-        var icons = document.getElementById("icons");
-        icons.style.display = "none";
-        var result = document.getElementById("result");
-        let score = 0;
-        for(let i = 0; i < data.length; i++) {
-            if(typeof data[i] !== 'undefined' && typeof results[i] !== 'undefined' && data[i].real === results[i].real) {
-                score += 1;
-            }
-        }
-        addScore(score);
-        let msg  = 'You can\'t tell the difference between a real pornographic image and an artificially generated one using artificial intelligence!';
-        if (score == imgLength) msg  = 'Congratulations, you made no mistakes!';
-        else if (score > imgLength *0.75) msg  = 'It\'s not perfect, but we\'re getting closer!';
-        else if (score >= imgLength *0.5) msg  = 'You got a passing grade! That\'s not bad!';
-
-        const shareUrl = 'https://thepornator.com/en/aiporn/aiornotai.html';
-        const shareMessage = 'I got a score of '+score+'/'+imgLength+' at @thepornator\'s quiz, at the game "Porn AI or not Porn AI?" and you?';
-
-        const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareMessage)}`;
-        const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareMessage)}`;
-        const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareMessage)}`;
-
-        result.innerHTML = '<h3>Your score: <b>'+score+'/'+imgLength+'</b></h3><br>'+msg +'<br>'+
-                            '<br>Share your score:'+
-                            '<br><a href="'+twitterShareUrl+'" target="_blank" class="btn-social btn-twitter"><i class="bx bxl-twitter"></i></a> '+
-                            '<a href="'+facebookShareUrl+'" target="_blank" class="btn-social btn-facebook"><i class="bx bxl-facebook"></i></a> '+
-                            '<a href="'+redditShareUrl+'" target="_blank" class="btn-social btn-reddit"><i class="bx bxl-reddit"></i></a>'+
-                            '<br><br>'+
-                            'Not satisfied with your score? <a href="javascript:location.reload();">Start over!</a>';
-        result.style.display = "block";
-        var frame = document.getElementById("frame");
-        frame.style.display = "none";
-        var progress = document.getElementById("progress");
-        progress.style.display = "none";
-
-        var maingame = document.getElementById("maingame");
-        maingame.style.overflow = "unset";
-    }
-    </script>
-    <div id="maingame"
+    {% csrf_token %}
+    <div id="main-game"
+         data-url="{% url 'ai_pictures:aiornotai-add' %}"
          style="text-align:center;
                 width:450px;
                 max-width:100%;
@@ -138,8 +26,7 @@
                 overflow: hidden">
       <div id="intro">
         <button class="btn btn-success"
-                id="startButton"
-                onclick="start()"
+                id="start-button"
                 style="position: absolute;
                        top: 50%;
                        left: 50%;
@@ -149,248 +36,46 @@
                        color: #fff;
                        font-size: 1.4rem;
                        padding: 10px 20px;
-                       cursor: pointer">Start</button>
+                       cursor: pointer">{% trans "Start" %}</button>
         <br>
         <img src="/assets/img/aiornotai.webp"
              style="width:100%"
              alt="game aiornotai background">
       </div>
       <div class="progress" id="progress" style="display:none;">
-        <div id="progressbar"
-             class="progress-bar progress-bar-striped bg-success"
+        <div class="progress-bar progress-bar-striped bg-success"
              role="progressbar"
              style="width: 25%"
              aria-valuenow="25"
              aria-valuemin="0"
              aria-valuemax="100"></div>
       </div>
-      <div class="frame" id="frame" style="display:none;">
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/06.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/01.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/08.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/08.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/04.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/01.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/09.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/03.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/05.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/07.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/09.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/10.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/11.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/13.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/10.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/12.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/03.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/05.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/real/06.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
-        <div class="card"
-             style="background-image: url(&quot;
-                    https://thepornator.com/assets/img/aiornotai/fake/02.jpg&quot;
-                    )">
-          <div class="is-like">LIKE</div>
-        </div>
+      <div class="frame" id="frame" style="display:none;"></div>
+      <div class="icons" id="play-buttons" style="display:none;">
+        <button type="button" id="fake" class="btn btn-danger btnia">{% trans "FAKE" %}</button>
+        <button type="button" id="real" class="btn btn-success btnia">{% trans "REAL" %}</button>
       </div>
-      <div class="icons" id="icons" style="display:none;">
-        <button type="button" id="hate" class="btn btn-danger btnia">FAKE</button>
-        <button type="button" id="like" class="btn btn-success btnia">REAL</button>
+      <div id="result" style="display: none; padding: 20px;" class="listing">
+        <h3>
+          {% trans "Your score:" %} <b><span id="score"></span>/20</b>
+        </h3>
+        <br>
+        <span class="perfect" style="display: none;">{% trans "Congratulations, you made no mistakes!" %}</span>
+        <span class="good" style="display: none;">{% trans "It's not perfect, but we're getting closer!" %}</span>
+        <span class="average" style="display: none;">{% trans "You got a passing grade! That's not bad!" %}</span>
+        <span class="bad" style="display: none;">{% trans "You can't tell the difference between a real pornographic image and an artificially generated one using artificial intelligence!" %}</span>
+        <br>
+        <br>
+        {% trans "Share your score:" %}
+        <br>
+        <a href="#" target="_blank" class="btn-social btn-twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" target="_blank" class="btn-social btn-facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" target="_blank" class="btn-social btn-reddit"><i class="bx bxl-reddit"></i></a>
+        <br>
+        <br>
+        {% trans "Not satisfied with your score?" %} <a href="javascript:location.reload();">{% trans "Start over!" %}</a>
       </div>
-      <div id="result" style="display:none;padding:20px;" class="listing"></div>
     </div>
-    <script>
-    const frame = document.body.querySelector('.frame')
-    data.forEach(_data => appendCard(_data))
-
-    let current = frame.querySelector('.card:last-child')
-    let startX = 0, startY = 0, moveX = 0, moveY = 0
-
-    initCard(current)
-
-    document.querySelector('#like').onclick = () => {
-        moveX = 1
-        moveY = 0
-        complete()
-    }
-    document.querySelector('#hate').onclick = () => {
-        moveX = -1
-        moveY = 0
-        complete()
-    }
-
-    function appendCard(data) {
-      const firstCard = frame.children[0]
-      const newCard = document.createElement('div')
-      newCard.className = 'card'
-      newCard.style.backgroundImage = `url(${data.img})`
-      newCard.innerHTML = `<div class="is-like">LIKE</div></div>`
-      if (imgCount < imgLength) {
-          if (firstCard) frame.insertBefore(newCard, firstCard)
-          else frame.appendChild(newCard)
-          imgCount++
-      }
-    }
-
-    function initCard(card) {
-      card.addEventListener('pointerdown', onPointerDown)
-    }
-
-    function setTransform(x, y, deg, duration) {
-      current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${deg}deg)`
-      if (duration) current.style.transition = `transform ${duration}ms`
-    }
-
-    function onPointerDown({ clientX, clientY }) {
-      startX = clientX
-      startY = clientY
-      current.addEventListener('pointermove', onPointerMove)
-      current.addEventListener('pointerup', onPointerUp)
-      current.addEventListener('pointerleave', onPointerUp)
-    }
-
-    function onPointerMove({ clientX, clientY }) {
-      moveX = clientX - startX
-      moveY = clientY - startY
-      setTransform(moveX, moveY, moveX / innerWidth * 50)
-    }
-
-    function onPointerUp() {
-        current.removeEventListener('pointermove', onPointerMove)
-        current.removeEventListener('pointerup', onPointerUp)
-        current.removeEventListener('pointerleave', onPointerUp)
-        if (Math.abs(moveX) > frame.clientWidth / 2) {
-            current.removeEventListener('pointerdown', onPointerDown)
-            complete()
-        } else {
-            cancel()
-        }
-    }
-
-    function complete() {
-        const flyX = (Math.abs(moveX) / moveX) * innerWidth * 1.3
-        const flyY = (moveY / moveX) * flyX
-        setTransform(flyX, flyY, flyX / innerWidth * 50, innerWidth)
-
-        const prev = current
-        const next = current.previousElementSibling
-
-        var real = -1
-        if (moveX > 0) real = 1
-        const cardStyles = window.getComputedStyle(prev);
-        const backgroundImage = cardStyles.getPropertyValue('background-image');
-        results.push({img:backgroundImage.slice(4, -1).replace(/"/g, ""), real:real})
-
-        if (next) {
-            initCard(next)
-            current = next
-            appendCard(data[imgCount % 4])
-            var frame = document.getElementById("frame");
-            setTimeout(() => frame.removeChild(prev), innerWidth)
-        } else {
-            endGame();
-        }
-        scroll();
-    }
-
-    function cancel() {
-      setTransform(0, 0, 0, 100)
-      setTimeout(() => current.style.transition = '', 100)
-    }
-    </script>
     <style>
     #intro {position: relative;display: inline-block;}
     .btnia {margin:10px; width: 100px;}
@@ -413,3 +98,6 @@
     <br>
   </div>
 {% endblock content %}
+{% block extra_script %}
+  {{ pictures|json_script:"data-pictures" }}
+{% endblock extra_script %}

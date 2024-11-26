@@ -5,6 +5,8 @@
 <html lang="{{ LANGUAGE_CODE }}">
   {% include "_includes/header.html" %}
   <body data-page="{{ page_type|default:'generic' }}">
+    {% block body_top %}
+    {% endblock body_top %}
     {% include "_includes/navbar.html" %}
     <main id="main">
       {% block top_content %}
@@ -15,10 +17,13 @@
       {% block content %}
       {% endblock content %}
     </main>
-    {% block bottom_content %}<div id="bottombanner" class="container"></div>{% endblock %}
+    {% block bottom_content %}
+      <div id="bottombanner" class="container"></div>
+    {% endblock bottom_content %}
     {% include "_includes/footer.html" %}
     {% block extra_script %}
     {% endblock extra_script %}
+    <script src="{% static 'bootstrap.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
     {% include "_includes/disclaimer.html" %}
   </body>

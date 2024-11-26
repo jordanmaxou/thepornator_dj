@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ),
                 ("score", models.PositiveIntegerField(default=0)),
                 ("ip", models.CharField(max_length=50)),
-                ("date", models.DateTimeField()),
+                ("date", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(

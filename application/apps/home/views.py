@@ -2,7 +2,7 @@ from functools import reduce
 from datetime import date
 
 from django.views.generic.base import TemplateView
-from django.db.models import Avg, Count, Q
+from django.db.models import Avg, Count
 
 from apps.trends.models import TrendingSearches
 from apps.websites.models import Website
@@ -20,6 +20,7 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["page_type"] = "home"
         context["trends"] = TrendingSearches.objects.top_15()
         context["top_websites_by_categories"] = sorted(
             [
@@ -33,7 +34,6 @@ class Home(TemplateView):
         context["most_recent_porn_sites"] = (
             Website.objects.annotate(
                 avg_note_update=Avg("questionwebsite__note_update"),
-                reviews=Count("survey", distinct=True, filter=Q(survey__is_valid=True)),
             )
             .select_related("category")
             .order_by("creation_date")[:4]

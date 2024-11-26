@@ -14,12 +14,12 @@
                  style="max-width:100px">
           </h2>
           <div class="row text-left">
-            {% if survey.is_valid is False %}
+            {% if survey.is_valid is None %}
               {% csrf_token %}
               <div id="was-this-helpful" class="alert alert-success">
                 <div id="wthf-title">{% trans "Are you satisfied with this choice?" %}</div>
                 <div id="wthf-yes-no"
-                     data-url="{% url 'surveys:valid-survey' slug=survey.user_daily_fingerprint %}">
+                     data-url="{% url 'surveys:is-valid-survey' slug=survey.user_daily_fingerprint %}">
                   <span data-value="1">{% trans "Yes" %}</span><span data-value="0">{% trans "No" %}</span>
                 </div>
               </div>

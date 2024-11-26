@@ -1,0 +1,63 @@
+{% load i18n %}
+{% load static %}
+<div class="modal" id="edit-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" id="edit-modal-content">
+      {% csrf_token %}
+      <form id="edit-form" action="{{ edit_url }}">
+        <div class="go866098920">
+          <div class="go1723138356">
+            <p class="go2312213806">{% trans "Choose categories" %}</p>
+          </div>
+        </div>
+        <div class="go3511538614">
+          <div id="form-content" class="row">
+            {% for category in content.selected_categories %}
+              <div class="col-xl-4 col-6">
+                <input {% if category.selected %}checked=""{% endif %}
+                       type="checkbox"
+                       id="{{ category.id }}"
+                       name="{{ category.id }}"
+                       value="{{ category.id }}"
+                       class="checkbox">
+                <label for="{{ category.id }}">{{ category.name }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="go3511538613">
+          <div id="form-country" class="row" style="position: relative;">
+            <span class="icon"><span class="bx bxs-chevron-down"
+      style="position: absolute;
+             right: 10px;
+             top: 30%"></span></span>
+            <select class="form-control rounded" name="country" id="country">
+              <option value="">{% trans "Choose a country" %}</option>
+              {% for country in content.selected_countries %}
+                <option value="{{ country.id }}"
+                        {% if country.selected %}selected=""{% endif %}>{{ country.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="go3729487927">
+          <div class="go1300030606">
+            <span id="nb-tags">{{ content.categories.count }}</span> {% trans "of 10 categories" %}
+          </div>
+          <div>
+            <button type="submit" class="btn btn btn-success" id="btnvalidateedittags">{% trans "Validate" %}</button>
+            <button type="button" id="cancel-button" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+          </div>
+        </div>
+      </form>
+      <div id="thank-you-message" class="thank-you-message">
+        <img src="{% static 'img/check-icon.png' %}" width="50" alt="thanks icon">
+        <b>{% trans "Thanks for your contributon!" %}</b>
+        <br>
+        <br>
+        {% trans "Your changes will be published in a few minutes." %}
+      </div>
+    </div>
+  </div>
+</div>

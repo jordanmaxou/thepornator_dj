@@ -64,7 +64,7 @@ class Command(BaseCommand):
         MINIO_ENDPOINT = urlparse(os.environ.get("MINIO_ENDPOINT_URL"))
         MINIO_ACCESS_KEY = os.environ.get("MINIO_ACCESS_KEY")
         MINIO_SECRET_KEY = os.environ.get("MINIO_SECRET_KEY")
-        MINIO_BUCKET_NAME = "test"  # os.environ.get("MINIO_BUCKET_NAME")
+        MINIO_BUCKET_NAME = os.environ.get("MINIO_BUCKET_NAME")
 
         try:
             minio_client = Minio(

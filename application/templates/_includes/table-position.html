@@ -9,16 +9,18 @@
       <th scope="row">{% trans "Description" %}</th>
       <td>{{ term.description }}</td>
     </tr>
-    <tr>
-      <th scope="row">{% trans "Illustration" %}</th>
-      <td>
-        <img src="{{ term.picture.url }}"
-             class="img-fluid"
-             style="width: auto;
-                    height: 200px"
-             alt="{{ term.name }}">
-      </td>
-    </tr>
+    {% if term.picture %}
+      <tr>
+        <th scope="row">{% trans "Illustration" %}</th>
+        <td>
+          <img src="{{ term.picture.url }}"
+               class="img-fluid"
+               style="width: auto;
+                      height: 200px"
+               alt="{{ term.name }}">
+        </td>
+      </tr>
+    {% endif %}
     <tr>
       <th scope="row"></th>
       <td>

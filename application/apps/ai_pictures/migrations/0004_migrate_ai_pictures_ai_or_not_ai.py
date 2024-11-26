@@ -13,7 +13,6 @@ def create_ai_or_not_ai_func(apps, _schema_editor):
     for aiornotai in aiornotais:
         aiornotai_objects.append(
             AiOrNotAi(
-                id=aiornotai.id,
                 score=aiornotai.score,
                 ip=aiornotai.ip,
                 date=aiornotai.date.replace(tzinfo=timezone.utc),

@@ -214,3 +214,21 @@ VIDEOS_WEBCAM_URL = "https://pt.cdwmtt.com/api/video-promotion/v1/list?psid=thep
 VIDEO_WEBCAM_DETAIL = "https://wmccd.com/api/video-promotion/v1/details/{code}/?psid=thepornator&pstool=421_2&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&campaign_id=&site=jsm&primaryColor=8AC437&labelColor=212121&psprogram=VPAPI"
 
 SURVEY_TIME_THRESHOLD_SECONDS = 15
+
+WORD_BLACK_LIST = [
+    "nazi",
+    "nigga",
+    "nigger",
+    "asshole",
+    "negre",
+    "nègre",
+    "hitler",
+    "rape",
+    "viol",
+    "enfant",
+    "child",
+]
+
+BASE_TWITTER = "https://twitter.com/intent/tweet"
+BASE_FACEBOOK = "https://www.facebook.com/sharer/sharer.php"
+BASE_REDDIT = "https://www.reddit.com/submit"

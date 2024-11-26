@@ -9,6 +9,11 @@ urlpatterns = [
         "aiporn/aiornotai.html", views.AiPornAiOrNotAiView.as_view(), name="aiornotai"
     ),
     path(
+        "aiporn/aiornotai/add",
+        views.AiPornAiOrNotAddResultView.as_view(),
+        name="aiornotai-add",
+    ),
+    path(
         "aiporn/<category>.html",
         views.AiPornCategoryContentListView.as_view(),
         name="category",
@@ -30,6 +35,16 @@ urlpatterns = [
     ),
     path(
         "aiporn/content/<slug>.html", views.AiPornContentView.as_view(), name="content"
+    ),
+    path(
+        "aiporn/content/<slug>/update",
+        views.AiPornContentUpdateView.as_view(),
+        name="content-update",
+    ),
+    path(
+        "aiporn/content/<slug>/vote",
+        views.AiPornContentVoteView.as_view(),
+        name="content-vote",
     ),
     path(
         "aipornvideos/",

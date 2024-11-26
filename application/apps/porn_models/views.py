@@ -1,11 +1,14 @@
-from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from django.utils.translation import gettext as _
 from django.db.models import Count, Q
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.contrib.postgres.search import SearchVector
+from django.utils.translation import get_language
+from django.conf import settings
 
-from apps.porn_models.models import Category, Website
+from apps.porn_models.models import Category, Website, Profile
+from apps.trends.models import TrendingSearches
 
 
 class PornModelsIndexView(ListView):
@@ -46,8 +49,48 @@ class PornModelsIndexView(ListView):
         return categories
 
 
-class PornModelsSearchView(TemplateView):
+class PornModelsSearchView(ListView):
+    model = Profile
     template_name = "porn_models/search.html"
+    context_object_name = "profiles"
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get("query")
+        title = _("Results") + f" {query}"
+        context["breadcrumbs"] = [
+            {
+                "label": _("Performers search engine"),
+                "link": reverse("porn_models:index"),
+            },
+            {"label": title},
+        ]
+        context["title"] = title
+
+        if (
+            self.queryset.count() > 0
+            and (query := self.query.strip())
+            and len(query) > 0
+        ):
+            TrendingSearches.objects.create(
+                request=self.query, lang=get_language(), nb_result=self.queryset.count()
+            )
+
+        return context
+
+    def get_queryset(self):
+        query = self.request.GET.get("query")
+        if self.query in settings.WORD_BLACK_LIST:
+            return super().get_queryset().none()
+        qs = super().get_queryset()
+        qs = qs.annotate(
+            search=SearchVector(
+                "pseudo", "description", "categories__name", "website__name"
+            )
+        ).filter(search=query)
+        self.queryset = qs
+        return qs
 
 
 class PornModelsCategoryView(ListView):

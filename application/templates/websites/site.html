@@ -47,13 +47,14 @@
         </div>
         <div class="col-xl-4 col-sm-12 mb-3">
           <div class="col-12" style="margin-bottom: 30px;">
-            <canvas id="myChartRadar"
+            <canvas id="result-data-chart"
                     width="356"
                     height="356"
                     style="display: block;
                            box-sizing: border-box;
                            height: 356px;
-                           width: 356px">
+                           width: 356px"
+                    data-title="{{ website.name }}">
             </canvas>
           </div>
         </div>
@@ -75,43 +76,5 @@
   </section>
 {% endblock content %}
 {% block extra_script %}
-  <script src="{% static 'chart.js' %}"></script>
-  {{ radar.labels|json_script:"chart-radar-labels" }}
-  {{ radar.data|json_script:"chart-radar-data" }}
-  <script>
-    var ctx = document.getElementById('myChartRadar').getContext('2d')
-    var myChart = new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: JSON.parse(document.getElementById('chart-radar-labels').textContent),
-        datasets: JSON.parse(document.getElementById('chart-radar-data').textContent)
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true
-          },
-          title: {
-            display: true,
-            text: '{{ radar.title }}'
-          }
-        },
-        elements: {
-          line: {
-            borderWidth: 3
-          }
-        },
-        scales: {
-          r: {
-            min: 0,
-            max: 5,
-            ticks: {
-              stepSize: 1
-            }
-          }
-        }
-      }
-    })
-  </script>
+  {{ radar|json_script:"chart-radar-data" }}
 {% endblock extra_script %}

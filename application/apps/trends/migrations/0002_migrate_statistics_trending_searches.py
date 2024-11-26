@@ -13,7 +13,6 @@ def create_trending_searches_func(apps, _schema_editor):
     for trending_search in trending_searches:
         trending_searches_objects.append(
             TrendingSearches(
-                id=trending_search.id,
                 request=trending_search.request,
                 date=trending_search.date,
                 nb_result=trending_search.nb_results,

@@ -3,7 +3,7 @@ from .views import (
     SurveyIndexView,
     AddSurveyView,
     ResultDetailView,
-    UpdateSurveyToValidView,
+    UpdateIsValidSurveyView,
 )
 
 
@@ -13,9 +13,9 @@ urlpatterns = [
     path("site/survey.html", SurveyIndexView.as_view(), name="index"),
     path("site/survey/add", AddSurveyView.as_view(), name="add-survey"),
     path(
-        "site/survey/valid/<slug>",
-        UpdateSurveyToValidView.as_view(),
-        name="valid-survey",
+        "site/survey/is-valid/<slug>",
+        UpdateIsValidSurveyView.as_view(),
+        name="is-valid-survey",
     ),
     path(
         "site/result/<slug>.html",

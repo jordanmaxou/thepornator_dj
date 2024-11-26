@@ -8,6 +8,7 @@ def nav_bar_context(request):
         "website_categories": [
             {
                 "name": cat.name,
+                "slug": cat.slug,
                 "url": reverse("websites:category", kwargs={"category": cat.slug}),
                 "icon": cat.icon.url,
             }

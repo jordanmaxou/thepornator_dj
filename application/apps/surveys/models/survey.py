@@ -9,7 +9,7 @@ from .podium import Podium
 class Survey(models.Model):
     user_daily_fingerprint = models.CharField(max_length=255, unique=True)
     creation_date = models.DateField(auto_now_add=True)
-    is_valid = models.BooleanField(default=False)
+    is_valid = models.BooleanField(null=True)
     duration = models.DurationField()
     questions = models.ManyToManyField(
         Question,

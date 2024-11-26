@@ -1,5 +1,5 @@
 from typing import Optional
-
+from datetime import date
 from os.path import basename
 from PIL import Image
 import requests
@@ -68,3 +68,44 @@ class Content(models.Model):
             if img.height > max_size[1] or img.width > max_size[0]:
                 img.thumbnail(max_size, Image.ANTIALIAS)
             self.image.save(basename(url), img)
+
+    @property
+    def selected_categories(self):
+        selected_categories = list(self.categories.values_list("id", flat=True))
+        return (
+            self.categories.model.objects.annotate(
+                selected=models.Case(
+                    models.When(id__in=selected_categories, then=True),
+                    default=False,
+                    output_field=models.BooleanField(),
+                )
+            )
+            .order_by("name")
+            .values("id", "name", "selected")
+        )
+
+    @property
+    def selected_countries(self):
+        if self.country:
+            return self.country.__class__.objects.annotate(
+                selected=models.Case(
+                    models.When(id=self.country.id, then=True),
+                    default=False,
+                    output_field=models.BooleanField(),
+                )
+            )
+        else:
+            return Country.objects.annotate(
+                selected=models.Value(False, models.BooleanField())
+            )
+
+    def next_content(self, type: TypeOfContent):
+        return (
+            self.__class__.objects.filter(
+                type=type,
+                publication_date__lte=date.today(),
+                categories__in=self.categories.all(),
+            )
+            .order_by("?")
+            .first()
+        )

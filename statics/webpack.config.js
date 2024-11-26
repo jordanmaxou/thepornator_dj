@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default {
   entry: {
     main: "./src/js/main.js",
-    chart: "./src/js/chart.js",
+    bootstrap: "./src/js/bootstrap.bundle.js",
   },
   stats: {
     warnings: false,

@@ -1,4 +1,3 @@
-from datetime import date
 from urllib.parse import urlparse, urlunparse
 
 from django.db import models
@@ -58,8 +57,8 @@ class Website(models.Model):
     is_direct_link = models.BooleanField()
     description = models.TextField(max_length=10000)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    creation_date = models.DateField(default=date.today)
-    update_date = models.DateField()
+    creation_date = models.DateField(auto_now_add=True)
+    update_date = models.DateField(auto_now=True)
     end_date = models.DateField(null=True, blank=True)
     click = models.PositiveBigIntegerField(default=0)
     deal = models.ForeignKey(Deal, on_delete=models.SET_NULL, null=True)

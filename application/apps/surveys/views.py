@@ -90,12 +90,16 @@ class AddSurveyView(View):
         )
 
 
-class UpdateSurveyToValidView(View):
-    def post(self, _request, slug):
-        survey = get_object_or_404(Survey, user_daily_fingerprint=slug)
-        survey.is_valid = True
-        survey.save()
-        return HttpResponse(status=201)
+class UpdateIsValidSurveyView(View):
+    def post(self, request, slug):
+        data = json.loads(request.body)
+        if (is_valid := data.get("is_valid")) and isinstance(is_valid, bool):
+            survey = get_object_or_404(Survey, user_daily_fingerprint=slug)
+            survey.is_valid = is_valid
+            survey.save()
+            return HttpResponse(status=201)
+        else:
+            return HttpResponse(status=400)
 
 
 class ResultDetailView(DetailView):

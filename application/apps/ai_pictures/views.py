@@ -1,23 +1,31 @@
 from datetime import date
+import json
+from urllib.parse import urlencode, urljoin
 
 from django.db.models.functions import Round, Lower, Substr
 from django.views.generic.base import TemplateView
+from django.views.generic.base import View
 from django.views.generic import ListView, DetailView
 from django.utils.translation import gettext as _
-from django.db.models import Count, Q, Avg
+from django.db.models import Count, Q, Avg, F
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import get_language
+from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 
 from apps.ai_pictures.models import (
     Category,
     Content,
-    AiOrNotAi,
+    AiOrNotAiScore,
+    AiOrNotAiImage,
     Country,
     Tag,
     TypeOfContent,
+    Note,
 )
 from apps.websites.models import Website
+from libs.request import get_client_ip
 
 
 class AiPornCategoryListView(ListView):
@@ -286,6 +294,7 @@ class AiPornContentView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["page_type"] = "content-detail"
         context["breadcrumbs"] = [
             {
                 "label": _("AI Porn pics"),
@@ -313,10 +322,21 @@ class AiPornContentView(DetailView):
             [self.object.note.scary, self.object.note.sexy, self.object.note.funny]
         )
         context["notes"] = {
-            "scary": self.object.note.scary / note_sum * 100,
-            "sexy": self.object.note.sexy / note_sum * 100,
-            "funny": self.object.note.funny / note_sum * 100,
+            "scary": self.object.note.scary / note_sum * 100 if note_sum > 0 else 0,
+            "sexy": self.object.note.sexy / note_sum * 100 if note_sum > 0 else 0,
+            "funny": self.object.note.funny / note_sum * 100 if note_sum > 0 else 0,
         }
+
+        context["edit_url"] = reverse(
+            "ai_pictures:content-update",
+            kwargs={"slug": self.kwargs.get(self.slug_url_kwarg)},
+        )
+
+        context["vote_url"] = reverse(
+            "ai_pictures:content-vote",
+            kwargs={"slug": self.kwargs.get(self.slug_url_kwarg)},
+        )
+
         return context
 
     def get_queryset(self):
@@ -326,10 +346,12 @@ class AiPornContentView(DetailView):
 
 
 class AiPornAiOrNotAiView(TemplateView):
+    model = AiOrNotAiImage
     template_name = "ai_pictures/aiornotai.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["page_type"] = "ai-game"
         context["breadcrumbs"] = [
             {
                 "label": _("AI Porn pics"),
@@ -338,10 +360,57 @@ class AiPornAiOrNotAiView(TemplateView):
             {"label": _("AI or not AI game")},
         ]
 
-        context["statistics"] = AiOrNotAi.objects.aggregate(
+        context["pictures"] = [
+            {"id": row.id, "file": row.picture.url}
+            for row in AiOrNotAiImage.objects.all()
+        ]
+
+        context["statistics"] = AiOrNotAiScore.objects.aggregate(
             total_quiz=Count("id"), avg_score=Round(Avg("score"), precision=2)
         )
         return context
+
+
+class AiPornAiOrNotAddResultView(View):
+    def post(self, request):
+        user_responses = json.loads(request.body)
+        truth = {
+            p["id"]: p["is_real"]
+            for p in AiOrNotAiImage.objects.filter(enabled=True).values("id", "is_real")
+        }
+        raw_score = 0
+        for id, user_response in user_responses.items():
+            if (truth[int(id)] is True and user_response == 1) or (
+                truth[int(id)] is False and user_response == -1
+            ):
+                raw_score += 1
+        score = round(raw_score * 20 / len(truth), 0)
+        AiOrNotAiScore.objects.create(score=score, ip=get_client_ip(request))
+        text = _(
+            """I got a score of %(score)s/20 at @thepornator's quiz, at the game "Porn AI or not Porn AI?" and you?"""
+            % {"score": score}
+        )
+        url = urljoin(settings.ALLOWED_HOSTS[0], reverse("ai_pictures:aiornotai"))
+        return JsonResponse(
+            {
+                "score": score,
+                "social_urls": {
+                    "twitter": "{base}?{query}".format(
+                        base=settings.BASE_TWITTER,
+                        query=urlencode({"url": url, "text": text}),
+                    ),
+                    "facebook": "{base}?{query}".format(
+                        base=settings.BASE_FACEBOOK,
+                        query=urlencode({"url": url, "title": text}),
+                    ),
+                    "reddit": "{base}?{query}".format(
+                        base=settings.BASE_REDDIT,
+                        query=urlencode({"url": url, "title": text}),
+                    ),
+                },
+            },
+            status=201,
+        )
 
 
 class AiPornVideosIndexView(ListView):
@@ -406,6 +475,7 @@ class AiPornVideosCategoryView(ListView):
             },
             {"label": self.obj.name},
         ]
+        context["custom_title"] = self.obj.name
         return context
 
     def get_queryset(self):
@@ -436,7 +506,6 @@ class AiPornVideosSourceView(ListView):
             Website.objects.filter(pk=self.obj.pk)
             .annotate(
                 avg_note_update=Avg("questionwebsite__note_update"),
-                reviews=Count("survey", distinct=True, filter=Q(survey__is_valid=True)),
             )
             .first()
         )
@@ -460,9 +529,10 @@ class AiPornVideosContentView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["page_type"] = "content-detail"
         context["breadcrumbs"] = [
             {
-                "label": _("AI Porn pics"),
+                "label": _("AI Porn videos"),
                 "link": reverse("ai_pictures:ai-porn-videos-index"),
             },
             {"label": self.object.title[:20]},
@@ -487,13 +557,74 @@ class AiPornVideosContentView(DetailView):
             [self.object.note.scary, self.object.note.sexy, self.object.note.funny]
         )
         context["notes"] = {
-            "scary": self.object.note.scary / note_sum * 100,
-            "sexy": self.object.note.sexy / note_sum * 100,
-            "funny": self.object.note.funny / note_sum * 100,
+            "scary": self.object.note.scary / note_sum * 100 if note_sum > 0 else 0,
+            "sexy": self.object.note.sexy / note_sum * 100 if note_sum > 0 else 0,
+            "funny": self.object.note.funny / note_sum * 100 if note_sum > 0 else 0,
         }
+
+        context["edit_url"] = reverse(
+            "ai_pictures:content-update",
+            kwargs={"slug": self.kwargs.get(self.slug_url_kwarg)},
+        )
+
+        context["vote_url"] = reverse(
+            "ai_pictures:content-vote",
+            kwargs={"slug": self.kwargs.get(self.slug_url_kwarg)},
+        )
+
         return context
 
     def get_queryset(self):
         return self.model.objects.filter(
             type=TypeOfContent.VIDEO, publication_date__lte=date.today()
         )
+
+
+class AiPornContentUpdateView(View):
+    def post(self, request, slug):
+        data = json.loads(request.body)
+        content = get_object_or_404(Content, code=slug)
+        if (wanted_category_ids := data.get("categories")) and isinstance(
+            wanted_category_ids, list
+        ):
+            content.categories.set(wanted_category_ids, clear=True)
+
+        if "country" in data.keys():
+            country_id = data.get("country")
+            content.country_id = country_id
+            content.save(update_fields=["country_id"])
+
+        return HttpResponse(status=201)
+
+
+class AiPornContentVoteView(View):
+    def post(self, request, slug):
+        data = json.loads(request.body)
+        content = get_object_or_404(Content, code=slug)
+        type_vote = data.get("vote")
+        type_content = data.get("type")
+        if type_vote in [
+            "scary",
+            "funny",
+            "sexy",
+            "next",
+        ] and type_content in [TypeOfContent.IMAGE, TypeOfContent.VIDEO]:
+            if type_vote != "next":
+                if content.note is None:
+                    content.note = Note.objects.create()
+                    content.save(update_fields=["note"])
+
+                Note.objects.filter(id=content.note.id).update(
+                    **{type_vote: F(type_vote) + 1}
+                )
+            if next_content := content.next_content(type_content):
+                next_url = reverse(
+                    f"ai_pictures:{'content' if type_content == TypeOfContent.IMAGE else 'ai-porn-videos-content'}",
+                    kwargs={"slug": next_content.code},
+                )
+            else:
+                next_url = reverse("home:home")
+
+            return JsonResponse({"next_url": next_url})
+        else:
+            return HttpResponse(status=400)

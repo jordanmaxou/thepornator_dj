@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                     models.CharField(max_length=255, unique=True),
                 ),
                 ("creation_date", models.DateField(auto_now_add=True)),
-                ("is_valid", models.BooleanField(default=False)),
+                ("is_valid", models.BooleanField(null=True)),
                 ("duration", models.DurationField()),
             ],
         ),

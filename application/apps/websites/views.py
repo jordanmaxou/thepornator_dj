@@ -1,11 +1,15 @@
-from django.db.models import Avg
-from django.views.generic.base import TemplateView
+from datetime import date
+from django.db.models import Avg, Case, When, F, Q
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext as _
+from django.contrib.postgres.search import SearchVector
 from django.urls import reverse
+from django.utils.translation import get_language
+from django.conf import settings
 
 from apps.websites.models import Category, Website
+from apps.trends.models import TrendingSearches
 
 
 class WebsiteCategoryListView(ListView):
@@ -51,10 +55,10 @@ class WebsiteSiteDetailView(DetailView):
             },
             {"label": self.obj.name},
         ]
-
+        context["page_type"] = "website-detail"
         radar_data = self.obj.avg_notes_by_theme
         context["radar"] = {
-            "data": [
+            "datasets": [
                 {
                     "label": self.obj.name,
                     "data": [
@@ -84,5 +88,72 @@ class WebsiteSiteDetailView(DetailView):
         return context
 
 
-class WebsiteSearchView(TemplateView):
+class WebsiteSearchView(ListView):
+    model = Website
+    context_object_name = "websites"
     template_name = "websites/search.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["breadcrumbs"] = [{"label": _("Results")}]
+        base_url = (
+            reverse("websites:search")
+            + f"?query={self.query}&rating={self.rating}&category={self.category}"
+        )
+        context["sort_urls"] = {
+            "newest": f"{base_url}&sort=newest",
+            "rated": f"{base_url}&sort=rated",
+        }
+        context["current_sort"] = self.sort
+
+        if (
+            self.queryset.count() > 0
+            and (query := self.query.strip())
+            and len(query) > 0
+        ):
+            TrendingSearches.objects.create(
+                request=self.query, lang=get_language(), nb_result=self.queryset.count()
+            )
+        return context
+
+    def get_queryset(self):
+        self.query = self.request.GET.get("query")
+        if self.query in settings.WORD_BLACK_LIST:
+            return super().get_queryset().none()
+        self.rating = self.request.GET.get("rating")
+        self.category = self.request.GET.get("category")
+        self.sort = self.request.GET.get("sort")
+        qs = (
+            super()
+            .get_queryset()
+            .filter(
+                Q(creation_date__lte=date.today())
+                & (Q(end_date__isnull=True) | Q(end_date__gt=date.today()))
+            )
+            .annotate(
+                search=SearchVector("name", "description", "slug"),
+                avg_note_update=Avg(
+                    Case(
+                        When(
+                            questionwebsite__note_update__isnull=False,
+                            then=F("questionwebsite__note_update"),
+                        ),
+                        default=F("questionwebsite__note_init"),
+                    )
+                ),
+            )
+        )
+        if self.query:
+            qs = qs.filter(search=self.query)
+        if self.rating and (rating := int(self.rating)):
+            qs = qs.filter(avg_note_update__range=(rating, rating + 1))
+        if self.category:
+            qs = qs.filter(category__slug=self.category)
+
+        if self.sort:
+            if self.sort == "newest":
+                qs = qs.order_by("-creation_date")
+            elif self.sort == "rated":
+                qs = qs.order_by("-avg_note_update")
+        self.queryset = qs
+        return qs

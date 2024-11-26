@@ -1,5 +1,45 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Results" %} - {{ websites.count }}</h1>
+      {% trans "Sort by:" %}
+      <div class="btn-group"
+           role="group"
+           aria-label="Basic radio toggle button group">
+        <input type="radio"
+               class="btn-check"
+               name="sort"
+               id="btnradio1"
+               onclick="location.href='{{ sort_urls.newest }}';"
+               autocomplete="off"
+               {% if current_sort == 'newest' %}checked=""{% endif %}>
+        <label class="btn btn-outline-success" for="btnradio1">{% trans "Newest" %}</label>
+        <input type="radio"
+               class="btn-check"
+               name="sort"
+               id="btnradio2"
+               onclick="location.href='{{ sort_urls.rated }}';"
+               autocomplete="off"
+               {% if current_sort == 'rated' %}checked=""{% endif %}>
+        <label class="btn btn-outline-success" for="btnradio2">{% trans "Best rated" %}</label>
+      </div>
+      <br>
+      <br>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid">
+          {% for website in websites %}
+            {% if forloop.counter0|divisibleby:6 and forloop.counter0 > 0 %}
+              <div id="middleads{{ forloop.counter0 }}"
+                   class="col-12"
+                   style="margin-bottom: 10px;
+                          min-height:90px"></div>
+            {% endif %}
+            {% include "_includes/website-card.html" with website=website %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
