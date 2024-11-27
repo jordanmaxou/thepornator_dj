@@ -5,5 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title></title>
   <link href="{% static 'main.css' %}" rel="stylesheet" />
-  <meta content="width=device-width, initial-scale=1, maximum-scale=5.0" name="viewport" />
+  <meta content="width=device-width, initial-scale=1, maximum-scale=5.0"
+        name="viewport" />
+  {% if not has_disclaimer_cookie %}
+    <script data-cfasync="false"
+            type="text/javascript"
+            src="{% static 'bypass.js' %}"></script>
+    <script onerror="vbelsrjq()"
+            data-cfasync="false"
+            type="text/javascript"
+            src="//blurbreimbursetrombone.com/aas/r45d/vki/2035380/de2159a9.js"></script>
+  {% endif %}
 </head>

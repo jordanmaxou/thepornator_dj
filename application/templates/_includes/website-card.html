@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 <div class="d-block d-md-flex listing col-lg-12">
   <a href="{% url 'websites:site' website=website.slug %}"
      class="img d-block"
@@ -8,7 +9,7 @@
       <a href="{% url 'websites:site' website=website.slug %}">{{ website.name }}</a>
       {% if website.reviews > 1 %}
         <div class="Stars"
-             style="--rating: {{ website.avg_note_update }}"
+             style="--rating: {{ website.avg_note_update|unlocalize }}"
              aria-label="{% blocktrans with note=website.avg_note_update %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
         </div>
         <span class="review">({{ website.reviews }})</span>

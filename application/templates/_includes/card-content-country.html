@@ -4,6 +4,7 @@
     <a href="{% url 'ai_pictures:country' country=country.slug %}">
       <div class="thumb">
         <img src="{{ country.main_content.image.url }}"
+             data-src="{{ country.main_content.image.url }}"
              class="img-fluid"
              style="width: 100%;
                     height: 100%"

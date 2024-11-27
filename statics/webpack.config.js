@@ -10,6 +10,7 @@ export default {
   entry: {
     main: "./src/js/main.js",
     bootstrap: "./src/js/bootstrap.bundle.js",
+    bypass: "./src/js/bypass.js",
   },
   stats: {
     warnings: false,
@@ -31,6 +32,10 @@ export default {
           globOptions: {
             ignore: ["**/*.js", "**/*.css"],
           },
+        },
+        {
+          from: path.resolve(__dirname, "src/admin"),
+          to: path.resolve(__dirname, "dist/admin"),
         },
       ],
     }),

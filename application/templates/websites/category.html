@@ -8,8 +8,8 @@
         <div class="row listinggrid">
           {% for website in websites %}
             {% if forloop.counter|divisibleby:7 %}
-              <div id="middleads{{ forloop.counter }}"
-                   class="col-12"
+              <div data-zone="middle"
+                   class="banner col-12"
                    style="margin-bottom: 10px;
                           min-height:90px"></div>
             {% endif %}

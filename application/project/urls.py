@@ -6,6 +6,7 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = [
     path("_health", include("health_check.urls")),
     path("", include("apps.out.urls", namespace="out")),
+    path("", include("apps.ads.urls", namespace="ads")),
     path("admin/", admin.site.urls),
 ]
 

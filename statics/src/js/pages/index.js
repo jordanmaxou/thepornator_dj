@@ -3,6 +3,8 @@ import { SurveyResult } from "./SurveyResult.js";
 import { WebsiteDetail } from "./websiteDetail.js";
 import { ContentEdit } from "./ContentEdit.js";
 import { AiGame } from "./AiGame.js";
+import { OnlyfansProfiles } from "./OnlyfansProfiles.js";
+import { Commons } from "./Commons.js";
 
 export const initPages = async () => {
   const body = document.querySelector("body");
@@ -24,9 +26,14 @@ export const initPages = async () => {
     case "ai-game":
       page = new AiGame();
       break;
+    case "onlyfans-profiles":
+      page = new OnlyfansProfiles();
+      break;
   }
 
   if (page) {
     await page.start();
   }
+  const commons = new Commons();
+  await commons.start();
 };

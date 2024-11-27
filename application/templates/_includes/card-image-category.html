@@ -5,6 +5,7 @@
     <a href="{% url 'ai_pictures:category' category=category.slug %}">
       <div class="thumb">
         <img src="{{ category.main_content.image.url }}"
+             data-src="{{ category.main_content.image.url }}"
              class="img-fluid"
              style="width: 100%;
                     height: 100%"

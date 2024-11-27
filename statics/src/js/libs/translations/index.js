@@ -1,14 +1,19 @@
 import surveyTranslations from "./survey.js";
-import surveyResultTranslation from "./surveyResult.js";
+import surveyResultTranslations from "./surveyResult.js";
+import onlyfansBulletTranslations from "./onlyfansBullet.js";
 
 const translations = {
   ...surveyTranslations,
-  ...surveyResultTranslation,
+  ...surveyResultTranslations,
+  ...onlyfansBulletTranslations,
 };
 
-export default function translate(id) {
+export default function translate(id, data) {
   const translation = translations[id][document.documentElement.lang];
   if (translation) {
+    if (data) {
+      return translation.replace(/{(.*?)}/g, (_, key) => data[key]);
+    }
     return translation;
   }
   throw Error(

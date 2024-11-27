@@ -134,6 +134,9 @@ class PornModelsSiteView(ListView):
             },
             {"label": self.obj.name},
         ]
+        if self.obj.slug == "onlyfans":
+            context["page_type"] = "onlyfans-profiles"
+
         context["website"] = self.obj
         context["title"] = self.obj.name
         context["categories"] = Category.objects.filter(

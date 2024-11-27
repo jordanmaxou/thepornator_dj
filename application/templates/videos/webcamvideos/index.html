@@ -10,8 +10,8 @@
     <div class="row">
       {% for video in videos %}
         {% if forloop.counter0|divisibleby:8 and forloop.counter0 > 0 %}
-          <div id="middleads{{ forloop.counter0 }}"
-               class="col-12"
+          <div data-zone="middle"
+               class="banner col-12"
                style="margin-bottom: 10px;
                       min-height:90px"></div>
         {% endif %}
@@ -22,6 +22,7 @@
                 <figure class="figure" style="width: 100%;">
                   <div style="width:100%; position: relative;">
                     <img src="{{ video.previewImages.0 }}"
+                         data-src="{{ video.previewImages.0 }}"
                          style="width: 100%;
                                 height:auto"
                          alt="{{ video.title }}">

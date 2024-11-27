@@ -15,6 +15,7 @@
             <a href="{% url 'scripts:content' slug=script.slug %}">
               <div class="thumb2">
                 <img src="{{ script.thumb.url }}"
+                     data-src="{{ script.thumb.url }}"
                      class="img-fluid"
                      style="width: 100%"
                      alt="{{ script.title }}">

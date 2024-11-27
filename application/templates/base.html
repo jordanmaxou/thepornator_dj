@@ -12,19 +12,20 @@
       {% block top_content %}
         {% include "_includes/mobile-outlinks.html" %}
         {% include "_includes/breadcrumbs.html" %}
-        <div id="topbanner" class="container"></div>
+        <div class="container banner" data-zone="top"></div>
       {% endblock top_content %}
       {% block content %}
       {% endblock content %}
     </main>
     {% block bottom_content %}
-      <div id="bottombanner" class="container"></div>
+      <div class="container banner" data-zone="bottom"></div>
     {% endblock bottom_content %}
     {% include "_includes/footer.html" %}
     {% block extra_script %}
     {% endblock extra_script %}
+    {% include "_includes/disclaimer.html" %}
+    {% include "_includes/onlyfans-bullet.html" %}
     <script src="{% static 'bootstrap.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
-    {% include "_includes/disclaimer.html" %}
   </body>
 </html>

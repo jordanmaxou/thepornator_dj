@@ -14,12 +14,12 @@
     display: none
 }
 
-#topbanner {
+.banner[data-zone="top"] {
     height: 150px;
     margin-top: 10px
 }
 
-#bottombanner {
+.banner[data-zone="bottom"] {
     margin-top: 10px;
     margin-bottom: 10px
 }
@@ -80,11 +80,11 @@
         display: block
     }
 
-    #topbanner {
+    .banner[data-zone="top"] {
         height: 90px
     }
 
-    #topbanner img {
+    .banner[data-zone="top"] img {
         max-height: 90px
     }
 }

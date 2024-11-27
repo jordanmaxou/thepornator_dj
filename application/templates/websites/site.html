@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load l10n %}
 {% block content %}
   <div class="container">
     <div class="section-title">
@@ -37,7 +38,7 @@
     onclick="this.href += '?'+Math.floor(Date.now() / 1000);">{{ website.base_website_url }}</a>
             <br>
             <div class="Stars"
-                 style="--rating: {{ website.avg_note }}"
+                 style="--rating: {{ website.avg_note|unlocalize }}"
                  aria-label="{% blocktrans with note=website.avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
             </div>
             <span class="review">({{ website.reviews }})</span>

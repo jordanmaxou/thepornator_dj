@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "apps.scripts",
     "apps.stories",
     "apps.trends",
+    "apps.ads",
     "libs.i18n",
     "libs.format",
 ]
@@ -86,6 +87,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "libs.context_processors.nav_bar_context",
+                "libs.context_processors.disclaimer_cookie_context",
             ],
         },
     },
@@ -232,3 +234,5 @@ WORD_BLACK_LIST = [
 BASE_TWITTER = "https://twitter.com/intent/tweet"
 BASE_FACEBOOK = "https://www.facebook.com/sharer/sharer.php"
 BASE_REDDIT = "https://www.reddit.com/submit"
+
+DISCLAIMER_COOKIE_NAME = "disclaimer-shown"

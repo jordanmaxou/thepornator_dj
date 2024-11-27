@@ -38,7 +38,7 @@ class BlogDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = [
-            {"label": _("Blog"), "link": reverse("blogs:index")},
+            {"label": _("Blog"), "link": reverse("blog:index")},
             {"label": self.object.title},
         ]
         return context

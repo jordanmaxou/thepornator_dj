@@ -41,7 +41,7 @@
             </div>
             <div class="col-xl-4 col-sm-12 mb-3">
               <div class="col-12 mb-3">
-                <div style="height: 355px;overflow-y: auto;">{{ survey.selected_websites.first.description }}</div>
+                <div style="height: 355px;overflow-y: auto;">{{ survey.selected_websites.first.description|safe }}</div>
                 <br>
                 {% trans "Domain" %}: <a rel="nofollow"
     href="{% url 'out:out-view-site' site_slug=survey.selected_websites.first.slug %}"
