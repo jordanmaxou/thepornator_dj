@@ -119,7 +119,7 @@ class Migration(migrations.Migration):
                         choices=[("image", "Image"), ("video", "Video")], max_length=10
                     ),
                 ),
-                ("code", models.CharField(max_length=100)),
+                ("slug", models.CharField(max_length=100, null=True, blank=True)),
                 ("publication_date", models.DateField()),
                 (
                     "image",
@@ -131,6 +131,17 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("categories", models.ManyToManyField(to="ai_pictures.category")),
+                ("external_url", models.URLField(null=True, blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("last_update", models.DateTimeField(auto_now=True)),
+                (
+                    "status",
+                    models.SmallIntegerField(
+                        blank=True,
+                        choices=[(1, "Ok"), (0, "Not Found"), (-1, "Error")],
+                        null=True,
+                    ),
+                ),
             ],
         ),
     ]

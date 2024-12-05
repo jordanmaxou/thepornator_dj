@@ -19,7 +19,7 @@ def create_glossary_func(apps, _schema_editor):
                 name=glossary.labelEN,
                 name_en=glossary.labelEN,
                 name_fr=glossary.labelFR,
-                type=glossary.type,
+                type="acronym" if glossary.type == "acronyme" else glossary.type,
                 definition=glossary.definitionEN,
                 definition_en=glossary.definitionEN,
                 definition_fr=glossary.definitionFR,

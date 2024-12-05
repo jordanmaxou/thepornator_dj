@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
+    "django_recaptcha",
     "apps.migration",
     "apps.websites",
     "apps.ai_pictures",
@@ -58,7 +60,9 @@ INSTALLED_APPS = [
     "apps.stories",
     "apps.trends",
     "apps.ads",
+    "apps.contact",
     "libs.i18n",
+    "libs.ld_json",
     "libs.format",
 ]
 
@@ -86,8 +90,11 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "libs.context_processors.nav_bar_context",
+                "libs.context_processors.canonical",
+                "libs.context_processors.alternates",
                 "libs.context_processors.disclaimer_cookie_context",
+                "libs.context_processors.nav_bar_context",
+                "apps.ads.context_processors.top_link",
             ],
         },
     },
@@ -213,8 +220,7 @@ LOGGING = {
 
 VIDEOS_WEBCAM_URL = "https://pt.cdwmtt.com/api/video-promotion/v1/list?psid=thepornator&pstool=421_1&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&program=vpapi&campaign_id=&type=&site=jasmin&sexualOrientation=straight&forcedPerformers=&limit=40&primaryColor=%238AC437&labelColor=%23212121"
 
-VIDEO_WEBCAM_DETAIL = "https://wmccd.com/api/video-promotion/v1/details/{code}/?psid=thepornator&pstool=421_2&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&campaign_id=&site=jsm&primaryColor=8AC437&labelColor=212121&psprogram=VPAPI"
-
+VIDEO_WEBCAM_DETAIL = "https://wmcdpt.com/api/video-promotion/v1/details/{video_id}/?psid=thepornator&pstool=421_2&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&campaign_id=&site=jsm&clientIp={client_ip}&primaryColor=8AC437&labelColor=212121&psprogram=VPAPI"
 SURVEY_TIME_THRESHOLD_SECONDS = 15
 
 WORD_BLACK_LIST = [
@@ -236,3 +242,7 @@ BASE_FACEBOOK = "https://www.facebook.com/sharer/sharer.php"
 BASE_REDDIT = "https://www.reddit.com/submit"
 
 DISCLAIMER_COOKIE_NAME = "disclaimer-shown"
+
+RECAPTCHA_PUBLIC_KEY = "6LdhrKMiAAAAAKnxxd1sSOJ4qJ1wv4XxwCq999Mn"
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_SECRET", "")
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]

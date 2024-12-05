@@ -1,0 +1,40 @@
+{% load static %}
+{% load i18n %}
+<head>
+      {% now "Y" as year %}
+      {% blocktranslate asvar default_title %}
+            Find your porn - Real Porn sites rankings of {{ year }}!
+      {% endblocktranslate %}
+      {% trans "The Pornator lists and ranks the world's best porn sites. All the top porn sites are 100% safe, virus-free and sorted by many criterias to match your preferences. ThePornator: Ethical and safe porn search engine." as default_description %}
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <title>{{ head.title|default:default_title }}</title>
+      <meta content="{{ head.description|default:default_description }}"
+            name="description">
+      <meta content="width=device-width, initial-scale=1, maximum-scale=5.0"
+            name="viewport">
+      <link href="{% static 'main.css' %}" rel="stylesheet" />
+      <link rel="icon"
+            type="image/x-icon"
+            href="{% static 'favicon.ico' %}"
+            size="32x32">
+      <link rel="apple-touch-icon"
+            href="{% static 'img/tete.webp' %}"
+            size="180x180">
+      <link rel="apple-touch-icon-precomposed"
+            href="{% static 'img/tete.webp' %}"
+            size="180x180">
+      <meta name="theme-color" content="#ffffff">
+      {% include "_includes/head/og.html" with title=head.title|default:default_title description=head.description|default:default_description logo='img/logoog.webp' canonical=canonical only %}
+      {% include "_includes/head/twitter-card.html" with title=head.title|default:default_title description=head.description|default:default_description logo='img/logoog.webp' only %}
+      <meta itemprop="copyright" content="Thepornator">
+      <meta name="author" content="The Worst Noob Promoter">
+      <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA">
+      <link rel="canonical" href="{{ canonical }}">
+      {% include "_includes/head/alternates.html" %}
+      {% include "_includes/head/google-tag-manager.html" %}
+      {% include "_includes/head/partners-check.html" %}
+      {% include "_includes/ads/bypass.html" %}
+      {% include "_includes/head/ld_json.html" %}
+</head>

@@ -5,10 +5,10 @@
       <div class="thumb">
         <img src="{{ country.main_content.image.url }}"
              data-src="{{ country.main_content.image.url }}"
-             class="img-fluid"
+             class="img-fluid lazyload"
              style="width: 100%;
                     height: 100%"
-             alt="{{ country.main_content.code }}">
+             alt="{{ country.main_content.slug }}">
         <div class="text-content">
           <h4>
             {{ country.name }}

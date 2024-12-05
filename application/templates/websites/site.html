@@ -16,9 +16,8 @@
                style="width:400px;
                       max-width:100%"
                rel="nofollow"
-               href="{{ website.url }}"
-               target="_blank"
-               onclick="this.href += '?'+Math.floor(Date.now() / 1000);">
+               href="{% if website.is_direct_link %}{{ website.url }}{% else %}{% url 'out:out-view' type_out='website' id=website.id %}{% endif %}"
+               target="_blank">
               {% blocktrans with title=website.name %}Visit {{ title }}{% endblocktrans %}
               <i class="bx bxs-link-external"></i></a>
           </div>
@@ -32,10 +31,9 @@
             <br>
             <div style="height: 295px;overflow-y: auto;" id="sitedetail">{{ website.description }}</div>
             <br>
-            {% trans 'Domain:' %} <a href="{{ website.url }}"
+            {% trans 'Domain:' %} <a href="{% if website.is_direct_link %}{{ website.url }}{% else %}{% url 'out:out-view' type_out='website' id=website.id %}{% endif %}"
     target="_blank"
-    rel="nofollow"
-    onclick="this.href += '?'+Math.floor(Date.now() / 1000);">{{ website.base_website_url }}</a>
+    rel="nofollow">{{ website.base_website_url }}</a>
             <br>
             <div class="Stars"
                  style="--rating: {{ website.avg_note|unlocalize }}"

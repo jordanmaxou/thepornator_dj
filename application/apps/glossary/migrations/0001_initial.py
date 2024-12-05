@@ -42,14 +42,32 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=50)),
                 ("name_en", models.CharField(max_length=50, null=True)),
                 ("name_fr", models.CharField(max_length=50, null=True)),
-                ("type", models.CharField(max_length=50)),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[
+                            ("position", "Position"),
+                            ("acronym", "Acronym"),
+                            ("vocabulary", "Vocabulary"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
                 ("meaning", models.TextField(max_length=100, null=True)),
                 ("definition", models.TextField(max_length=1200)),
                 ("definition_en", models.TextField(max_length=1200, null=True)),
                 ("definition_fr", models.TextField(max_length=1200, null=True)),
-                ("picture", models.FileField(upload_to="img/glossary")),
+                (
+                    "picture",
+                    models.FileField(upload_to="img/glossary", null=True, blank=True),
+                ),
                 ("publication_date", models.DateField()),
-                ("lang", models.CharField(max_length=5, null=True)),
+                (
+                    "lang",
+                    models.CharField(
+                        choices=[("fr", "Fr"), ("en", "En")], max_length=2, null=True
+                    ),
+                ),
                 (
                     "count",
                     models.OneToOneField(

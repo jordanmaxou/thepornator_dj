@@ -3,14 +3,14 @@
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-  {% include "_includes/header.html" %}
+  {% include "_includes/head/head.html" %}
   <body data-page="{{ page_type|default:'generic' }}">
     {% block body_top %}
     {% endblock body_top %}
     {% include "_includes/navbar.html" %}
     <main id="main">
+      {% include "_includes/ads/mobile-outlinks.html" %}
       {% block top_content %}
-        {% include "_includes/mobile-outlinks.html" %}
         {% include "_includes/breadcrumbs.html" %}
         <div class="container banner" data-zone="top"></div>
       {% endblock top_content %}
@@ -24,7 +24,7 @@
     {% block extra_script %}
     {% endblock extra_script %}
     {% include "_includes/disclaimer.html" %}
-    {% include "_includes/onlyfans-bullet.html" %}
+    {% include "_includes/ads/onlyfans-bullet.html" %}
     <script src="{% static 'bootstrap.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
   </body>

@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
+body::before {
+    content: url('../img/home/hero-bg.webp');
+    display: none;
+}
 
 .load-more {
     width: 50%;
@@ -3059,7 +3063,7 @@ button.strong-disagree {
     fill: #fff
 }
 
-.rating-active .item-rating {
+.item-rating.rating-active {
     font-size: 0;
     opacity: 1;
     pointer-events: auto;
@@ -3069,13 +3073,13 @@ button.strong-disagree {
     z-index: 15
 }
 
-.rating-active .item-rating.item-rating-disabled {
-    border: 0;
-    display: block;
-    opacity: 0;
-    transition-delay: 1.5s;
-    visibility: hidden
-}
+// .rating-active .item-rating.item-rating-disabled {
+//     border: 0;
+//     display: block;
+//     opacity: 0;
+//     transition-delay: 1.5s;
+//     visibility: hidden
+// }
 
 .rating-active .item-rating.item-rating-disabled .item-rating-none,
 .card.rating-active .item-rating.item-rating-disabled .item-rating-option,

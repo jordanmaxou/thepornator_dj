@@ -2,6 +2,7 @@ from urllib.parse import urlparse, urlunparse
 
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 from .category import Category
 from .deal import Deal
@@ -70,10 +71,16 @@ class Website(models.Model):
 
     objects = WebsiteManager()
 
+    def __str__(self):
+        return self.slug
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name.replace(".", ""))
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("websites:site", kwargs={"website": self.slug})
 
     @property
     def base_website_url(self) -> str:

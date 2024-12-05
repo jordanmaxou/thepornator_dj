@@ -19,8 +19,6 @@
                 {% for website_category in website_categories %}
                   <li style="display:flex;">
                     <img src="{{ website_category.icon }}"
-                         data-src="{{ website_category.icon }}"
-                         class="lazyloaded"
                          width="25"
                          alt="{{ website_category.name }}" />
                     <a href="{{ website_category.url }}">{{ website_category.name }}</a>
@@ -33,16 +31,12 @@
               <ul>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/category.svg' %}"
-                       data-src="{% static 'img/iconcategories/category.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="category" />
                   <a href="{% url 'ai_pictures:index' %}">{% trans "All categories" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/winner.svg' %}"
-                       data-src="{% static 'img/iconcategories/winner.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="champion" />
                   <a target="_blank"
@@ -51,67 +45,45 @@
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/christmas-tree.svg' %}"
-                       data-src="{% static 'img/iconcategories/christmas-tree.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="AI porn Christmas pictures" />
                   <a href="{% url 'ai_pictures:category' category='christmas' %}">{% trans "AI porn Christmas pictures" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/recent.svg' %}"
-                       data-src="{% static 'img/iconcategories/recent.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="recent" />
                   <a href="{% url 'ai_pictures:category' category='latest' %}">{% trans "The latest published" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/fire.svg' %}"
-                       data-src="{% static 'img/iconcategories/fire.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="fire" />
                   <a href="{% url 'ai_pictures:category' category='sexiest' %}">{% trans "The sexiest" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/scary.svg' %}"
-                       data-src="{% static 'img/iconcategories/scary.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="scary" />
                   <a href="{% url 'ai_pictures:category' category='scariest' %}">{% trans "The scariest" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/laugh.svg' %}"
-                       data-src="{% static 'img/iconcategories/laugh.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="laugh" />
                   <a href="{% url 'ai_pictures:category' category='funniest' %}">{% trans "The funniest" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/play.svg' %}"
-                       data-src="{% static 'img/iconcategories/play.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="game" />
                   <a href="{% url 'ai_pictures:aiornotai' %}">{% trans "AI or not AI game" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/world.svg' %}"
-                       data-src="{% static 'img/iconcategories/world.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="tag" />
                   <a href="{% url 'ai_pictures:countries' %}">{% trans "All countries" %}</a>
-                </li>
-                <li style="display:flex;">
-                  <img src="{% static 'img/iconcategories/tag.svg' %}"
-                       data-src="{% static 'img/iconcategories/tag.svg' %}"
-                       class="lazyloaded"
-                       width="25"
-                       alt="tag" />
-                  <a href="{% url 'ai_pictures:tags' %}">{% trans "All tags" %}</a>
                 </li>
               </ul>
             </li>
@@ -120,24 +92,18 @@
               <ul>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/ai.svg' %}"
-                       data-src="{% static 'img/iconcategories/ai.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="videos IA" />
                   <a href="{% url 'ai_pictures:ai-porn-videos-index' %}">{% trans "AI Porn videos" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/freetube.svg' %}"
-                       data-src="{% static 'img/iconcategories/freetube.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="videos tube" />
                   <a class="nav-link" href="{% url 'videos:videos-index' %}">{% trans "Porn videos tubes" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/livecam.svg' %}"
-                       data-src="{% static 'img/iconcategories/livecam.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="videos webcam" />
                   <a class="nav-link" href="{% url 'videos:webcam-videos-index' %}">{% trans "Webcam videos" %}</a>
@@ -149,8 +115,6 @@
               <ul>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/pornlists.svg' %}"
-                       data-src="{% static 'img/iconcategories/pornlists.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="pornlist" />
                   <a href="{% url 'porn_models:index' %}">{% trans "Search engine" %}</a>
@@ -170,32 +134,24 @@
               <ul>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/stories.svg' %}"
-                       data-src="{% static 'img/iconcategories/stories.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="script" />
                   <a class="nav-link scrollto" href="{% url 'stories:index' %}">{% trans "Sex stories" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/script.svg' %}"
-                       data-src="{% static 'img/iconcategories/script.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="script" />
                   <a class="nav-link scrollto" href="{% url 'scripts:index' %}">{% trans "Porn scripts" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/blog.svg' %}"
-                       data-src="{% static 'img/iconcategories/blog.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="blog" />
                   <a class="nav-link scrollto" href="{% url 'blog:index' %}">{% trans "Blog" %}</a>
                 </li>
                 <li style="display:flex;">
                   <img src="{% static 'img/iconcategories/stats.svg' %}"
-                       data-src="{% static 'img/iconcategories/stats.svg' %}"
-                       class="lazyloaded"
                        width="25"
                        alt="stats" />
                   <a class="nav-link scrollto" href="{% url 'statistics:index' %}">{% trans "Statistics" %}</a>

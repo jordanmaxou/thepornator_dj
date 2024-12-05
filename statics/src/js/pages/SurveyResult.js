@@ -58,7 +58,7 @@ export class SurveyResult {
           });
 
           if (response.ok) {
-            this.removeUpdateSurveyBlock();
+            this.thanksUser();
           }
         } catch (error) {
           console.error("An error occurred during result update", error);
@@ -67,9 +67,9 @@ export class SurveyResult {
     });
   }
 
-  removeUpdateSurveyBlock() {
+  thanksUser() {
     if (this.#isValidBlock.parentElement) {
-      this.#isValidBlock.parentElement.remove();
+      this.#isValidBlock.parentElement.innerHTML = translations("feedback");
     }
   }
 

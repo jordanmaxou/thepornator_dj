@@ -18,8 +18,16 @@ class TrendDetailView(TemplateView):
         trend = TrendingSearches.objects.filter(slug=slug).first()
         context = super().get_context_data(**kwargs)
         title = _("Trends") + f" {trend.request}"
-        context["title"] = title
+        context["h1"] = title
         context["breadcrumbs"] = [{"label": title}]
+        context["head"] = {
+            "title": _("All porn trends %(query)s - The Pornator")
+            % {"query": trend.request},
+            "description": _(
+                "List of porn trends %(query)s by the Pornator visitors over the last 48 hours - The Pornator"
+            )
+            % {"query": trend.request},
+        }
 
         context["websites"] = (
             Website.objects.filter(

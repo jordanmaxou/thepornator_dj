@@ -4,7 +4,7 @@
 {% block top_content %}
 {% endblock top_content %}
 {% block content %}
-  {% include "_includes/mobile-outlinks.html" %}
+  {% include "_includes/ads/mobile-outlinks.html" %}
   {% include "_includes/hero-section.html" with categories=website_categories %}
   <section class="services">
     <div class="container">
@@ -79,6 +79,7 @@
   </section>
   <section class="site-section" style="background-color: #00996140;">
     <div class="container">
+      {% csrf_token %}
       <h2>{% trans "Most recent porn videos" %}</h2>
       <div class="row">
         <div class="row">
@@ -163,7 +164,7 @@
                alt="{% trans 'Evolutionary learning' %}"
                width="140"
                height="140" />
-          <h3>{% trans 'Evolutionary learning' %}</h3>
+          <h3>{% trans "Evolutionary learning" %}</h3>
           <p>
             {% trans "The system learns and improves over time. The initial assessments made by our teams are automatically re-evaluated according to the validated results of the questionnaires. The new assessments are in line with the users' expectations." %}
           </p>
@@ -175,9 +176,9 @@
   </section>
   <section class="services" style="background-color: #00996140;">
     <div class="container">
-      <h2>{% trans 'Share the Pornator' %}</h2>
+      <h2>{% trans "Share the Pornator" %}</h2>
       <p>
-        {% trans 'Did the Pornator help you find a nice porn site, confirm your habit of visiting the same type of porn sites or lead you to change your porn consumption habit? You were pleasantly surprised by the simplicity and effectiveness of the Pornator and you want to share it with all your friends? Click on one of the following share buttons:' %}
+        {% trans "Did the Pornator help you find a nice porn site, confirm your habit of visiting the same type of porn sites or lead you to change your porn consumption habit? You were pleasantly surprised by the simplicity and effectiveness of the Pornator and you want to share it with all your friends? Click on one of the following share buttons:" %}
       </p>
     </div>
     <div class="col-lg-12 cta-btn-container text-center">
@@ -204,7 +205,7 @@
     <div class="container">
       <h2>{% trans 'Frequently asked question' %}</h2>
       <p>
-        {% trans 'Here are some questions about thepornator.com or in general about the principle of a pornographic directory.' %}
+        {% trans "Here are some questions about thepornator.com or in general about the principle of a pornographic directory." %}
       </p>
       <div class="accordion-list">
         <ul>
@@ -267,7 +268,7 @@
                  class="collapse"
                  data-bs-parent=".accordion-list">
               <p>
-                {% trans 'Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites...Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites...' %}
+                {% trans "Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites...Yes, this directory includes mainly video porn sites but also image porn sites, research sites, fan sites..." %}
               </p>
             </div>
           </li>
@@ -275,4 +276,4 @@
       </div>
     </div>
   </section>
-{% endblock %}
+{% endblock content %}

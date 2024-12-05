@@ -8,8 +8,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("ai_pictures", "0001_initial"),
         ("websites", "0001_initial"),
+        ("ai_pictures", "0001_initial"),
     ]
 
     operations = [
@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddIndex(
             model_name="content",
-            index=models.Index(fields=["code"], name="ai_pictures_code_b46050_idx"),
+            index=models.Index(fields=["slug"], name="ai_pictures_slug_b46050_idx"),
         ),
         migrations.AddIndex(
             model_name="content",

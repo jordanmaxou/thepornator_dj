@@ -1,4 +1,3 @@
-from typing import Optional
 from datetime import date
 from os.path import basename
 from PIL import Image
@@ -6,6 +5,7 @@ import requests
 from io import BytesIO
 
 from django.db import models
+from django.urls import reverse
 
 from .note import Note
 from .country import Country
@@ -19,10 +19,16 @@ class TypeOfContent(models.TextChoices):
     VIDEO = "video"
 
 
+class TypeOfStatus(models.IntegerChoices):
+    OK = 1
+    NOT_FOUND = 0
+    ERROR = -1
+
+
 class Content(models.Model):
     title = models.CharField(max_length=200)
     type = models.CharField(max_length=10, choices=TypeOfContent)
-    code = models.CharField(max_length=100)
+    slug = models.CharField(max_length=100, null=True, blank=True)
     publication_date = models.DateField()
     note = models.OneToOneField(Note, on_delete=models.CASCADE)
     source = models.ForeignKey(Website, on_delete=models.SET_NULL, null=True)
@@ -31,36 +37,34 @@ class Content(models.Model):
     image = models.ImageField(
         max_length=250, upload_to=upload_to_according_to_type, null=True, blank=True
     )
+    external_url = models.URLField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now=True)
+    status = models.SmallIntegerField(choices=TypeOfStatus, null=True, blank=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=["code"]),
+            models.Index(fields=["slug"]),
             models.Index(fields=["source"]),
             models.Index(fields=["publication_date"]),
             models.Index(fields=["type"]),
         ]
 
-    def get_image_url(self) -> Optional[str]:
-        match self.source.slug:
-            case "madeporn" if len(self.code) == 23:
-                return f"https://made.porn/600/is/{self.code[9:11]}/{self.code[7:9]}/{self.code}.jpg"
-            case "madeporn" if len(self.code) == 22:
-                return f"https://made.porn/600/is/{self.code[8:10]}/{self.code[6:8]}/{self.code}.jpg"
-            case "pornmake":
-                return f"https://cdn.pornmake.ai/static/webp/{self.code}.webp"
-            case "pornxai":
-                return f"https://cdn1.pornx.ai/{self.code}"
-            case "xpicturesio":
-                return f"https://x-pictures-back-main.s3.us-east-2.amazonaws.com/media/generate-jobs/{self.code}.jpeg"
-            case "pornpen":
-                return f"https://cdn.pornpen.ai/{self.code}.jpg"
-            case _:
-                return None
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        if self.type == TypeOfContent.IMAGE:
+            return reverse("ai_pictures:content", kwargs={"slug": self.slug})
+        elif self.type == TypeOfContent.VIDEO:
+            return reverse(
+                "ai_pictures:ai-porn-videos-content", kwargs={"slug": self.slug}
+            )
 
     def retrieve_image(self):
         max_size = (512, 512)
         if (
-            (url := self.get_image_url())
+            (url := self.external_url)
             and (response := requests.get(url))
             and (response.ok())
         ):

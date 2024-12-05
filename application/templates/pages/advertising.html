@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="section-title displayitems">
+      <h1 class="content-list__see-more">Advertising</h1>
+      <div class="alert alert-primary align-items-center" role="alert">
+        {% trans "ThePornator.com offers a variety of advertising opportunities for adult entertainment websites on our popular review platform, attracting approximately 200,000 unique visitors per month, 70% mobile, a variety of geos (20% USA, 12% Germany, 10% France, 9% India, 6 UK, 4% Canada...) and a good user experience (3mins/session, 7 pages/session). These data come from Google Analytics 4, november 2024 month. Over the years, we've collaborated with numerous clients to deliver high-quality traffic to a diverse range of products, resulting in multiple successful campaigns. On this page, we'll outline the advertising options available for both individuals and companies looking to promote their brands on ThePornator.com." %}
+        <br>
+        <b>{% trans "All opportunity are cumulative. Discounts are available for multiple choices or longer commitments." %}</b>
+      </div>
+      <div style="text-align: center; margin-top: 5px; margin-bottom: 10px;">
+        <a href="{% url 'contact:contact' %}"
+           class="btn btn-success"
+           style="font-weight: 900;
+                  line-height: 2.5">{% trans "Start business!" %}</a>
+      </div>
+      <div id="ads1" class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "1. Adding new site" %}</h2>
+            <p>
+              {% trans "Adding your site to our directory is an excellent opportunity to increase the visibility of your adult entertainment website. Here are the details of this advertising option:" %}
+            </p>
+            <br>
+            <h3>{% trans "Basic Addition (Free)" %}</h3>
+            <ul>
+              <li>
+                {% blocktrans %}
+                  <strong>Review Page Creation</strong>: We create a dedicated page for your site with a short description.
+                {% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}
+                <strong>Nofollow Link</strong>: A nofollow link to your site is included.
+                {% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}
+                <strong>Survey Eligibility</strong>: The site is not eligible to participate in our survey.
+                {% endblocktrans %}
+              </li>
+            </ul>
+            <h3>{% trans "Eligibility Criteri" %}a</h3>
+            <p>
+              {% trans "To ensure a quality user experience and maintain the integrity of our directory, promoted sites must meet the following criteria:" %}
+            </p>
+            <ul>
+              <li>
+                {% blocktrans %}
+                <strong>No Illegal Sites</strong>: No illegal content will be accepted.
+                {% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}
+                <strong>No Cheating</strong>: Sites must be honest and transparent in their practices.
+                {% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}
+                <strong>Non-Intrusive Interface</strong>: The user interface should not be annoying (maximum 2 pop-ups).
+                {% endblocktrans %}
+              </li>
+              <li>
+                {% blocktrans %}
+                <strong>Age or Popularity</strong>: The site must be at least 6 months old or have an Alexa ranking below 500,000.
+                {% endblocktrans %}
+              </li>
+            </ul>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>Free (a backlink would be appreciated in exchange)</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads2"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "2. Fixed position in category listing" %}</h2>
+            <p>
+              {% blocktrans %}
+              Having a fixed position within a category can significantly enhance visibility across multiple pages. Firstly, on the homepage, only the top 10 sites of each category are displayed. Therefore, securing a fixed position within the top 10 increases visibility on this page.
+              Secondly, on the category page, there can be categories with more than 50 sites, so the higher the position, the greater the visibility.
+              Lastly, on the site review page, the top 4 sites within the same category are displayed. Appearing in this top 4 can provide visibility on all site review pages within the category.
+              {% endblocktrans %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/ranking.jpg' %}"
+                   alt="Fixed position in category listing">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>Depends on category.
+              <ul>
+                <li>"AI por site", #2 for 300€/month,</li>
+                <li>"AI Porn chatbot", #1 for 100€/month,</li>
+                <li>"Live sex cam", #1 for 150EUR/month, #2 100EUR/month</li>
+                <li>"Sex dating sites", #1 for 100 EUR/month, #2 for 75EUR/month</li>
+                <li>"AI chat bot", #1 for 200EUR/month, #2 for 150EURo/month</li>
+              </ul>
+            </b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads3"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "3. Full site review" %}</h2>
+            <p>
+              {% trans "A comprehensive and full description is crafted, and the site can be featured in survey results, allowing users to access it upon completing the survey. Additionally, the review page includes a detailed radar graph." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/full-review.jpg' %}" alt="Full site review">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>100€, life time</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads4"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "4. Dofollow link" %}</h2>
+            <h3>{% trans "4.1. Dofollow link in review page" %}</h3>
+            <p>
+              {% trans "If you have a review page, you can install a dofollow link in the description. Placement can be lifetime or on a specific duration." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/reviewdofollow.jpg' %}"
+                   alt="Dofollow link in review page">
+            </div>
+            <br>
+            <h3>{% trans "4.2. Dofollow link on your site link" %}</h3>
+            <p>
+              {% trans "On the review page and on the homepage listing, you can have a dofollow link to your external site. On home page, an additional icon is used and on the review page, the CTA uses your dofollow link instead of an internal tracked and nofollow link." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/dofollowlinks.jpg' %}"
+                   alt="Dofollow link on your site link">
+            </div>
+            <br>
+            <h3>{% trans "4.3. Dofollow link in all pages" %}</h3>
+            <p>
+              {% trans "I can integrate a dofollow link within the text on any page of your choice. There are no specific requirements for the anchor text of the link. The pricing depends on the targeted page and the language (English or French). The more traffic a page receives, the higher the price will be." %}
+            </p>
+            <div class="alert alert-warning align-items-center" role="alert">
+              Cost: <b>4.1: 75€ life time or 15€/month | 4.2: 100€/month or 20€/month | 4.3: On any page: it depends on the targeted page</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads5"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "5. Mobile menu tabs" %}</h2>
+            <p>{% trans "This menu is visible on mobile device. It contains 4 items." %}</p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/mobile_submenu.jpg' %}"
+                   alt="Mobile menu tabs">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>Position 1 = 100€/month, Position 2 = 75€/month, Position 3 = 50€/month, Position 4 = 40€/month</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads6"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "6. Main navigation item" %}</h2>
+            <p>
+              {% trans "The main navigation offers premium placement opportunities across all pages. This can be at the top level of the menu or within a submenu." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/main-navigation.jpg' %}"
+                   alt="Main navigation item">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>100€/month</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads7"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "7. Banners" %}</h2>
+            <p>
+              {% trans "Advertising banners are displayed on all pages. The TOP and BOTTOM placements are available on every page, while the MIDDLE placement is primarily found within lists. The number of MIDDLE placements can vary depending on the list size. Advertisements are randomly selected based on weighting criteria, list of pages, placement, device, and language. Each placement has its own independent random selection process. The expected image formats are 950x250, 1300x150, and 400x90. Supported formats include GIF, WEBP, and JPG." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/banners.jpg' %}" alt="Banners">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>It depends of impressions rules. For instance: 300€/month for 50% of impressions (all pages, mobile+desktop, all placements top, middle and bottom, all languages)</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads8"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "8. Top sticky banner" %}</h2>
+            <p>
+              {% blocktrans %}
+              The top sticky banner is displayed on mobile and desktop in all pages. Elements are customizable: icon, texte, CTA + background color (red in the screenshot hereafter).
+              {% endblocktrans %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/topstickybanner.jpg' %}"
+                   alt="Top sticky banner">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>200€/month</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads9"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "9. Guest blog article" %}</h2>
+            <p>
+              {% trans "There is a BLOG section on the site featuring a list of articles. This section includes sponsored articles containing 1 to 2 dofollow external links. All adult-related themes are permitted. Simply provide the HTML of the article along with visual illustrations. The publication will be completed within 24 hours of receiving the materials." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/guest-blog.jpg' %}" alt="Guest blog article">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>200€ lifetime (only integration), 250€ lifetime (writing the article addition)</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads10"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "10. Sticky bullet avatar on bottom right" %}</h2>
+            <p>
+              {% trans "This placement is featured on all pages of the site, located at the bottom right (mobile and desktop). It is highly effective for model presentations but can be adapted for any other service. It can be integrated on a specific page or across all pages. The integration can be implemented on the front end or the back end." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/sticky-bullet.jpg' %}"
+                   alt="Sticky bullet avatar on bottom right">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>300€ / month (for all pages)</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads11"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "11. Popunder from disclaimer opener" %}</h2>
+            <p>
+              {% trans "The disclaimer is displayed regardless of the landing page, with a session duration of 24 hours. Upon clicking, the visitor opens a popunder advertisement and views the current page content without the disclaimer. There is a URL weighting system in place, with a random selection occurring each time." %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/disclaimer.jpg' %}"
+                   alt="Popunder from disclaimer opener">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+              Cost: <b>200€ / month (all pages)</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads12"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "12. New source (AI content or models)" %}</h2>
+            <p>
+              {% url 'ai_pictures:index' as aiporn_url %}
+              {% blocktrans with url=aiporn_url %}
+              The most visited page on our site is the list of AI porn image categories (<a href="{{ url }}">{{ url }}</a>). At the bottom of this list, you will find all the sources that contributed to the collection of these images. Appearing as a new source ensures the creation of a dedicated image listing, complete with a link to the review page of the respective site. Each image from the source is visible in one or more categories, thereby enhancing visibility.
+              {% endblocktrans %}
+            </p>
+            <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <img src="{% static 'img/ads/aisource.jpg' %}"
+                   alt="New source (AI content or models)">
+            </div>
+            <div class="alert alert-warning align-items-center" role="alert">
+              {% blocktrans %}
+                Cost: <b>5€/content</b>
+              {% endblocktrans %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <span id="ads13"></span>
+      <div class="leaderboard col-xl-12">
+        <div class="row listinggrid" style="display:block;">
+          <div class="listing col-lg-12" style="padding: 10px;">
+            <h2>{% trans "13. External partner script" %}</h2>
+            <p>
+              {% trans "Any integration of external scripts can be implemented on a single page or a list of pages. This must not disrupt the user experience in an overly immersive or abusive manner." %}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 5px; margin-bottom: 10px;">
+        <a href="{% url 'contact:contact' %}"
+           class="btn btn-success"
+           style="font-weight: 900;
+                  line-height: 2.5">{% trans "Start business!" %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

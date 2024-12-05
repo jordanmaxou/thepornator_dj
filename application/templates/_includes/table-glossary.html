@@ -2,9 +2,15 @@
 <table id="acro" class="table table-striped">
   <tbody>
     <tr>
-      <th scope="row">{% trans "Term" %}</th>
+      <th scope="row">{{ term.get_type_display }}</th>
       <td>{{ term.name }}</td>
     </tr>
+    {% if term.type == 'acronym' %}
+      <tr>
+        <th scope="row">{% trans "Meaning" %}</th>
+        <td>{{ term.meaning }}</td>
+      </tr>
+    {% endif %}
     {% if term.lang == 'en' or term.lang == 'fr' %}
       <tr>
         <th scope="row">{% trans "Language" %}</th>
@@ -19,7 +25,7 @@
     {% endif %}
     <tr>
       <th scope="row">{% trans "Description" %}</th>
-      <td>{{ term.description }}</td>
+      <td>{{ term.definition|safe }}</td>
     </tr>
     {% if term.picture %}
       <tr>
@@ -33,6 +39,23 @@
         </td>
       </tr>
     {% endif %}
+    <tr>
+      <th scope="row"></th>
+      <td>
+        <div id="rating" data-url="{% url 'glossary:vote' term=term.slug %}">
+          {% csrf_token %}
+          <button type="button" class="btn btn-outline-success" data-value="up">
+            <i class="bx bxs-like" id="like"></i> <span id="nbup">{{ term.count.up }}</span>
+          </button>
+          <button type="button"
+                  class="btn btn-outline-danger"
+                  style="margin-bottom: 10px"
+                  data-value="down">
+            <i class="bx bxs-dislike" id="dislike"></i> <span id="nbdown">{{ term.count.down }}</span>
+          </button>
+        </div>
+      </td>
+    </tr>
     <tr>
       <th scope="row">{% trans "Last modification date" %}</th>
       <td>{{ term.publication_date|date:'d-m-Y' }}</td>

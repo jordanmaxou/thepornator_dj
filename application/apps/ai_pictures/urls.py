@@ -14,7 +14,7 @@ urlpatterns = [
         name="aiornotai-add",
     ),
     path(
-        "aiporn/<category>.html",
+        "aiporn/category/<category>.html",
         views.AiPornCategoryContentListView.as_view(),
         name="category",
     ),
@@ -23,10 +23,6 @@ urlpatterns = [
         "aiporn/countries/<country>.html",
         views.AiPornCountryContentListView.as_view(),
         name="country",
-    ),
-    path("aiporn/tags/", views.AiPornTagListView.as_view(), name="tags"),
-    path(
-        "aiporn/tags/<tag>.html", views.AiPornTagContentListView.as_view(), name="tag"
     ),
     path(
         "aiporn/source/<source>.html",

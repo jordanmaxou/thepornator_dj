@@ -1,5 +1,213 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
 {% block content %}
-
-{% endblock %}
+  <div class="container">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "All Pornator's stats" %}</h1>
+    </div>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active"
+                id="nav-survey-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-survey"
+                type="button"
+                role="tab"
+                aria-controls="nav-survey"
+                aria-selected="true">{% trans "Survey" %}</button>
+        <button class="nav-link"
+                id="nav-sites-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-sites"
+                type="button"
+                role="tab"
+                aria-controls="nav-sites"
+                aria-selected="false">{% trans "Sites" %}</button>
+        <button class="nav-link"
+                id="nav-models-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-models"
+                type="button"
+                role="tab"
+                aria-controls="nav-models"
+                aria-selected="false">{% trans "Models" %}</button>
+        <button class="nav-link"
+                id="nav-ai-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-ai"
+                type="button"
+                role="tab"
+                aria-controls="nav-ai"
+                aria-selected="false">{% trans "AI" %}</button>
+        <button class="nav-link"
+                id="nav-video-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-video"
+                type="button"
+                role="tab"
+                aria-controls="nav-video"
+                aria-selected="false">{% trans "Videos" %}</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active"
+           id="nav-survey"
+           role="tabpanel"
+           aria-labelledby="nav-survey-tab">
+        <h2>{% trans "Number of completed surveys per day" %}</h2>
+        <p>
+          {% blocktrans with count=surveys_by_days.total %}
+              Number of completed surveys per day a <strong>total of {{count}}</strong>
+          {% endblocktrans %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="surveys-by-day-chart" width="400" height="400"></canvas>
+        </div>
+        {{ surveys_by_days.data|json_script:'surveys-by-day-data' }}
+        <br />
+        <h2>{% trans "Pornator reliability rate" %}</h2>
+        <p>
+          {% blocktrans %}
+          This rate is based only on the questionnaires whose result has been qualified (a question is asked at the end of the questionnaire on the proposal screen of the ideal site). Therefore, it does not apply to all the questionnaires carried out.
+          The rate is calculated according to the ratio nb of positively qualified results / (sum of the positively or negatively qualified results):
+          {% endblocktrans %}
+        </p>
+        <ul>
+          <li>
+            {% blocktrans %}<strong>Positively qualified results:</strong> means that the result satisfies the visitor.{% endblocktrans %}
+          </li>
+          <li>
+            {% blocktrans %}<strong>Negatively qualified results:</strong> means that the result does not satisfy the visitor.{% endblocktrans %}
+          </li>
+        </ul>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="reliability-by-day-chart" width="400" height="400"></canvas>
+        </div>
+        {{ reliability_by_days_data|json_script:'reliability-by-day-data' }}
+        <br />
+        <h2>{% trans "Top 10 breakdown of gross results by site" %}</h2>
+        <p>
+          {% trans "Here is a breakdown of 10 best results (qualified and unqualified). This means that the data takes into account all the votes and not only the results that have been approved by the users." %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="surveys-best-website-results-chart" width="400" height="400"></canvas>
+        </div>
+        {{ surveys_best_website_results_data|json_script:'surveys-best-website-results-data' }}
+      </div>
+      <div class="tab-pane fade show"
+           id="nav-sites"
+           role="tabpanel"
+           aria-labelledby="nav-sites-tab">
+        <h2>{% trans "Ranking of the most visited sites since the Pornator" %}</h2>
+        <p>
+          {% trans "This graph shows the number of sites that have been visited, by clicking from the Pornator. There is no time scale so the click volumes are complete." %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="nb-clicks-by-site-chart" width="400" height="400"></canvas>
+        </div>
+        {{ nb_clicks_by_site_data|json_script:'nb-clicks-by-site-data' }}
+        <br />
+      </div>
+      <div class="tab-pane fade show"
+           id="nav-models"
+           role="tabpanel"
+           aria-labelledby="nav-models-tab">
+        <h2>{% trans "Ranking of the most visited models fan pages since the Pornator" %}</h2>
+        <p>
+          {% trans "This graph shows the number of visitors who clicked on a model profile from the Pornator. There is no time scale so the click volumes are complete." %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="nb-clicks-by-model-chart" width="400" height="400"></canvas>
+        </div>
+        {{ nb_clicks_by_model_data|json_script:'nb-clicks-by-model-data' }}
+      </div>
+      <div class="tab-pane fade show"
+           id="nav-ai"
+           role="tabpanel"
+           aria-labelledby="nav-ai-tab">
+        <h2>{% trans "IA porn pictures qualification" %}</h2>
+        <p>
+          {% trans "Each visitor can qualify the AI porn images found on The Pornator. We can say that the image is either funny, sexy or scary. Here is a distribution of these 3 qualifications on the whole of the collected opinions." %}
+        </p>
+        {% blocktrans with num=aiporn_picture_classification.pictures_with_votes den=aiporn_picture_classification.pictures_total per=aiporn_picture_classification.picture_with_votes_rate %}
+            Number of qualified unique AI porn pictures: <strong>{{num}} / {{den}}</strong>, then <strong>{{per}}%</strong>
+        {% endblocktrans %}
+        {% blocktrans with total=aiporn_picture_classification.total_vote %}
+            Total number of votes: <strong>{{total}}</strong>
+        {% endblocktrans %}
+        <ul>
+          <li>😍 {{ aiporn_picture_classification.extended_labels.sexy }}</li>
+          <li>😆 {{ aiporn_picture_classification.extended_labels.funny }}</li>
+          <li>😱 {{ aiporn_picture_classification.extended_labels.scary }}</li>
+        </ul>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="aiporn-picture-classification-chart" width="400" height="400"></canvas>
+        </div>
+        {{ aiporn_picture_classification.data|json_script:'aiporn-picture-classification-data' }}
+        <h2>{% trans 'Number of "AI ou Not AI" quiz per day' %}</h2>
+        <p>
+          {% url "ai_pictures:aiornotai" as aiornotai_url %}
+          {% blocktrans with total=ai_or_not_ai_by_date.total link=aiornotai_url %}Counts all quiz per day for a <strong>total of {{total}}</strong>. <a href="{{link}}">AI or not AI game</a>{% endblocktrans %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="ai-or-not-ai-by-date-chart" width="400" height="400"></canvas>
+        </div>
+        {{ ai_or_not_ai_by_date.data|json_script:'ai-or-not-ai-by-date-data' }}
+        {% comment %} <h2>{% trans "Number of AI images with updated tags" %}</h2>
+        <p>
+          {% blocktrans with total=nb_ai_content_tags_updated_by_day.total %}Every Pornator visitor can edit and modify the categories of AI-generated porn images. The aim of this graphic is to show the number of contributions per day. The total number of contributions is: <strong>{{total}}</strong>{% endblocktrans %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="nb-ai-content-tags-updated-by-day-chart" width="400" height="400"></canvas>
+        </div>
+        {{ nb_ai_content_tags_updated_by_day.data|json_script:'nb-ai-content-tags-updated-by-day-data' }} {% endcomment %}
+      </div>
+      <div class="tab-pane fade show"
+           id="nav-video"
+           role="tabpanel"
+           aria-labelledby="nav-video-tab">
+        <h2>{% trans "Ranking of the most visited porn video channels since the Pornator" %}</h2>
+        <p>
+          {% blocktrans %}
+          This graph shows the number of videos that have been visited by clicking from the Pornator aggregator. There is no time scale, so the click volumes are complete.
+          {% endblocktrans %}
+          <br />
+          {% blocktrans with total=nb_clicks_by_channel.total %}
+          Total number of videos clicks: <strong>{{total}}</strong>
+          {% endblocktrans %}
+        </p>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="nb-clicks-by-channel-chart" width="400" height="400"></canvas>
+        </div>
+        {{ nb_clicks_by_channel.data|json_script:'nb-clicks-by-channel-data' }}
+        <br />
+        <h2>{% trans "Porn video rates" %}</h2>
+        <p>
+          {% blocktrans %}
+          Each visitor can vote for a clicked porn video. Either he likes (👍), or dislikes (👎). Here is the distribution of these 2 qualifications on the whole of the opinions collected on the whole.
+          {% endblocktrans %}
+        </p>
+        {% blocktrans with num=video_classification.votes_videos den=video_classification.total_videos per=video_classification.votes_videos_rate %}Number of unique qualified porn videos: <strong>{{num}} / {{den}}</strong>, then <strong>{{per}}</strong>%{% endblocktrans %}
+        <br />
+        {% blocktrans with total=video_classification.total_votes %}Total number of rates: <strong>{{total}}</strong>{% endblocktrans %}
+        <ul>
+          <li>👍 {{ video_classification.extended_labels.like }}</li>
+          <li>👎 {{ video_classification.extended_labels.dislike }}</li>
+        </ul>
+        <br />
+        <div class="col-12" style="margin-bottom: 30px;">
+          <canvas id="video-classification-chart" width="400" height="400"></canvas>
+        </div>
+        {{ video_classification.data|json_script:'video-classification-data' }}
+      </div>
+    </div>
+  {% endblock content %}

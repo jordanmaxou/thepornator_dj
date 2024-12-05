@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 {% block content %}
   <div class="container">
@@ -35,7 +36,7 @@
                    class="btn btn-outline-success"
                    style="width:400px;
                           max-width:100%"
-                   href="{% url 'out:out-view-site' site_slug=survey.selected_websites.first.slug %}"
+                   href="{% url 'out:out-view' type_out='website' id=survey.selected_websites.first.id %}"
                    target="_blank"> {% trans "Open" %} {{ survey.selected_websites.first.name }} <i class="bx bxs-link-external"></i></a>
               </div>
             </div>
@@ -44,12 +45,12 @@
                 <div style="height: 355px;overflow-y: auto;">{{ survey.selected_websites.first.description|safe }}</div>
                 <br>
                 {% trans "Domain" %}: <a rel="nofollow"
-    href="{% url 'out:out-view-site' site_slug=survey.selected_websites.first.slug %}"
+    href="{% url 'out:out-view' type_out='website' id=survey.selected_websites.first.id %}"
     target="_blank">{{ survey.selected_websites.first.base_website_url }}</a>
                 <br>
                 <p class="mb-0"></p>
                 <div class="Stars"
-                     style="--rating: {{ survey.selected_websites.first.avg_note }}"
+                     style="--rating: {{ survey.selected_websites.first.avg_note|unlocalize }}"
                      aria-label="{% blocktrans with note=survey.selected_websites.first.avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
                 </div>
                 <span class="review">({{ survey.selected_websites.first.reviews }})</span>

@@ -1,11 +1,13 @@
 import surveyTranslations from "./survey.js";
 import surveyResultTranslations from "./surveyResult.js";
 import onlyfansBulletTranslations from "./onlyfansBullet.js";
+import pornVideoTubesTranslations from "./PornVideoTubes.js";
 
 const translations = {
   ...surveyTranslations,
   ...surveyResultTranslations,
   ...onlyfansBulletTranslations,
+  ...pornVideoTubesTranslations,
 };
 
 export default function translate(id, data) {

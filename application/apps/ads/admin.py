@@ -4,15 +4,15 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
-from apps.ads.models import Banner
+from apps.ads.models import Banner, TopLink
 
 
-@admin.action(description=_("Disable banners"))
+@admin.action(description=_("Disable selected"))
 def make_disabled(modeladmin, request, queryset):
     queryset.update(enabled=False)
 
 
-@admin.action(description=_("Enable banners"))
+@admin.action(description=_("Enable selected"))
 def make_enabled(modeladmin, request, queryset):
     queryset.update(enabled=True)
 
@@ -156,3 +156,17 @@ class BannerAdmin(admin.ModelAdmin):
         "enabled",
     )
     readonly_fields = ["host_name", "preview_image"]
+
+
+@admin.register(TopLink)
+class TopLinkAdmin(admin.ModelAdmin):
+    list_display = (
+        "label",
+        "lang",
+        "position",
+        "enabled",
+    )
+
+    ordering = ("lang", "position")
+    actions = (make_disabled, make_enabled)
+    list_filter = ("lang", "enabled")

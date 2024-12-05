@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+  <div class="container contact" id="contact">
+    <div class="section-title">
+      <h1 class="content-list__see-more">{% trans "Contact" %}</h1>
+      <div class="col-lg-12 mt-lg-0">
+        <form action="{% url 'contact:contact' %}"
+              method="POST"
+              role="form"
+              name="contact_form">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 form-group">{{ form.name }}</div>
+            <div class="col-md-6 form-group mt-3 mt-md-0">{{ form.email }}</div>
+          </div>
+          <div class="form-group mt-3">{{ form.subject }}</div>
+          <div class="form-group mt-3">{{ form.message }}</div>
+          <div class="my-3">
+            {% if message_success %}
+              <div class="alert alert-success">{{ message_success|safe }}</div>
+            {% elif message_error %}
+              <div class="alert alert-danger">{{ message_error|safe }}</div>
+            {% endif %}
+          </div>
+          {{ form.captcha }}
+          <br />
+          <div class="text-center">
+            <button type="submit" class="btn btn-success">{% trans "Envoyer message" %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

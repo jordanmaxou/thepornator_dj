@@ -19,6 +19,12 @@ class ScriptListView(ListView):
                 "label": _("Porn scripts"),
             },
         ]
+        context["head"] = {
+            "title": _("Porn movies script in English - The Pornator"),
+            "description": _(
+                "Find a porn movie from its script. For the first time, here is the scripts of real porn movies in English."
+            ),
+        }
         return context
 
     def get_queryset(self):
@@ -41,6 +47,11 @@ class ScriptDetailView(DetailView):
             {"label": _("Porn scripts"), "link": reverse("scripts:index")},
             {"label": self.object.title},
         ]
+        context["head"] = {
+            "title": _("Read script of porn movie %(title)s")
+            % {"title": self.object.title},
+            "description": f"{self.object.text[:140]}{'...' if len(self.object.text) > 140 else ''}",
+        }
         return context
 
     def get_queryset(self):

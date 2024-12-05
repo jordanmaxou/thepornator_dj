@@ -1,0 +1,15 @@
+{% load i18n %}
+{% if top_links|length > 0 %}
+  <div class="container bottomNav mobile-only">
+    <div class="row">
+      {% for top_link in top_links %}
+        <div class="col-3">
+          <a href="{{ top_link.link }}"
+             target="_blank"
+             rel="noopener noreferrer nofollow"
+             class="buttonClass blackBtn upperCase floatLeft noImage">{{ top_link.label }}</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

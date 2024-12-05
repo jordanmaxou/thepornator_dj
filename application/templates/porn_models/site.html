@@ -3,9 +3,7 @@
 {% block content %}
   <div class="container">
     <div class="section-title">
-      <h1 class="content-list__see-more">
-        {% blocktrans with name=website.name %}Top {{ name }} profiles{% endblocktrans %}
-      </h1>
+      <h1 class="content-list__see-more">{{ h1 }}</h1>
     </div>
     {% for profile in profiles %}
       {% include "_includes/card-performer.html" with profile=profile %}

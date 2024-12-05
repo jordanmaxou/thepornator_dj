@@ -1,10 +1,10 @@
 <div class="item popular-item">
   <div class="thumb">
-    <a href="{% url 'ai_pictures:content' slug=content.code %}">
+    <a href="{% url 'ai_pictures:content' slug=content.slug %}">
       <figure class="figure">
         <img src="{{ content.image.url }}"
              data-src="{{ content.image.url }}"
-             class="img-fluid lazyloaded"
+             class="img-fluid lazyload"
              alt="{{ content.title }}" />
         <figcaption class="figure-caption">{{ content.title }}</figcaption>
       </figure>

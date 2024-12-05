@@ -1,4 +1,5 @@
 from math import sqrt, pow
+from datetime import datetime
 
 from django.db import models
 from apps.websites.models import Website
@@ -8,7 +9,7 @@ from .podium import Podium
 
 class Survey(models.Model):
     user_daily_fingerprint = models.CharField(max_length=255, unique=True)
-    creation_date = models.DateField(auto_now_add=True)
+    creation_date = models.DateTimeField(default=datetime.now)
     is_valid = models.BooleanField(null=True)
     duration = models.DurationField()
     questions = models.ManyToManyField(

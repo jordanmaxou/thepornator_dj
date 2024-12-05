@@ -3,6 +3,9 @@ from datetime import date
 
 from django.views.generic.base import TemplateView
 from django.db.models import Avg, Count
+from django.urls import reverse
+from django.templatetags.static import static
+from django.conf import settings
 
 from apps.trends.models import TrendingSearches
 from apps.websites.models import Website
@@ -74,4 +77,25 @@ class Home(TemplateView):
             publication_date__lte=date.today()
         ).order_by("-publication_date")[:2]
 
+        base_url = f"https://{settings.ALLOWED_HOSTS[0]}"
+        context["ld_json"] = [
+            {
+                "@context": "http://schema.org",
+                "@type": "Organization",
+                "name": "Thepornator",
+                "url": f"{base_url}/",
+                "logo": f"{base_url}{static('img/logo.webp')}",
+                "sameAs": ["https://twitter.com/thepornator_off"],
+            },
+            {
+                "@context": "http://schema.org",
+                "@type": "WebSite",
+                "url": f"{base_url}/",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": f"{base_url}{reverse('websites:search')}?query={{search_term_string}}",
+                    "query-input": "required name=search_term_string",
+                },
+            },
+        ]
         return context

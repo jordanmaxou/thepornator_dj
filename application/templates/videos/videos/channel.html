@@ -2,6 +2,7 @@
 {% load i18n %}
 {% block content %}
   <div class="container">
+    {% csrf_token %}
     <div class="section-title">
       <h1 class="content-list__see-more">{% trans "Porn videos" %} {{ channel.name }}</h1>
     </div>

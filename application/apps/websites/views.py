@@ -19,6 +19,14 @@ class WebsiteCategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = [{"label": self.category.name}]
+        context["head"] = {
+            "title": _("Ranking of %(category)s - ThePornator")
+            % {"category": self.category.name},
+            "description": _(
+                "Check out the ultimate list of %(category)s now on thePornator!"
+            )
+            % {"category": self.category.name},
+        }
         return context
 
     def get_queryset(self):
@@ -56,6 +64,14 @@ class WebsiteSiteDetailView(DetailView):
             {"label": self.obj.name},
         ]
         context["page_type"] = "website-detail"
+        context["head"] = {
+            "title": _("Watch review of porn site %(site)s - ThePornator")
+            % {"site": self.obj.name},
+            "description": _(
+                "A review of the porn site %(site)s that is objective and based on different axes of comparison. Trust the Pornator!"
+            )
+            % {"site": self.obj.name},
+        }
         radar_data = self.obj.avg_notes_by_theme
         context["radar"] = {
             "datasets": [
@@ -95,6 +111,14 @@ class WebsiteSearchView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["head"] = {
+            "title": _("All porn sites %(criterias)s - The Pornator")
+            % {"criterias": self.query},
+            "description": _(
+                "List of sites %(criterias)s among all the best web porn on the web - The Pornator"
+            )
+            % {"criterias": self.query},
+        }
         context["breadcrumbs"] = [{"label": _("Results")}]
         base_url = (
             reverse("websites:search")

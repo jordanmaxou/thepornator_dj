@@ -19,6 +19,14 @@ class BlogListView(ListView):
                 "label": _("Blog"),
             },
         ]
+        context["head"] = {
+            "title": _(
+                "Porn Blog - All the things you have to know about porn - The Pornator"
+            ),
+            "description": _(
+                "Read about the latest porn news, special XXX topics or porn stars. A no-holds-barred space of freedom on the porn scene!"
+            ),
+        }
         return context
 
     def get_queryset(self):
@@ -41,6 +49,11 @@ class BlogDetailView(DetailView):
             {"label": _("Blog"), "link": reverse("blog:index")},
             {"label": self.object.title},
         ]
+        context["head"] = {
+            "title": _("%(title)s - Blog - The Pornator")
+            % {"title": self.object.title},
+            "description": f"{self.object.content[:140]}{'...' if len(self.object.content) > 140 else ''}",
+        }
         return context
 
     def get_queryset(self):

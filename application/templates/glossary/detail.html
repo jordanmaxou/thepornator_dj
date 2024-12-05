@@ -6,13 +6,7 @@
       <h1 class="content-list__see-more">{{ term.name }}</h1>
     </div>
     <style>.btn-outline-success, .btn-outline-secondary {margin-bottom: 10px; margin-right: 10px; } table#acro td {text-align: left;}</style>
-    {% if term.type == 'vocabulary' %}
-      {% include "_includes/table-term.html" with term=term %}
-    {% elif term.type == 'position' %}
-      {% include "_includes/table-position.html" with term=term %}
-    {% elif term.type == 'acronyme' %}
-      {% include "_includes/table-acronym.html" with term=term %}
-    {% endif %}
+    {% include "_includes/table-glossary.html" with term=term %}
     <br>
     <h2>{% trans "Related contents" %}</h2>
     {% for related_content in related_contents %}

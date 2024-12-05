@@ -16,7 +16,12 @@ class VideosIndexListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = [{"label": _("Porn videos")}]
-
+        context["head"] = {
+            "title": _("Porn videos search engine - The Pornator"),
+            "description": _(
+                "This videos search engine is a free porn collection of hottest porn. Please find your content by category or channel. Thousands of daily updates."
+            ),
+        }
         context["contents_by_channel"] = (
             Channel.objects.annotate(
                 nb_contents=Count(
@@ -71,7 +76,16 @@ class VideosCategoryListView(ListView):
             },
             {"label": self.obj.name},
         ]
+        context["head"] = {
+            "title": _("List of %(category)s porn videos - The Pornator")
+            % {"category": self.obj.name},
+            "description": _(
+                "Watch %(category)s porn videos without misleading links. Search engine for %(category)s content on premium tubes."
+            )
+            % {"category": self.obj.name},
+        }
         context["category"] = self.obj
+        context["page_type"] = "porn-videos-tubes"
 
         return context
 
@@ -97,7 +111,16 @@ class VideosChannelListView(ListView):
             },
             {"label": self.obj.name},
         ]
+        context["head"] = {
+            "title": _("List of %(source)s porn videos - The Pornator")
+            % {"source": self.obj.name},
+            "description": _(
+                "Watch %(source)s porn videos without misleading links. Search engine for %(source)s content on premium tubes."
+            )
+            % {"source": self.obj.name},
+        }
         context["channel"] = self.obj
+        context["page_type"] = "porn-videos-tubes"
 
         return context
 

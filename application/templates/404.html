@@ -1,5 +1,42 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block top_content %}
+{% endblock top_content %}
 {% block content %}
-
-{% endblock %}
+  <section class="inner-page" style="margin-top: 30px;">
+    <div class="container">
+      <section id="contact" class="contact">
+        <div class="container">
+          <div id="notfound">
+            <div class="notfound">
+              <div class="notfound-404">
+                <div></div>
+                <h1>404</h1>
+              </div>
+              <h2>{% trans "Page not found" %}</h2>
+              <p>
+                {% trans "The page you are looking for may have been deleted, its name changed or it is temporarily unavailable." %}
+              </p>
+              <p></p>
+              <div class="F0crBY">
+                <img class="hot"
+                     src="{% static 'img/hot.webp' %}"
+                     alt="hot icon for trends">
+                <ul class="oIinTk">
+                  {% for trend in trends %}
+                    <li class="c_KVz5k">
+                      <a href="{% url 'trends:trend' trend=trend.slug %}">{{ trend.request }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <p></p>
+              <a href="{% url 'home:home' %}">{% trans "Back to home" %}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+{% endblock content %}

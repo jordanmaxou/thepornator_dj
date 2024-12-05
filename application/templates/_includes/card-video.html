@@ -1,13 +1,13 @@
 <div class="item popular-item">
   <div class="thumb" style="padding-bottom: inherit;">
-    <a href="{% url 'ai_pictures:ai-porn-videos-content' slug=content.code %}">
-      <video data-src="{{ content.image.url }}"
-             alt="{{ content.title }}-{{ content.code }}"
-             class="img-fluid pause-videos lazyloading"
+    <a href="{% url 'ai_pictures:ai-porn-videos-content' slug=content.slug %}">
+      <video src="{{ content.image.url }}"
+             data-src="{{ content.image.url }}"
+             alt="{{ content.title }}-{{ content.slug }}"
+             class="img-fluid pause-videos lazyload"
              style="display: block;
                     width: 100%;
-                    height: 100%"
-             src="{{ content.image.url }}">
+                    height: 100%">
       </video>
       <span class="figure-caption">{{ content.title }}</span>
     </a>

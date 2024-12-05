@@ -18,6 +18,12 @@ class PornModelsIndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["breadcrumbs"] = [{"label": _("Performers search engine")}]
+        context["head"] = {
+            "title": _("Porn models search engine - The Pornator"),
+            "description": _(
+                "Porn models and influencers finder on Swame, Mym, Onlyfans... Search the most relevant profiles by tags, by keywords, by price or by location."
+            ),
+        }
         context["websites"] = (
             Website.objects.annotate(
                 nb_profiles=Count(
@@ -66,22 +72,32 @@ class PornModelsSearchView(ListView):
             },
             {"label": title},
         ]
-        context["title"] = title
+        context["h1"] = title
+        context["head"] = {
+            "title": _("All models %(criterias)s - The Pornator")
+            % {"criterias": query},
+            "description": _(
+                "List of models %(criterias)s from adult platforms like Onlyfans, Mym, Swame... - The Pornator"
+            )
+            % {"criterias": query},
+        }
 
         if (
             self.queryset.count() > 0
-            and (query := self.query.strip())
-            and len(query) > 0
+            and (strip_query := query.strip())
+            and len(strip_query) > 0
         ):
             TrendingSearches.objects.create(
-                request=self.query, lang=get_language(), nb_result=self.queryset.count()
+                request=strip_query,
+                lang=get_language(),
+                nb_result=self.queryset.count(),
             )
 
         return context
 
     def get_queryset(self):
         query = self.request.GET.get("query")
-        if self.query in settings.WORD_BLACK_LIST:
+        if query in settings.WORD_BLACK_LIST:
             return super().get_queryset().none()
         qs = super().get_queryset()
         qs = qs.annotate(
@@ -109,7 +125,15 @@ class PornModelsCategoryView(ListView):
             {"label": self.obj.name},
         ]
         context["category"] = self.obj
-        context["title"] = self.obj.name
+        context["h1"] = self.obj.name
+        context["head"] = {
+            "title": _("%(category)s performers finder - The Pornator")
+            % {"category": self.obj.name},
+            "description": _(
+                "Find top %(category)s performers 🔥 in over thousands of %(category)s profiles on models search engine of the Pornator."
+                % {"category": self.obj.name}
+            ),
+        }
 
         return context
 
@@ -138,7 +162,15 @@ class PornModelsSiteView(ListView):
             context["page_type"] = "onlyfans-profiles"
 
         context["website"] = self.obj
-        context["title"] = self.obj.name
+        context["h1"] = _("Top %(name)s profiles") % {"name": self.obj.name}
+        context["head"] = {
+            "title": _("%(website)s performers finder - The Pornator")
+            % {"website": self.obj.name},
+            "description": _(
+                "Find top %(website)s performers 🔥 in over thousands of %(website)s profiles on models search engine of the Pornator."
+                % {"website": self.obj.name}
+            ),
+        }
         context["categories"] = Category.objects.filter(
             profile__website__id=self.obj.id
         ).annotate(
@@ -162,6 +194,18 @@ class PornModelsSiteCategoryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.website.slug == "onlyfans":
+            context["page_type"] = "onlyfans-profiles"
+
+        context["head"] = {
+            "title": _("List of %(category)s performers on %(website)s - The Pornator")
+            % {"website": self.website.name, "category": self.category.name},
+            "description": _(
+                "Find best %(category)s influencer performers, exclusive homemade and professional video clips, private stories, and much more on %(website)s."
+                % {"website": self.website.name, "category": self.category.name}
+            ),
+        }
+
         context["breadcrumbs"] = [
             {
                 "label": _("Performers search engine"),

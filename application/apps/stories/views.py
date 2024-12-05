@@ -19,6 +19,12 @@ class StoryListView(ListView):
                 "label": _("Sex stories"),
             },
         ]
+        context["head"] = {
+            "title": _("Free Sex Stories & Erotic Stories - The Pornator"),
+            "description": _(
+                "Dive into passion and pleasure in a world of sensual sex stories at ThePornator. Explore a diverse collection of original erotic stories and immerse yourself in a realm of adult porn fantasies."
+            ),
+        }
         return context
 
     def get_queryset(self):
@@ -41,6 +47,10 @@ class StoryDetailView(DetailView):
             {"label": _("Sex stories"), "link": reverse("stories:index")},
             {"label": self.object.title},
         ]
+        context["head"] = {
+            "title": _("%(title)s - The Pornator") % {"title": self.object.title},
+            "description": f"{self.object.content[:140]}{'...' if len(self.object.content) > 140 else ''}",
+        }
         return context
 
     def get_queryset(self):

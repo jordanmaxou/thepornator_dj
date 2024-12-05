@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Channel(models.Model):
@@ -13,3 +14,6 @@ class Channel(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("videos:videos-channel", kwargs={"channel": self.slug})

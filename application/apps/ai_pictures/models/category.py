@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -20,3 +21,9 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.slug
+
+    def get_absolute_url(self):
+        return reverse("ai_pictures:category", kwargs={"category": self.slug})

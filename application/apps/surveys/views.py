@@ -23,6 +23,12 @@ class SurveyIndexView(TemplateView):
             {"label": _("Find my porn")},
         ]
         context["page_type"] = "survey-questions"
+        context["head"] = {
+            "title": _("Questions to find a porn site"),
+            "description": _(
+                "Answer the 16 questions to compare your expectations and the characteristics of the porn sites analysed. Answer in 3 minutes!"
+            ),
+        }
 
         fingerprint = user_daily_fingerprint(self.request)
 
@@ -114,6 +120,12 @@ class ResultDetailView(DetailView):
             {"label": _("Survey result")},
         ]
         context["page_type"] = "survey-results"
+        context["head"] = {
+            "title": _("The right site for you - The Pornator"),
+            "description": _(
+                "Find out which porn site is best for you based on your answers to the questionnaire - The Pornator"
+            ),
+        }
         survey_notes = self.object.notes_by_theme
         website_notes = self.object.selected_websites.first.avg_notes_by_theme
         context["radar"] = {

@@ -37,6 +37,10 @@ export default {
           from: path.resolve(__dirname, "src/admin"),
           to: path.resolve(__dirname, "dist/admin"),
         },
+        {
+          from: path.resolve(__dirname, "src/favicon.ico"),
+          to: path.resolve(__dirname, "dist/favicon.ico"),
+        },
       ],
     }),
     new CustomManifestPlugin({

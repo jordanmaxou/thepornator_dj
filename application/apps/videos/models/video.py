@@ -29,3 +29,9 @@ class Video(models.Model):
 
     def update_counter(self):
         Count.objects.filter(id=self.counts_id).update(clicks=models.F("clicks") + 1)
+
+    def vote_up(self):
+        Count.objects.filter(id=self.counts_id).update(up=models.F("up") + 1)
+
+    def vote_down(self):
+        Count.objects.filter(id=self.counts_id).update(down=models.F("down") + 1)
