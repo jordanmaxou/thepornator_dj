@@ -14,7 +14,6 @@ def create_glossary_func(apps, _schema_editor):
     for glossary in glossaries:
         glossary_objects.append(
             Glossary(
-                id=glossary.id,
                 slug=glossary.slug,
                 name=glossary.labelEN,
                 name_en=glossary.labelEN,

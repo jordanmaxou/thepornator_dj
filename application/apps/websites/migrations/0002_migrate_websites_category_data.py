@@ -13,7 +13,6 @@ def create_categories_func(apps, _schema_editor):
     for category in categories:
         category_objects.append(
             Category(
-                id=category.id,
                 slug=category.slug,
                 name=category.labelEN,
                 name_en=category.labelEN,
@@ -30,8 +29,7 @@ def create_categories_func(apps, _schema_editor):
 
 def delete_categories_func(apps, schema_editor):
     Category = apps.get_model("websites", "Category")
-    categories = fetch_data_from_mysql("porn_category")
-    Category.objects.filter(id__in=[r.id for r in categories]).delete()
+    Category.objects.all().delete()
 
 
 class Migration(migrations.Migration):

@@ -2,6 +2,7 @@
 
 from apps.ai_pictures.utils import upload_to_according_to_type
 from django.db import migrations, models
+from django.utils import timezone
 
 
 class Migration(migrations.Migration):
@@ -24,7 +25,7 @@ class Migration(migrations.Migration):
                 ),
                 ("score", models.PositiveIntegerField(default=0)),
                 ("ip", models.CharField(max_length=50)),
-                ("date", models.DateTimeField(auto_now_add=True)),
+                ("date", models.DateTimeField(default=timezone.now)),
             ],
         ),
         migrations.CreateModel(
@@ -82,23 +83,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name="Tag",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("name", models.CharField(max_length=100)),
-                ("slug", models.SlugField(blank=True, max_length=100)),
-                ("lang", models.CharField(max_length=2)),
-            ],
-        ),
-        migrations.CreateModel(
             name="Content",
             fields=[
                 (
@@ -132,7 +116,7 @@ class Migration(migrations.Migration):
                 ),
                 ("categories", models.ManyToManyField(to="ai_pictures.category")),
                 ("external_url", models.URLField(null=True, blank=True)),
-                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("created_at", models.DateTimeField(default=timezone.now)),
                 ("last_update", models.DateTimeField(auto_now=True)),
                 (
                     "status",

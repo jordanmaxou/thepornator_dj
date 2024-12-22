@@ -1,11 +1,20 @@
-from django.db import models
+from os.path import basename
+from PIL import Image
+import requests
+from io import BytesIO
 
-# from django.contrib.postgres.fields import ArrayField
+from django.db import models
 from django.utils.text import slugify
 
 from .channel import Channel
 from .count import Count
 from .category import Category
+
+
+class TypeOfStatus(models.IntegerChoices):
+    OK = 1
+    NOT_FOUND = 0
+    ERROR = -1
 
 
 class Video(models.Model):
@@ -21,6 +30,7 @@ class Video(models.Model):
     counts = models.OneToOneField(Count, on_delete=models.CASCADE)
     enabled = models.BooleanField(default=True)
     categories = models.ManyToManyField(Category)
+    status = models.SmallIntegerField(choices=TypeOfStatus, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -35,3 +45,25 @@ class Video(models.Model):
 
     def vote_down(self):
         Count.objects.filter(id=self.counts_id).update(down=models.F("down") + 1)
+
+    def __str__(self):
+        return self.slug
+
+    def retrieve_image(self):
+        max_size = (512, 512)
+        if (
+            (url := self.main_thumb)
+            and (response := requests.get(url))
+            and (response.ok())
+        ):
+            img = Image.open(BytesIO(response.content))
+            if img.height > max_size[1] or img.width > max_size[0]:
+                img.thumbnail(max_size, Image.ANTIALIAS)
+            self.local_main_thumb.save(basename(url), img)
+            self.status = TypeOfStatus.OK
+        else:
+            if response.status_code == 404:
+                self.status = TypeOfStatus.NOT_FOUND
+            else:
+                self.status = TypeOfStatus.ERROR
+        self.save(update_fields=["status"])

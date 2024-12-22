@@ -13,7 +13,6 @@ def create_blog_func(apps, _schema_editor):
     for blog in blogs:
         blog_objects.append(
             Blog(
-                id=blog.id,
                 slug=blog.slug,
                 title=blog.titleEN,
                 title_en=blog.titleEN,
@@ -31,8 +30,7 @@ def create_blog_func(apps, _schema_editor):
 
 def delete_blog_func(apps, _schema_editor):
     Blog = apps.get_model("blog", "Blog")
-    blogs = fetch_data_from_mysql("porn_blog")
-    Blog.objects.filter(id__in=[r.id for r in blogs]).delete()
+    Blog.objects.all().delete()
 
 
 class Migration(migrations.Migration):

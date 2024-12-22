@@ -7,14 +7,25 @@ from os.path import join
 
 def create_websites_func(apps, _schema_editor):
     Deal = apps.get_model("websites", "Deal")
+    deals_local_contact_id = {
+        row["contact"]: row["id"] for row in Deal.objects.values("id", "contact")
+    }
+    deals_remote_id_contact = {
+        row.id: row.contact for row in fetch_data_from_mysql("porn_deal")
+    }
     Category = apps.get_model("websites", "Category")
+    categories_local_slug_id = {
+        row["slug"]: row["id"] for row in Category.objects.values("id", "slug")
+    }
+    categories_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_category")
+    }
     Website = apps.get_model("websites", "Website")
-    website_objs = []
     websites = fetch_data_from_mysql("porn_site")
+    website_objs = []
     for website in websites:
         website_objs.append(
             Website(
-                id=website.id,
                 slug=website.slug,
                 name=website.name,
                 url=website.url,
@@ -24,12 +35,18 @@ def create_websites_func(apps, _schema_editor):
                 description=website.descriptionEN,
                 description_en=website.descriptionEN,
                 description_fr=website.descriptionFR,
-                category=Category.objects.get(id=website.category_id),
+                category_id=categories_local_slug_id.get(
+                    categories_remote_id_slug.get(website.category_id)
+                ),
                 creation_date=website.updatedate,
                 update_date=website.updatedate,
                 end_date=website.enddate,
                 click=website.click,
-                deal=Deal.objects.get(id=website.deal_id) if website.deal_id else None,
+                deal_id=deals_local_contact_id.get(
+                    deals_remote_id_contact.get(website.deal_id)
+                )
+                if website.deal_id
+                else None,
             )
         )
     Website.objects.bulk_create(website_objs)
@@ -37,8 +54,7 @@ def create_websites_func(apps, _schema_editor):
 
 def delete_websites_func(apps, _schema_editor):
     Website = apps.get_model("websites", "Website")
-    websites = fetch_data_from_mysql("porn_site")
-    Website.objects.filter(id__in=[r.id for r in websites]).delete()
+    Website.objects.all().delete()
 
 
 class Migration(migrations.Migration):

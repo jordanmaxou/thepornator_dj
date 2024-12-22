@@ -15,7 +15,6 @@ def create_categories_func(apps, _schema_editor):
     for category in categories:
         category_objects.append(
             Category(
-                id=category.id,
                 slug=category.slug,
                 name=category.nameEN,
                 name_en=category.nameEN,
@@ -30,8 +29,7 @@ def create_categories_func(apps, _schema_editor):
 
 def delete_categories_func(apps, _schema_editor):
     Category = apps.get_model("videos", "Category")
-    categories = fetch_data_from_mysql("porn_videocategory")
-    Category.objects.filter(id__in=[r.id for r in categories]).delete()
+    Category.objects.all().delete()
 
 
 def create_channel_func(apps, _schema_editor):
@@ -42,7 +40,6 @@ def create_channel_func(apps, _schema_editor):
     for channel in channels:
         channels_objects.append(
             Channel(
-                id=channel.id,
                 slug=channel.slug,
                 name=channel.label,
                 description=channel.descriptionEN,
@@ -57,14 +54,19 @@ def create_channel_func(apps, _schema_editor):
 
 def delete_channel_func(apps, _schema_editor):
     Channel = apps.get_model("videos", "Channel")
-    channels = fetch_data_from_mysql("porn_videochannel")
-    Channel.objects.filter(id__in=[r.id for r in channels]).delete()
+    Channel.objects.all().delete()
 
 
 def create_video_func(apps, _schema_editor):
+    Channel = apps.get_model("videos", "Channel")
+    channels_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_videochannel")
+    }
+    channels_local_slug_id = {
+        row["slug"]: row["id"] for row in Channel.objects.values("id", "slug")
+    }
     Count = apps.get_model("videos", "Count")
     Video = apps.get_model("videos", "Video")
-
     videos = fetch_data_from_mysql("porn_videodetail")
     for video in videos:
         count = Count.objects.create(
@@ -73,7 +75,6 @@ def create_video_func(apps, _schema_editor):
             clicks=video.click,
         )
         Video.objects.create(
-            id=video.id,
             slug=video.slug,
             title=video.titleEN,
             title_en=video.titleEN,
@@ -86,43 +87,58 @@ def create_video_func(apps, _schema_editor):
             local_main_thumb=join("img/video", f"{video.slug}.jpg"),
             publication_date=video.publicationdate,
             duration=timedelta(seconds=video.duration) if video.duration else None,
-            channel_id=video.channel_id,
+            channel_id=channels_local_slug_id.get(
+                channels_remote_id_slug.get(video.channel_id)
+            ),
             counts=count,
             enabled=True if video.status == 1 else False,
+            status=1,
         )
 
 
 def delete_video_func(apps, _schema_editor):
     Video = apps.get_model("videos", "Video")
-    videos = fetch_data_from_mysql("porn_videodetail")
-    video_ids = [r.id for r in videos]
-    Video.objects.filter(id__in=video_ids).delete()
+    Video.objects.all().delete()
 
 
 def create_video_category_func(apps, _schema_editor):
     Video = apps.get_model("videos", "Video")
+    videos_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_videodetail")
+    }
+    videos_local_slug_id = {
+        row["slug"]: row["id"] for row in Video.objects.values("id", "slug")
+    }
+
+    Category = apps.get_model("videos", "Category")
+    categories_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_videocategory")
+    }
+    categories_local_slug_id = {
+        row["slug"]: row["id"] for row in Category.objects.values("id", "slug")
+    }
+
     ContentCategory = Video.categories.through
     video_categories = fetch_data_from_mysql("porn_videodetailcategory")
     video_category_objs = []
     for video_category in video_categories:
         video_category_objs.append(
             ContentCategory(
-                video_id=video_category.videodetail_id,
-                category_id=video_category.videocategory_id,
+                video_id=videos_local_slug_id.get(
+                    videos_remote_id_slug.get(video_category.videodetail_id)
+                ),
+                category_id=categories_local_slug_id.get(
+                    categories_remote_id_slug.get(video_category.videocategory_id)
+                ),
             )
         )
-    ContentCategory.objects.bulk_create(video_category_objs)
+    ContentCategory.objects.bulk_create(video_category_objs, ignore_conflicts=True)
 
 
 def delete_video_category_func(apps, _schema_editor):
     Video = apps.get_model("videos", "Video")
     ContentCategory = Video.categories.through
-    video_categories = fetch_data_from_mysql("porn_videodetailcategory")
-    ContentCategory.objects.filter(
-        video_id__in=[
-            video_categories.videodetail_id for video_categories in video_categories
-        ]
-    ).delete()
+    ContentCategory.objects.all().delete()
 
 
 def update_category_with_main_content(apps, _schema_editor):

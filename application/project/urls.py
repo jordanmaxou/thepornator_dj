@@ -4,7 +4,9 @@ from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps import views
 from django.views.generic.base import TemplateView
+from django.conf import settings
 
+from filebrowser.sites import site
 from apps.pages.sitemap import StaticViewSitemap
 from apps.websites.sitemap import WebsiteSitemap
 from apps.ai_pictures.sitemap import AiPicturesSitemap, AiVideosSitemap
@@ -31,6 +33,7 @@ sitemaps = {
     "trends": TrendsSitemap,
     "webcamvideos": WebcamvideosSitemap,
 }
+
 urlpatterns = [
     path("_health", include("health_check.urls")),
     path("", include("apps.out.urls", namespace="out")),
@@ -51,7 +54,9 @@ urlpatterns = [
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
+    path("admin/filebrowser/", site.urls),
     path("admin/", admin.site.urls),
+    path("tinymce/", include("tinymce.urls")),
 ]
 
 urlpatterns += i18n_patterns(
@@ -72,3 +77,6 @@ urlpatterns += i18n_patterns(
 )
 
 handler404 = "apps.pages.views.custom_404_view"
+
+if settings.DEBUG:
+    urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

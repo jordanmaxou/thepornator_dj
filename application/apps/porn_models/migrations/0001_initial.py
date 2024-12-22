@@ -100,6 +100,14 @@ class Migration(migrations.Migration):
                         to="porn_models.website",
                     ),
                 ),
+                (
+                    "status",
+                    models.SmallIntegerField(
+                        blank=True,
+                        choices=[(1, "Ok"), (0, "Not Found"), (-1, "Error")],
+                        null=True,
+                    ),
+                ),
             ],
         ),
         migrations.AddField(

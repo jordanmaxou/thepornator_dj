@@ -38,6 +38,18 @@ export default {
           to: path.resolve(__dirname, "dist/admin"),
         },
         {
+          from: path.resolve(__dirname, "src/debug_toolbar"),
+          to: path.resolve(__dirname, "dist/debug_toolbar"),
+        },
+        {
+          from: path.resolve(__dirname, "src/tinymce"),
+          to: path.resolve(__dirname, "dist/tinymce"),
+        },
+        {
+          from: path.resolve(__dirname, "src/django_tinymce"),
+          to: path.resolve(__dirname, "dist/django_tinymce"),
+        },
+        {
           from: path.resolve(__dirname, "src/favicon.ico"),
           to: path.resolve(__dirname, "dist/favicon.ico"),
         },

@@ -4,6 +4,9 @@ from django.urls import reverse
 
 
 class Country(models.Model):
+    class Meta:
+        verbose_name_plural = "countries"
+
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, blank=True)
     icon = models.TextField(max_length=20000)

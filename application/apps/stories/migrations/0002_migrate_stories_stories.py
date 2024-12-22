@@ -36,11 +36,7 @@ def create_tags_func(apps, _schema_editor):
 
 def delete_tags_func(apps, _schema_editor):
     Tag = apps.get_model("stories", "Tag")
-    stories = fetch_data_from_mysql("porn_story")
-    tags = set()
-    for story in stories:
-        tags.union(set([t.strip() for t in story.tagsEN.split(",")]))
-    Tag.objects.filter(name__in=list(tags)).delete()
+    Tag.objects.all().delete()
 
 
 def create_stories_func(apps, _schema_editor):
@@ -50,7 +46,6 @@ def create_stories_func(apps, _schema_editor):
     for story in stories:
         story_objs.append(
             Story(
-                id=story.id,
                 slug=story.slug,
                 title=story.titleEN,
                 title_en=story.titleEN,
@@ -68,27 +63,33 @@ def create_stories_func(apps, _schema_editor):
 
 def delete_stories_func(apps, _schema_editor):
     Story = apps.get_model("stories", "Story")
-    stories = fetch_data_from_mysql("porn_story")
-    Story.objects.filter(id__in=[r.id for r in stories]).delete()
+    Story.objects.all().delete()
 
 
 def create_story_tag(apps, _schema_editor):
     Tag = apps.get_model("stories", "Tag")
+    Story = apps.get_model("stories", "Story")
     StoryTag = apps.get_model("stories", "Story").tags.through
+    story_local_slug_id = {
+        row["slug"]: row["id"] for row in Story.objects.values("id", "slug")
+    }
     stories = fetch_data_from_mysql("porn_story")
     tags_map = {t.name: t.id for t in Tag.objects.all()}
     story_tag_objs = []
     for story in stories:
         tags = [t.strip() for t in story.tagsEN.split(",")]
         for tag in tags:
-            story_tag_objs.append(StoryTag(story_id=story.id, tag_id=tags_map[tag]))
+            story_tag_objs.append(
+                StoryTag(
+                    story_id=story_local_slug_id.get(story.slug), tag_id=tags_map[tag]
+                )
+            )
     StoryTag.objects.bulk_create(story_tag_objs)
 
 
 def delete_story_tag(apps, _schema_editor):
     StoryTag = apps.get_model("stories", "Story").tags.through
-    stories = fetch_data_from_mysql("porn_story")
-    StoryTag.objects.filter(story_id__in=[r.id for r in stories]).delete()
+    StoryTag.objects.filter().delete()
 
 
 class Migration(migrations.Migration):

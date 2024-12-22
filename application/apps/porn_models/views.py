@@ -7,7 +7,7 @@ from django.contrib.postgres.search import SearchVector
 from django.utils.translation import get_language
 from django.conf import settings
 
-from apps.porn_models.models import Category, Website, Profile
+from apps.porn_models.models import Category, Website, Profile, TypeOfStatus
 from apps.trends.models import TrendingSearches
 
 
@@ -104,7 +104,7 @@ class PornModelsSearchView(ListView):
             search=SearchVector(
                 "pseudo", "description", "categories__name", "website__name"
             )
-        ).filter(search=query)
+        ).filter(status=TypeOfStatus.OK, search=query)
         self.queryset = qs
         return qs
 
@@ -140,7 +140,7 @@ class PornModelsCategoryView(ListView):
     def get_queryset(self):
         slug = self.kwargs.get(self.slug_url_kwarg)
         self.obj = get_object_or_404(Category, slug=slug)
-        return self.obj.profile_set.all()
+        return self.obj.profile_set.filter(status=TypeOfStatus.OK)
 
 
 class PornModelsSiteView(ListView):
@@ -184,7 +184,7 @@ class PornModelsSiteView(ListView):
     def get_queryset(self):
         slug = self.kwargs.get(self.slug_url_kwarg)
         self.obj = get_object_or_404(Website, slug=slug)
-        return self.obj.profile_set.all()
+        return self.obj.profile_set.filter(status=TypeOfStatus.OK)
 
 
 class PornModelsSiteCategoryView(ListView):
@@ -230,4 +230,6 @@ class PornModelsSiteCategoryView(ListView):
         self.website = get_object_or_404(Website, slug=website_slug)
         self.category = get_object_or_404(Category, slug=category_slug)
 
-        return self.website.profile_set.filter(categories=self.category)
+        return self.website.profile_set.filter(
+            status=TypeOfStatus.OK, categories=self.category
+        )

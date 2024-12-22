@@ -2,6 +2,7 @@
 
 from django.db import migrations
 from django.db.models import Count
+from django.utils.timezone import make_aware
 from apps.migration.utils import fetch_data_from_mysql
 from datetime import timedelta
 
@@ -13,7 +14,6 @@ def create_theme_func(apps, _schema_editor):
     for theme in themes:
         theme_objects.append(
             Theme(
-                id=theme.id,
                 name=theme.labelEN,
                 name_en=theme.labelEN,
                 name_fr=theme.labelFR,
@@ -24,22 +24,29 @@ def create_theme_func(apps, _schema_editor):
 
 def delete_theme_func(apps, _schema_editor):
     Theme = apps.get_model("surveys", "Theme")
-    themes = fetch_data_from_mysql("porn_theme")
-    Theme.objects.filter(id__in=[r.id for r in themes]).delete()
+    Theme.objects.all().delete()
 
 
 def create_question_func(apps, _schema_editor):
     Question = apps.get_model("surveys", "Question")
-    question_objects = []
     questions = fetch_data_from_mysql("porn_question")
+    Theme = apps.get_model("surveys", "Theme")
+    themes_remote_id_name = {
+        row.id: row.labelEN for row in fetch_data_from_mysql("porn_theme")
+    }
+    themes_local_name_id = {
+        row["name_en"]: row["id"] for row in Theme.objects.values("id", "name_en")
+    }
+    question_objects = []
     for question in questions:
         question_objects.append(
             Question(
-                id=question.id,
                 sentence=question.labelEN,
                 sentence_en=question.labelEN,
                 sentence_fr=question.labelFR,
-                theme_id=question.theme_id,
+                theme_id=themes_local_name_id.get(
+                    themes_remote_id_name.get(question.theme_id)
+                ),
                 position=question.id,
             )
         )
@@ -48,21 +55,28 @@ def create_question_func(apps, _schema_editor):
 
 def delete_question_func(apps, _schema_editor):
     Question = apps.get_model("surveys", "Question")
-    questions = fetch_data_from_mysql("porn_question")
-    Question.objects.filter(id__in=[r.id for r in questions]).delete()
+    Question.objects.all().delete()
 
 
 def create_survey_func(apps, _schema_editor):
+    Website = apps.get_model("websites", "Website")
+    websites_local_slug_id = {
+        row["slug"]: row["id"] for row in Website.objects.values("id", "slug")
+    }
+    websites_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_site")
+    }
     Survey = apps.get_model("surveys", "Survey")
     survey_objects = []
     surveys = fetch_data_from_mysql("porn_survey")
     for survey in surveys:
         survey_objects.append(
             Survey(
-                id=survey.id,
                 user_daily_fingerprint=survey.hash,
-                creation_date=survey.updatedate,
-                selected_website_id=survey.site_id,
+                creation_date=make_aware(survey.updatedate),
+                selected_website_id=websites_local_slug_id.get(
+                    websites_remote_id_slug.get(survey.site_id)
+                ),
                 is_valid=bool(survey.is_validated)
                 if survey.is_validated is not None
                 else None,
@@ -76,12 +90,28 @@ def create_survey_func(apps, _schema_editor):
 
 def delete_survey_func(apps, _schema_editor):
     Survey = apps.get_model("surveys", "Survey")
-    surveys = fetch_data_from_mysql("porn_survey")
-    Survey.objects.filter(id__in=[r.id for r in surveys]).delete()
+    Survey.objects.all().delete()
 
 
 def create_question_survey_func(apps, _schema_editor):
+    Question = apps.get_model("surveys", "Question")
+    questions_local_sentence_id = {
+        q["sentence_en"]: q["id"] for q in Question.objects.values("id", "sentence_en")
+    }
+    questions_remote_id_sentence = {
+        row.id: row.labelEN for row in fetch_data_from_mysql("porn_question")
+    }
+
     Survey = apps.get_model("surveys", "Survey")
+    surveys = fetch_data_from_mysql("porn_survey")
+    surveys_local_fingerprint_id = {
+        row["user_daily_fingerprint"]: row["id"]
+        for row in Survey.objects.values("id", "user_daily_fingerprint")
+    }
+    surveys_remote_id_fingerprint = {
+        row.id: row.hash for row in fetch_data_from_mysql("porn_survey")
+    }
+
     QuestionSurvey = apps.get_model("surveys", "QuestionSurvey")
     question_survey_objs = []
     question_surveys = fetch_data_from_mysql("porn_questionsurvey")
@@ -90,8 +120,12 @@ def create_question_survey_func(apps, _schema_editor):
         if question_survey.survey_id in surveys:
             question_survey_objs.append(
                 QuestionSurvey(
-                    question_id=question_survey.question_id,
-                    survey_id=question_survey.survey_id,
+                    question_id=questions_local_sentence_id.get(
+                        questions_remote_id_sentence.get(question_survey.question_id)
+                    ),
+                    survey_id=surveys_local_fingerprint_id.get(
+                        surveys_remote_id_fingerprint.get(question_survey.survey_id)
+                    ),
                     note=question_survey.note,
                 )
             )
@@ -100,11 +134,24 @@ def create_question_survey_func(apps, _schema_editor):
 
 def delete_question_survey_func(apps, _schema_editor):
     QuestionSurvey = apps.get_model("surveys", "QuestionSurvey")
-    questions = fetch_data_from_mysql("porn_question")
-    QuestionSurvey.objects.filter(question_id__in=questions).delete()
+    QuestionSurvey.objects.all().delete()
 
 
 def create_question_website_func(apps, _schema_editor):
+    Question = apps.get_model("surveys", "Question")
+    questions_local_sentence_id = {
+        q["sentence_en"]: q["id"] for q in Question.objects.values("id", "sentence_en")
+    }
+    questions_remote_id_sentence = {
+        row.id: row.labelEN for row in fetch_data_from_mysql("porn_question")
+    }
+    Website = apps.get_model("websites", "Website")
+    websites_local_slug_id = {
+        row["slug"]: row["id"] for row in Website.objects.values("id", "slug")
+    }
+    websites_remote_id_slug = {
+        row.id: row.slug for row in fetch_data_from_mysql("porn_site")
+    }
     QuestionWebsite = apps.get_model("surveys", "QuestionWebsite")
     question_websites = fetch_data_from_mysql("porn_questionsite")
     question_website_objs = []
@@ -112,8 +159,12 @@ def create_question_website_func(apps, _schema_editor):
         if question_website.site_id != 0:  # I don't understand, no website with id = 0
             question_website_objs.append(
                 QuestionWebsite(
-                    question_id=question_website.question_id,
-                    website_id=question_website.site_id,
+                    question_id=questions_local_sentence_id.get(
+                        questions_remote_id_sentence.get(question_website.question_id)
+                    ),
+                    website_id=websites_local_slug_id.get(
+                        websites_remote_id_slug.get(question_website.site_id)
+                    ),
                     note_init=question_website.note_init,
                     note_update=question_website.note_update,
                 )
@@ -123,8 +174,7 @@ def create_question_website_func(apps, _schema_editor):
 
 def delete_question_website_func(apps, _schema_editor):
     QuestionWebsite = apps.get_model("surveys", "QuestionWebsite")
-    questions = fetch_data_from_mysql("porn_question")
-    QuestionWebsite.objects.filter(question_id__in=questions).delete()
+    QuestionWebsite.objects.all().delete()
 
 
 def remove_duplicated_rows(apps, _schema_editor):

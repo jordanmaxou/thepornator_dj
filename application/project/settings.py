@@ -25,7 +25,6 @@ SECRET_KEY = "django-insecure-pu*q^ub8s5d=m+k%6m-7#lbm3!3ckvco7kq&%2v4$8sx$%^o*j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True") == "True"
-
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 CSRF_TRUSTED_ORIGINS = [
     f"https://{host}" for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     "health_check.db",
     "health_check.contrib.migrations",
     "health_check.storage",
+    "filebrowser",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -64,6 +64,10 @@ INSTALLED_APPS = [
     "libs.i18n",
     "libs.ld_json",
     "libs.format",
+    # "ckeditor_uploader",
+    # "ckeditor",
+    "tinymce",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -75,6 +79,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -143,7 +148,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -192,31 +196,38 @@ STORAGES = {
     },
 }
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "django.server": {
-            "()": "django.utils.log.ServerFormatter",
-            "format": "[{server_time}] {message}",
-            "style": "{",
-        }
-    },
-    "handlers": {
-        "django.server": {
-            "level": "INFO",
-            "class": "logging.StreamHandler",
-            "formatter": "django.server",
-        },
-    },
-    "loggers": {
-        "django.request": {
-            "handlers": ["django.server"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "django.server": {
+#             "()": "django.utils.log.ServerFormatter",
+#             "format": "[{server_time}] {meapt install net-toolsssage}",
+#             "style": "{",
+#         }
+#     },
+#     "handlers": {
+#         "django.server": {
+#             "level": "INFO",
+#             "class": "logging.StreamHandler",
+#             "formatter": "django.server",
+#         },
+#         "console": {
+#             "class": "logging.StreamHandleapt install net-toolsr",
+#         },
+#     },
+#     "loggers": {
+#         "django.request": {
+#             "handlers": ["django.server"],
+#             "level": "DEBUG",
+#             "propagate": True,
+#         },
+#         # "django.db.backends": {
+#         #     "level": "DEBUG",
+#         #     "handlers": ["console"],
+#         # },
+#     },
+# }
 
 VIDEOS_WEBCAM_URL = "https://pt.cdwmtt.com/api/video-promotion/v1/list?psid=thepornator&pstool=421_1&accessKey=335d14527f9a29381e1c0405caca83d4&ms_notrack=1&program=vpapi&campaign_id=&type=&site=jasmin&sexualOrientation=straight&forcedPerformers=&limit=40&primaryColor=%238AC437&labelColor=%23212121"
 
@@ -246,3 +257,82 @@ DISCLAIMER_COOKIE_NAME = "disclaimer-shown"
 RECAPTCHA_PUBLIC_KEY = "6LdhrKMiAAAAAKnxxd1sSOJ4qJ1wv4XxwCq999Mn"
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_SECRET", "")
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+INTERNAL_IPS = [
+    "172.20.0.7",
+]
+
+DEBUG_TOOLBAR_PANELS = [
+    # "debug_toolbar.panels.history.HistoryPanel",
+    # "debug_toolbar.panels.versions.VersionsPanel",
+    "debug_toolbar.panels.timer.TimerPanel",
+    # "debug_toolbar.panels.settings.SettingsPanel",
+    # "debug_toolbar.panels.headers.HeadersPanel",
+    # "debug_toolbar.panels.request.RequestPanel",
+    "debug_toolbar.panels.sql.SQLPanel",
+    # 'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    # "debug_toolbar.panels.templates.TemplatesPanel",
+    # "debug_toolbar.panels.alerts.AlertsPanel",
+    # "debug_toolbar.panels.cache.CachePanel",
+    # "debug_toolbar.panels.signals.SignalsPanel",
+    # "debug_toolbar.panels.redirects.RedirectsPanel",
+    # "debug_toolbar.panels.profiling.ProfilingPanel",
+]
+
+# CKEDITOR_UPLOAD_PATH = "uploads/"
+# AWS_QUERYSTRING_AUTH = False
+# CKEDITOR_CONFIGS = {
+#     "default": {
+#         "toolbar": "Custom",
+#         "width": "100%",
+#         "toolbar_Custom": [
+#             [
+#                 "Styles",
+#                 "Format",
+#                 "Bold",
+#                 "Italic",
+#                 "Underline",
+#                 "Strike",
+#                 "SpellChecker",
+#                 "Undo",
+#                 "Redo",
+#             ],
+#             ["Link", "Unlink", "Anchor"],
+#             ["Image", "Table", "HorizontalRule"],
+#             ["TextColor", "BGColor"],
+#             ["Smiley", "SpecialChar"],
+#             ["Source"],
+#             ["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
+#             ["NumberedList", "BulletedList"],
+#             ["Indent", "Outdent"],
+#             ["Maximize"],
+#         ],
+#         "autoParagraph": False,
+#         "enterMode": 2,
+#     }
+# }
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 500,
+    "menubar": False,
+    "plugins": "advlist,autolink,lists,link,image,imagetools,charmap,print,preview,anchor,"
+    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
+    "code,help,wordcount",
+    "toolbar": "undo redo | formatselect | "
+    "bold italic backcolor | alignleft aligncenter "
+    "alignright alignjustify | bullist numlist outdent indent | "
+    "removeformat | link image | help",
+    "automatic_uploads": True,
+    "file_picker_types": "image",
+    "image_caption": True,
+    "image_title": True,
+}
+
+# TINYMCE_EXTRA_MEDIA = {
+#     "css": {
+#         "all": [],
+#     },
+#     "js": [
+#         "https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js",
+#         "tinymce/tinymce-upload.js",
+#     ],
+# }

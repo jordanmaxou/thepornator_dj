@@ -6,6 +6,9 @@ from .tag import Tag
 
 
 class Story(models.Model):
+    class Meta:
+        verbose_name_plural = "stories"
+
     slug = models.SlugField(max_length=100, blank=True)
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -21,3 +24,6 @@ class Story(models.Model):
 
     def get_absolute_url(self):
         return reverse("stories:content", kwargs={"slug": self.slug})
+
+    def __str__(self):
+        return self.slug

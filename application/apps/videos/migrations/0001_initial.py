@@ -112,6 +112,14 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.CASCADE, to="videos.count"
                     ),
                 ),
+                (
+                    "status",
+                    models.SmallIntegerField(
+                        blank=True,
+                        choices=[(1, "Ok"), (0, "Not Found"), (-1, "Error")],
+                        null=True,
+                    ),
+                ),
             ],
         ),
         migrations.AddField(

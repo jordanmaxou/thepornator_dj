@@ -11,7 +11,7 @@ from apps.trends.models import TrendingSearches
 from apps.websites.models import Website
 from apps.ai_pictures.models import Content, TypeOfContent
 from apps.glossary.models import Glossary
-from apps.porn_models.models import Profile
+from apps.porn_models.models import Profile, TypeOfStatus
 from apps.videos.models import Video
 from apps.blog.models import Blog
 from apps.stories.models import Story
@@ -55,7 +55,8 @@ class Home(TemplateView):
         context["lexicon_terms"] = Glossary.objects.order_by("-publication_date")[:4]
 
         model_of_the_day = (
-            Profile.objects.annotate(category_nb=Count("categories"))
+            Profile.objects.filter(status=TypeOfStatus.OK)
+            .annotate(category_nb=Count("categories"))
             .filter(category_nb__gt=0)
             .order_by("?")
             .first()

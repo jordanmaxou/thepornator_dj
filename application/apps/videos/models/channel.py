@@ -17,3 +17,6 @@ class Channel(models.Model):
 
     def get_absolute_url(self):
         return reverse("videos:videos-channel", kwargs={"channel": self.slug})
+
+    def __str__(self):
+        return self.slug

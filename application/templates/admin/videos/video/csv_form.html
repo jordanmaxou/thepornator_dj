@@ -1,0 +1,24 @@
+{% extends 'admin/change_list.html' %}
+{% load i18n %}
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}" title="{% trans 'Home' %}">{% trans 'Home' %}</a>
+    › <a href="{% url 'admin:app_list' app_label='videos' %}">Videos</a>
+    › <a href="{% url 'admin:videos_video_changelist' %}">Video</a>
+    › Upload CSV
+  </div>
+{% endblock breadcrumbs %}
+{% block content %}
+  <div>
+    <form action="." method="POST" enctype="multipart/form-data">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <button type="submit">Upload CSV</button>
+    </form>
+  </div>
+  <br />
+  <pre>
+    title_en;title_fr;description_en;description_fr;link;main_thumb;duration;publication_date;channel;categories
+    ...
+  </pre>
+{% endblock content %}

@@ -20,7 +20,7 @@ class Languages(models.TextChoices):
 
 class Glossary(models.Model):
     class Meta:
-        verbose_name_plural = "glossary"
+        verbose_name_plural = "glossaries"
 
     slug = models.SlugField(max_length=50, blank=True)
     name = models.CharField(max_length=50)

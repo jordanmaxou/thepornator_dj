@@ -16,3 +16,6 @@ class Website(models.Model):
 
     def get_absolute_url(self):
         return reverse("porn_models:website", kwargs={"website": self.slug})
+
+    def __str__(self):
+        return self.slug

@@ -4,6 +4,9 @@ from django.urls import reverse
 
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = "categories"
+
     slug = models.SlugField(max_length=50, blank=True)
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=1000)
@@ -17,3 +20,6 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse("websites:category", kwargs={"category": self.slug})
+
+    def __str__(self):
+        return self.slug

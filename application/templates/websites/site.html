@@ -29,7 +29,7 @@
                  style="max-width:200px">
             <br>
             <br>
-            <div style="height: 295px;overflow-y: auto;" id="sitedetail">{{ website.description }}</div>
+            <div style="height: 295px;overflow-y: auto;" id="sitedetail">{{ website.description|safe }}</div>
             <br>
             {% trans 'Domain:' %} <a href="{% if website.is_direct_link %}{{ website.url }}{% else %}{% url 'out:out-view' type_out='website' id=website.id %}{% endif %}"
     target="_blank"

@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 from os.path import basename
 from PIL import Image
 import requests
@@ -38,7 +38,7 @@ class Content(models.Model):
         max_length=250, upload_to=upload_to_according_to_type, null=True, blank=True
     )
     external_url = models.URLField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     last_update = models.DateTimeField(auto_now=True)
     status = models.SmallIntegerField(choices=TypeOfStatus, null=True, blank=True)
 
@@ -72,6 +72,13 @@ class Content(models.Model):
             if img.height > max_size[1] or img.width > max_size[0]:
                 img.thumbnail(max_size, Image.ANTIALIAS)
             self.image.save(basename(url), img)
+            self.status = TypeOfStatus.OK
+        else:
+            if response.status_code == 404:
+                self.status = TypeOfStatus.NOT_FOUND
+            else:
+                self.status = TypeOfStatus.ERROR
+        self.save(update_fields=["status"])
 
     @property
     def selected_categories(self):
@@ -107,7 +114,8 @@ class Content(models.Model):
         return (
             self.__class__.objects.filter(
                 type=type,
-                publication_date__lte=date.today(),
+                status=TypeOfStatus.OK,
+                publication_date__lte=timezone.now().today(),
                 categories__in=self.categories.all(),
             )
             .order_by("?")

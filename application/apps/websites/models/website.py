@@ -57,12 +57,14 @@ class Website(models.Model):
     screen = models.FileField(max_length=150, upload_to="img/screensites")
     is_direct_link = models.BooleanField()
     description = models.TextField(max_length=10000)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, blank=True
+    )
     creation_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
     end_date = models.DateField(null=True, blank=True)
     click = models.PositiveBigIntegerField(default=0)
-    deal = models.ForeignKey(Deal, on_delete=models.SET_NULL, null=True)
+    deal = models.ForeignKey(Deal, on_delete=models.SET_NULL, null=True, blank=True)
     questions = models.ManyToManyField(
         "surveys.Question",
         through="surveys.QuestionWebsite",

@@ -24,8 +24,7 @@ def create_trending_searches_func(apps, _schema_editor):
 
 def delete_trending_searches_func(apps, _schema_editor):
     TrendingSearches = apps.get_model("trends", "TrendingSearches")
-    trending_searches = fetch_data_from_mysql("porn_trendingsearches")
-    TrendingSearches.objects.filter(id__in=[r.id for r in trending_searches]).delete()
+    TrendingSearches.objects.all().delete()
 
 
 def create_slug_func(apps, _schema_editor):

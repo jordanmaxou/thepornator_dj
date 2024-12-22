@@ -47,7 +47,6 @@ def create_deals_func(apps, _schema_editor):
     deals = fetch_data_from_mysql("porn_deal")
     for deal in deals:
         current_deal = Deal.objects.create(
-            id=deal.id,
             contact=deal.contact,
             status=deal.status,
             program=deal.program,
@@ -65,8 +64,7 @@ def create_deals_func(apps, _schema_editor):
 
 def delete_deals_func(apps, _schema_editor):
     Deal = apps.get_model("websites", "Deal")
-    deals = fetch_data_from_mysql("porn_deal")
-    Deal.objects.filter(id__in=[r.id for r in deals]).delete()
+    Deal.objects.all().delete()
 
 
 class Migration(migrations.Migration):

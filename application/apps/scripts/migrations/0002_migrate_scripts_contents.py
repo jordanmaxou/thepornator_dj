@@ -13,7 +13,6 @@ def create_content_func(apps, _schema_editor):
     for content in contents:
         content_objects.append(
             Content(
-                id=content.id,
                 slug=content.slug,
                 title=content.title,
                 studio=content.studio,
@@ -29,8 +28,7 @@ def create_content_func(apps, _schema_editor):
 
 def delete_content_func(apps, _schema_editor):
     Content = apps.get_model("scripts", "Content")
-    contents = fetch_data_from_mysql("porn_scriptcontent")
-    Content.objects.filter(id__in=[r.id for r in contents]).delete()
+    Content.objects.all().delete()
 
 
 class Migration(migrations.Migration):

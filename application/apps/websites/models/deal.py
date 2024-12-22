@@ -28,3 +28,6 @@ class Deal(models.Model):
         indexes = [
             models.Index(fields=["status"]),
         ]
+
+    def __str__(self):
+        return self.contact

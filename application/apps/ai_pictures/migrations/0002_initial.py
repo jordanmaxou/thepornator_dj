@@ -70,11 +70,6 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE, to="ai_pictures.note"
             ),
         ),
-        migrations.AddField(
-            model_name="tag",
-            name="contents",
-            field=models.ManyToManyField(to="ai_pictures.content"),
-        ),
         migrations.AddIndex(
             model_name="content",
             index=models.Index(fields=["slug"], name="ai_pictures_slug_b46050_idx"),

@@ -1,7 +1,17 @@
 import itertools
 from django.views.generic.base import TemplateView
 from django.utils.translation import gettext as _
-from django.db.models import Count, Q, F, ExpressionWrapper, FloatField, Value, Sum
+from django.db.models import (
+    Count,
+    Q,
+    F,
+    ExpressionWrapper,
+    FloatField,
+    Value,
+    Sum,
+    Case,
+    When,
+)
 from django.db.models.functions import TruncDate
 
 from apps.surveys.models import Survey
@@ -39,10 +49,11 @@ class StatisticsView(TemplateView):
         context["page_type"] = "statistics"
 
         surveys_by_day = (
-            Survey.objects.values("creation_date")
+            Survey.objects.annotate(truncated_date=TruncDate("creation_date"))
+            .values("truncated_date")
             .annotate(nb=Count("id"))
-            .order_by("creation_date")
-            .values_list("creation_date", "nb")
+            .order_by("truncated_date")
+            .values_list("truncated_date", "nb")
         )
         surveys_by_day_labels, surveys_by_day_data = list(zip(*surveys_by_day))
         context["surveys_by_days"] = {
@@ -55,19 +66,26 @@ class StatisticsView(TemplateView):
         }
 
         surveys_reliability_by_day = (
-            Survey.objects.values("creation_date")
+            Survey.objects.annotate(truncated_date=TruncDate("creation_date"))
+            .values("truncated_date")
             .annotate(
                 positive=Count("is_valid", filter=Q(is_valid=True)),
                 total=Count("is_valid", filter=Q(is_valid__isnull=False)),
             )
             .annotate(
-                rate=ExpressionWrapper(
-                    F("positive") * 100.0 / F("total"),
-                    output_field=FloatField(),
+                rate=Case(
+                    When(
+                        total__gt=0,
+                        then=ExpressionWrapper(
+                            F("positive") * 100.0 / F("total"),
+                            output_field=FloatField(),
+                        ),
+                    ),
+                    default=Value(0.0),
                 )
             )
-            .order_by("creation_date")
-            .values_list("creation_date", "rate")
+            .order_by("truncated_date")
+            .values_list("truncated_date", "rate")
         )
         surveys_reliability_by_day_labels, surveys_reliability_by_day_data = list(
             zip(*surveys_reliability_by_day)
