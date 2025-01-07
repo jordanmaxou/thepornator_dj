@@ -19,6 +19,7 @@ class CsvImportForm(forms.Form):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ("pseudo", "slug", "website", "display_status")
     list_filter = ("status", "website__slug")
+    readonly_fields = ("counts",)
 
     formfield_overrides = {
         models.ManyToManyField: {
@@ -131,3 +132,8 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("slug", "name_en", "name_fr", "synonyms")
+
+
+@admin.register(Count)
+class CountAdmin(admin.ModelAdmin):
+    pass

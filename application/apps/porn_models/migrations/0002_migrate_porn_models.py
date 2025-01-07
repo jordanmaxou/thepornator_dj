@@ -7,11 +7,19 @@ from urllib.parse import urljoin
 
 
 def model_url(website, profile_slug) -> str:
+    base_url = ""
     if website["slug"] == "manyvids":
         slug = profile_slug.split("___")
         if len(slug) == 2:
-            return f"https://www.manyvids.com/Profile/{slug[0]}/{slug[1].lower()}/Store/Videos"
-    return urljoin(website["slug"], profile_slug)
+            base_url = f"https://www.manyvids.com/Profile/{slug[0]}/{slug[1].lower()}/Store/Videos"
+    else:
+        base_url = urljoin(website["url"], profile_slug)
+
+    base_url += "?utm_source=thepornator&utm_medium=traffic&utm_campaign=thepornator"
+    if website["slug"] == "swame":
+        base_url += "&affiliate=9860fb89-6984-4d65-9589-644a66612403"
+
+    return base_url
 
 
 def create_categories_func(apps, _schema_editor):

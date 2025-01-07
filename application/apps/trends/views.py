@@ -1,4 +1,5 @@
 from datetime import date
+from random import randint
 
 from django.views.generic.base import TemplateView
 from django.utils.translation import gettext as _
@@ -8,10 +9,12 @@ from django.db.models import Avg, Case, When, F, Q
 from apps.websites.models import Website
 from apps.porn_models.models import Profile
 from apps.trends.models import TrendingSearches
+from apps.porn_models.utils import get_fake_model_profiles
 
 
 class TrendDetailView(TemplateView):
     template_name = "trends/detail.html"
+    fake_profiles_positions = [0, 2, 4, 6, 8]
 
     def get_context_data(self, **kwargs):
         slug = self.kwargs.get("trend")
@@ -49,12 +52,23 @@ class TrendDetailView(TemplateView):
             .filter(search=trend.request)
         )
 
-        context["profiles"] = Profile.objects.annotate(
-            search=SearchVector(
-                "pseudo", "description", "categories__name", "website__name"
+        profiles = list(
+            Profile.objects.annotate(
+                search=SearchVector(
+                    "pseudo", "description", "categories__name", "website__name"
+                )
             )
-        ).filter(search=trend.request)
+            .filter(search=trend.request)
+            .distinct("id")
+        )
+        fake_profiles = get_fake_model_profiles("onlyfans")
+        for i in self.fake_profiles_positions:
+            if i < len(profiles):
+                profiles.insert(
+                    i, fake_profiles.pop(randint(0, len(fake_profiles) - 1))
+                )
+        context["profiles"] = profiles
 
-        context["result_nb"] = context["websites"].count() + context["profiles"].count()
+        context["result_nb"] = context["websites"].count() + len(context["profiles"])
 
         return context

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "health_check.db",
     "health_check.contrib.migrations",
     "health_check.storage",
-    "filebrowser",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -64,8 +63,6 @@ INSTALLED_APPS = [
     "libs.i18n",
     "libs.ld_json",
     "libs.format",
-    # "ckeditor_uploader",
-    # "ckeditor",
     "tinymce",
     "debug_toolbar",
 ]
@@ -278,44 +275,12 @@ DEBUG_TOOLBAR_PANELS = [
     # "debug_toolbar.panels.profiling.ProfilingPanel",
 ]
 
-# CKEDITOR_UPLOAD_PATH = "uploads/"
-# AWS_QUERYSTRING_AUTH = False
-# CKEDITOR_CONFIGS = {
-#     "default": {
-#         "toolbar": "Custom",
-#         "width": "100%",
-#         "toolbar_Custom": [
-#             [
-#                 "Styles",
-#                 "Format",
-#                 "Bold",
-#                 "Italic",
-#                 "Underline",
-#                 "Strike",
-#                 "SpellChecker",
-#                 "Undo",
-#                 "Redo",
-#             ],
-#             ["Link", "Unlink", "Anchor"],
-#             ["Image", "Table", "HorizontalRule"],
-#             ["TextColor", "BGColor"],
-#             ["Smiley", "SpecialChar"],
-#             ["Source"],
-#             ["JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
-#             ["NumberedList", "BulletedList"],
-#             ["Indent", "Outdent"],
-#             ["Maximize"],
-#         ],
-#         "autoParagraph": False,
-#         "enterMode": 2,
-#     }
-# }
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "height": 500,
     "menubar": False,
-    "plugins": "advlist,autolink,lists,link,image,imagetools,charmap,print,preview,anchor,"
-    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
+    "plugins": "advlist,autolink,lists,link,image,charmap,preview,anchor,"
+    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,"
     "code,help,wordcount",
     "toolbar": "undo redo | formatselect | "
     "bold italic backcolor | alignleft aligncenter "
@@ -326,13 +291,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "image_caption": True,
     "image_title": True,
 }
-
-# TINYMCE_EXTRA_MEDIA = {
-#     "css": {
-#         "all": [],
-#     },
-#     "js": [
-#         "https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js",
-#         "tinymce/tinymce-upload.js",
-#     ],
-# }
+SOCIAL_PROFILE_URL = "https://social-profiles.co/api/profiles?&rowCount=10"
+SOCIAL_PROFILE_BEARER = (
+    "ofapi_d11fc961f2e583c5fc00260b6ec1eecee2ae6153cdd7ba8ee54b33f8f32f7f57"
+)

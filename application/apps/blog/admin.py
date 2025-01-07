@@ -1,14 +1,24 @@
 from datetime import date
 
 from django.contrib import admin
+from django.forms import BaseInlineFormSet
 
 from tinymce.widgets import TinyMCE
 from django.utils.html import format_html
 from django.db.models import TextField
 
-# from ckeditor.widgets import CKEditorWidget
+from apps.blog.models import Blog, Image
 
-from apps.blog.models import Blog
+
+class ImageInlineFormset(BaseInlineFormSet):
+    model = Image
+    fields = ("file",)
+
+
+class ImageInline(admin.StackedInline):
+    model = Image
+    formset = ImageInlineFormset
+    extra = 1
 
 
 class PublishedStatusFilter(admin.SimpleListFilter):
@@ -37,6 +47,7 @@ class BlogAdmin(admin.ModelAdmin):
     formfield_overrides = {
         TextField: {"widget": TinyMCE},
     }
+    inlines = (ImageInline,)
 
     def display_publication_date(self, obj):
         red, green = "#3C1518", "#69995D"

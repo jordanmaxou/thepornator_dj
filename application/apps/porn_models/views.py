@@ -9,6 +9,7 @@ from django.conf import settings
 
 from apps.porn_models.models import Category, Website, Profile, TypeOfStatus
 from apps.trends.models import TrendingSearches
+from apps.porn_models.utils import get_fake_model_profiles
 
 
 class PornModelsIndexView(ListView):
@@ -148,6 +149,7 @@ class PornModelsSiteView(ListView):
     context_object_name = "profiles"
     slug_url_kwarg = "website"
     paginate_by = 20
+    fake_profiles_positions = [0, 2, 4, 6, 8]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -184,7 +186,12 @@ class PornModelsSiteView(ListView):
     def get_queryset(self):
         slug = self.kwargs.get(self.slug_url_kwarg)
         self.obj = get_object_or_404(Website, slug=slug)
-        return self.obj.profile_set.filter(status=TypeOfStatus.OK)
+        profiles = list(self.obj.profile_set.filter(status=TypeOfStatus.OK))
+        fake_profiles = get_fake_model_profiles(slug)
+        for i in self.fake_profiles_positions:
+            if i < len(profiles):
+                profiles.insert(i, fake_profiles.pop())
+        return profiles
 
 
 class PornModelsSiteCategoryView(ListView):

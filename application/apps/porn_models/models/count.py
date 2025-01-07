@@ -7,3 +7,6 @@ class Count(models.Model):
     photos = models.PositiveIntegerField(default=0)
     videos = models.PositiveIntegerField(default=0)
     posts = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"clicks: {self.clicks} | likes: {self.likes} | photos: {self.photos} | videos: {self.videos} | posts: {self.posts}"

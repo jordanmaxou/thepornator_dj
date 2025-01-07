@@ -1,9 +1,10 @@
+{% load without_qs %}
 <div class="d-block d-md-flex listing col-lg-12" style="padding: 10px;">
   <div class="img-avatar col-lg-3 col-md-3">
     <div class="img-avatar-container" style="position: relative;">
       <a rel=""
          nofollow=""
-         href="{% url 'out:out-view' type_out='model' id=profile.id %}"
+         href="{% if profile.ads %}{{ profile.url }}{% else %}{% url 'out:out-view' type_out='model' id=profile.id %}{% endif %}"
          target="_blank"
          rel="noopener"
          referrerpolicy="origin">
@@ -30,7 +31,7 @@
   </div>
   <div class="result-container col-lg-9 col-md-9">
     <a rel="nofollow"
-       href="{% url 'out:out-view' type_out='model' id=profile.id %}"
+       href="{% if profile.ads %}{{ profile.url }}{% else %}{% url 'out:out-view' type_out='model' id=profile.id %}{% endif %}"
        target="_blank"
        referrerpolicy="origin">
       <svg style="width:1em"
@@ -45,7 +46,7 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5574 2.96078L17.0322 5.43566L5.43569 17.0322L2.96082 14.5573L14.5574 2.96078ZM14.5574 4.375L4.37504 14.5573L5.4357 15.618L15.618 5.43566L14.5574 4.375Z" fill="white">
         </path>
       </svg>
-      <span style="vertical-align: middle;">{{ profile.url }}</span>
+      <span style="vertical-align: middle;">{{ profile.url|without_qs }}</span>
       <br />
       <h3 style="font-weight: bold;">{{ profile.pseudo }}.</h3>
     </a>
