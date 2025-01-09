@@ -1,8 +1,10 @@
 from urllib.parse import urlparse, urlunparse
 
+from django.apps import apps
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.db.models.functions import Coalesce
 
 from .category import Category
 from .deal import Deal
@@ -12,7 +14,15 @@ class WebsiteManager(models.Manager):
     def by_category_avg_notes(self):
         return (
             self.annotate(
-                avg_note_update=models.Avg("questionwebsite__note_update"),
+                avg_note_update=models.Avg(
+                    Coalesce(
+                        models.Case(
+                            models.When(questionwebsite__note_update=0, then=None),
+                            default=models.F("questionwebsite__note_update"),
+                        ),
+                        "questionwebsite__note_init",
+                    )
+                ),
                 has_running_deal=models.Case(
                     models.When(
                         deal__status=Deal.StatusOfDeal.RUNNING, then=models.Value(True)
@@ -27,12 +37,12 @@ class WebsiteManager(models.Manager):
 
     def get_notes_by_websites(self):
         queryset = self.annotate(
-            note=models.Case(
-                models.When(
-                    questionwebsite__note_update__isnull=False,
-                    then=models.F("questionwebsite__note_update"),
+            note=Coalesce(
+                models.Case(
+                    models.When(questionwebsite__note_update=0, then=None),
+                    default=models.F("questionwebsite__note_update"),
                 ),
-                default=models.F("questionwebsite__note_init"),
+                "questionwebsite__note_init",
             )
         ).values("questionwebsite__website_id", "questionwebsite__question_id", "note")
 
@@ -103,17 +113,32 @@ class Website(models.Model):
                     "question", "question__theme"
                 )
                 .filter(website_id=self.id)
+                .annotate(
+                    nullable_note_update=models.Case(
+                        models.When(note_update=0, then=None),
+                        default=models.F("note_update"),
+                    )
+                )
+                .annotate(note=Coalesce("nullable_note_update", "note_init"))
                 .values("question__theme__name")
-                .annotate(avg_note_update=models.Avg("note_update"))
+                .annotate(avg_note_update=models.Avg("note"))
             )
         }
 
     @property
     def avg_note(self) -> float:
         return round(
-            self.questions.through.objects.filter(website_id=self.id).aggregate(
-                models.Avg("note_update")
-            )["note_update__avg"],
+            self.questions.through.objects.filter(website_id=self.id)
+            .annotate(
+                nullable_note_update=models.Case(
+                    models.When(note_update=0, then=None),
+                    default=models.F("note_update"),
+                )
+            )
+            .annotate(
+                note=Coalesce(models.F("nullable_note_update"), models.F("note_init"))
+            )
+            .aggregate(models.Avg("note"))["note__avg"],
             4,
         )
 
@@ -123,3 +148,18 @@ class Website(models.Model):
 
     def update_counter(self):
         self.__class__.objects.filter(id=self.id).update(click=models.F("click") + 1)
+
+    def update_notes(self):
+        QuestionSurvey = apps.get_model("surveys", "QuestionSurvey")
+        QuestionWebsite = apps.get_model("surveys", "QuestionWebsite")
+        questions_notes = (
+            QuestionSurvey.objects.filter(
+                survey__is_valid=True, survey__selected_websites__first=self
+            )
+            .values("question")
+            .annotate(note_update=models.Avg("note"))
+        )
+        for question_note in questions_notes:
+            QuestionWebsite.objects.filter(
+                website_id=self.id, question_id=question_note["question"]
+            ).update(note_update=round(question_note["note_update"], 0))

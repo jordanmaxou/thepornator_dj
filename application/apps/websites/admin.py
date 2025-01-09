@@ -17,6 +17,7 @@ class WebsiteAdmin(admin.ModelAdmin):
     list_display = ("slug", "name", "display_icon", "end_date")
     exclude = ("description",)
     inlines = (QuestionInline,)
+    search_fields = ("slug",)
 
     def display_icon(self, obj):
         if obj.icon:

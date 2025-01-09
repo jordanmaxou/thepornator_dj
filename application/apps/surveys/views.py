@@ -101,8 +101,10 @@ class UpdateIsValidSurveyView(View):
         data = json.loads(request.body)
         if (is_valid := data.get("is_valid")) and isinstance(is_valid, bool):
             survey = get_object_or_404(Survey, user_daily_fingerprint=slug)
-            survey.is_valid = is_valid
-            survey.save()
+            with transaction.atomic():
+                survey.is_valid = is_valid
+                survey.save()
+                survey.selected_websites.first.update_notes()
             return HttpResponse(status=201)
         else:
             return HttpResponse(status=400)

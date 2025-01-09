@@ -98,37 +98,35 @@ def create_question_survey_func(apps, _schema_editor):
     questions_local_sentence_id = {
         q["sentence_en"]: q["id"] for q in Question.objects.values("id", "sentence_en")
     }
-    questions_remote_id_sentence = {
-        row.id: row.labelEN for row in fetch_data_from_mysql("porn_question")
+    questions_remote_to_local_id = {
+        row.id: questions_local_sentence_id[row.labelEN]
+        for row in fetch_data_from_mysql("porn_question")
     }
 
     Survey = apps.get_model("surveys", "Survey")
-    surveys = fetch_data_from_mysql("porn_survey")
     surveys_local_fingerprint_id = {
         row["user_daily_fingerprint"]: row["id"]
         for row in Survey.objects.values("id", "user_daily_fingerprint")
     }
-    surveys_remote_id_fingerprint = {
-        row.id: row.hash for row in fetch_data_from_mysql("porn_survey")
+    surveys_remote_to_local_id = {
+        row.id: surveys_local_fingerprint_id[row.hash]
+        for row in fetch_data_from_mysql("porn_survey")
     }
 
     QuestionSurvey = apps.get_model("surveys", "QuestionSurvey")
     question_survey_objs = []
     question_surveys = fetch_data_from_mysql("porn_questionsurvey")
-    surveys = Survey.objects.values_list("id", flat=True)
     for question_survey in question_surveys:
-        if question_survey.survey_id in surveys:
-            question_survey_objs.append(
-                QuestionSurvey(
-                    question_id=questions_local_sentence_id.get(
-                        questions_remote_id_sentence.get(question_survey.question_id)
-                    ),
-                    survey_id=surveys_local_fingerprint_id.get(
-                        surveys_remote_id_fingerprint.get(question_survey.survey_id)
-                    ),
-                    note=question_survey.note,
-                )
+        # if question_survey.survey_id in surveys_remote_to_local_id.keys():
+        question_survey_objs.append(
+            QuestionSurvey(
+                question_id=questions_remote_to_local_id.get(
+                    question_survey.question_id
+                ),
+                survey_id=surveys_remote_to_local_id.get(question_survey.survey_id),
+                note=question_survey.note,
             )
+        )
     QuestionSurvey.objects.bulk_create(question_survey_objs)
 
 

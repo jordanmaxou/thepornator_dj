@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 from django.utils.translation import gettext as _
 from django.contrib.postgres.search import SearchVector
 from django.db.models import Avg, Case, When, F, Q
+from django.db.models.functions import Coalesce
 
 from apps.websites.models import Website
 from apps.porn_models.models import Profile
@@ -40,12 +41,12 @@ class TrendDetailView(TemplateView):
             .annotate(
                 search=SearchVector("name", "description", "slug"),
                 avg_note_update=Avg(
-                    Case(
-                        When(
-                            questionwebsite__note_update__isnull=False,
-                            then=F("questionwebsite__note_update"),
+                    Coalesce(
+                        Case(
+                            When(questionwebsite__note_update=0, then=None),
+                            default=F("questionwebsite__note_update"),
                         ),
-                        default=F("questionwebsite__note_init"),
+                        "questionwebsite__note_init",
                     )
                 ),
             )
