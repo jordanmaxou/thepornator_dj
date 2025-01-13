@@ -39,7 +39,9 @@ class VideosIndexListView(ListView):
         return context
 
     def get_queryset(self):
-        cat_map = {obj.pk: obj for obj in Category.objects.all()}
+        cat_map = {
+            obj.pk: obj for obj in Category.objects.select_related("main_content").all()
+        }
         categories = list(
             Category.objects.annotate(
                 nb_contents=Count(
@@ -93,7 +95,9 @@ class VideosCategoryListView(ListView):
         slug = self.kwargs.get(self.slug_url_kwarg)
         self.obj = get_object_or_404(Category, slug=slug)
 
-        return self.obj.video_set.filter(publication_date__lte=date.today())
+        return self.obj.video_set.select_related("channel").filter(
+            publication_date__lte=date.today()
+        )
 
 
 class VideosChannelListView(ListView):

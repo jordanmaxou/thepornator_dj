@@ -57,7 +57,10 @@ class AiPornCategoryListView(ListView):
         return context
 
     def get_queryset(self):
-        cat_map = {obj.pk: obj for obj in Category.objects.all()}
+        cat_map = {
+            obj.pk: obj
+            for obj in Category.objects.select_related("main_image_content").all()
+        }
         categories = list(
             Category.objects.annotate(
                 nb_contents=Count(
@@ -161,16 +164,20 @@ class AiPornCountryListView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.annotate(
-            nb_contents=Count(
-                "content__id",
-                distinct=True,
-                filter=Q(
-                    content__type=TypeOfContent.IMAGE,
-                    content__publication_date__lte=date.today(),
-                ),
+        qs = (
+            qs.annotate(
+                nb_contents=Count(
+                    "content__id",
+                    distinct=True,
+                    filter=Q(
+                        content__type=TypeOfContent.IMAGE,
+                        content__publication_date__lte=date.today(),
+                    ),
+                )
             )
-        ).filter(nb_contents__gt=0)
+            .select_related("main_content")
+            .filter(nb_contents__gt=0)
+        )
         return qs
 
 
@@ -427,7 +434,10 @@ class AiPornVideosIndexView(ListView):
         return context
 
     def get_queryset(self):
-        cat_map = {obj.pk: obj for obj in Category.objects.all()}
+        cat_map = {
+            obj.pk: obj
+            for obj in Category.objects.select_related("main_video_content").all()
+        }
         categories = list(
             Category.objects.annotate(
                 nb_contents=Count(

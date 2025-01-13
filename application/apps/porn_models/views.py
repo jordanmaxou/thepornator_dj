@@ -38,7 +38,9 @@ class PornModelsIndexView(ListView):
         return context
 
     def get_queryset(self):
-        cat_map = {obj.pk: obj for obj in Category.objects.all()}
+        cat_map = {
+            obj.pk: obj for obj in Category.objects.select_related("main_profile").all()
+        }
         categories = list(
             Category.objects.annotate(
                 nb_profiles=Count(
@@ -82,16 +84,16 @@ class PornModelsSearchView(ListView):
             )
             % {"criterias": query},
         }
-
+        context["nb_result"] = context["paginator"].count
         if (
-            self.queryset.count() > 0
+            context["nb_result"] > 0
             and (strip_query := query.strip())
             and len(strip_query) > 0
         ):
             TrendingSearches.objects.create(
                 request=strip_query,
                 lang=get_language(),
-                nb_result=self.queryset.count(),
+                nb_result=context["nb_result"],
             )
 
         return context
@@ -101,11 +103,15 @@ class PornModelsSearchView(ListView):
         if query in settings.WORD_BLACK_LIST:
             return super().get_queryset().none()
         qs = super().get_queryset()
-        qs = qs.annotate(
-            search=SearchVector(
-                "pseudo", "description", "categories__name", "website__name"
+        qs = (
+            qs.annotate(
+                search=SearchVector(
+                    "pseudo", "description", "categories__name", "website__name"
+                )
             )
-        ).filter(status=TypeOfStatus.OK, search=query)
+            .select_related("website", "counts")
+            .filter(status=TypeOfStatus.OK, search=query)
+        )
         self.queryset = qs
         return qs
 
@@ -141,7 +147,9 @@ class PornModelsCategoryView(ListView):
     def get_queryset(self):
         slug = self.kwargs.get(self.slug_url_kwarg)
         self.obj = get_object_or_404(Category, slug=slug)
-        return self.obj.profile_set.filter(status=TypeOfStatus.OK)
+        return self.obj.profile_set.select_related("website", "counts").filter(
+            status=TypeOfStatus.OK
+        )
 
 
 class PornModelsSiteView(ListView):

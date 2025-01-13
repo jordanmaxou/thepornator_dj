@@ -60,7 +60,7 @@ class WebsiteManager(models.Manager):
 
 
 class Website(models.Model):
-    slug = models.SlugField(max_length=100, blank=True)
+    slug = models.SlugField(max_length=100, blank=True, db_index=True)
     name = models.CharField(max_length=100)
     url = models.URLField(max_length=250)
     icon = models.FileField(max_length=150, upload_to="img/logosites")
@@ -142,9 +142,9 @@ class Website(models.Model):
             4,
         )
 
-    @property
-    def reviews(self) -> int:
-        return self.podium_set.filter(first=self, survey__is_valid=True).count()
+    # @property
+    # def reviews(self) -> int:
+    #     return self.podium_set.filter(first=self, survey__is_valid=True).count()
 
     def update_counter(self):
         self.__class__.objects.filter(id=self.id).update(click=models.F("click") + 1)

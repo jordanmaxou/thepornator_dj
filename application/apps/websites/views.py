@@ -27,6 +27,8 @@ class WebsiteCategoryListView(ListView):
             )
             % {"category": self.category.name},
         }
+        context["h1"] = self.category.name
+
         return context
 
     def get_queryset(self):
@@ -49,6 +51,9 @@ class WebsiteSiteDetailView(DetailView):
 
     def get_object(self, queryset=None):
         self.obj = super(WebsiteSiteDetailView, self).get_object(queryset=queryset)
+        self.obj.reviews = self.obj.podium_set.filter(
+            first=self.obj, survey__is_valid=True
+        ).count()
 
         return self.obj
 

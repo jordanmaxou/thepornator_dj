@@ -27,9 +27,9 @@ class TypeOfStatus(models.IntegerChoices):
 
 class Content(models.Model):
     title = models.CharField(max_length=200)
-    type = models.CharField(max_length=10, choices=TypeOfContent)
-    slug = models.CharField(max_length=100, null=True, blank=True)
-    publication_date = models.DateField()
+    type = models.CharField(max_length=10, choices=TypeOfContent, db_index=True)
+    slug = models.CharField(max_length=100, null=True, blank=True, db_index=True)
+    publication_date = models.DateField(db_index=True)
     note = models.OneToOneField(Note, on_delete=models.CASCADE)
     source = models.ForeignKey(Website, on_delete=models.SET_NULL, null=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)

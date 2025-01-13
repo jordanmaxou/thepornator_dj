@@ -24,7 +24,7 @@ class Video(models.Model):
     link = models.URLField(max_length=250)
     main_thumb = models.URLField()
     local_main_thumb = models.ImageField(max_length=250, upload_to="img/video")
-    publication_date = models.DateField()
+    publication_date = models.DateField(db_index=True)
     duration = models.DurationField(null=True)
     channel = models.ForeignKey(Channel, on_delete=models.SET_NULL, null=True)
     counts = models.OneToOneField(Count, on_delete=models.CASCADE)

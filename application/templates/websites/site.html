@@ -35,10 +35,12 @@
     target="_blank"
     rel="nofollow">{{ website.base_website_url }}</a>
             <br>
-            <div class="Stars"
-                 style="--rating: {{ website.avg_note|unlocalize }}"
-                 aria-label="{% blocktrans with note=website.avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
-            </div>
+            {% with avg_note=website.avg_note %}
+              <div class="Stars"
+                   style="--rating: {{ avg_note|unlocalize }}"
+                   aria-label="{% blocktrans with note=avg_note %}Rating of this product is {{ note }} out of 5.{% endblocktrans %}">
+              </div>
+            {% endwith %}
             <span class="review">({{ website.reviews }})</span>
             <br>
             {% trans 'Last modification date:' %} {{ website.update_date|date:'d-m-Y' }}

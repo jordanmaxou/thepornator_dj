@@ -2,7 +2,7 @@ from functools import reduce
 from datetime import date
 
 from django.views.generic.base import TemplateView
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, OuterRef, Subquery
 from django.urls import reverse
 from django.templatetags.static import static
 from django.conf import settings
@@ -15,6 +15,7 @@ from apps.porn_models.models import Profile, TypeOfStatus
 from apps.videos.models import Video
 from apps.blog.models import Blog
 from apps.stories.models import Story
+from apps.surveys.models import Podium
 from .utils import reduce_by_categories
 
 
@@ -34,9 +35,17 @@ class Home(TemplateView):
             ],
             key=lambda c: c["position"],
         )
+
+        nb_reviews = (
+            Podium.objects.filter(first=OuterRef("pk"), survey__is_valid=True)
+            .values("first")
+            .annotate(total=Count("pk"))
+            .values("total")
+        )
         context["most_recent_porn_sites"] = (
             Website.objects.annotate(
                 avg_note_update=Avg("questionwebsite__note_update"),
+                reviews=Subquery(nb_reviews),
             )
             .select_related("category")
             .order_by("creation_date")[:4]
